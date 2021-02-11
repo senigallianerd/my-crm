@@ -1,0 +1,24 @@
+<div class="col-md-6 user-container">
+  <h2 class="text-center">Edit User</h2>
+  <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+    <div class="hidden">
+      <input type="text" formControlName="id" placeholder="id" name="id" class="form-control" id="id">
+    </div>
+    <div class="form-group">
+      <label for="firstName">Name:</label>
+      <input formControlName="name" placeholder="name" name="Name" class="form-control" id="Name">
+    </div>
+
+    <div class="form-group">
+      <label for="lastName">Surname:</label>
+      <input formControlName="surname" placeholder="surname" name="surname" class="form-control" id="surname">
+    </div>
+
+    <div class="form-group">
+      <label for="age">Age:</label>
+      <input type="number" formControlName="age" placeholder="age" name="age" class="form-control" id="age">
+    </div>
+
+    <button class="btn btn-success">Update</button>
+  </form>
+</div>
