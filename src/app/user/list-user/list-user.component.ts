@@ -2,6 +2,7 @@ import { Component, OnInit , Inject} from '@angular/core';
 import {Router} from "@angular/router";
 import {User} from "../../model/user.model";
 import {ApiService} from "../../service/api.service";
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-list-user',
@@ -15,23 +16,28 @@ export class ListUserComponent implements OnInit {
   constructor(private router: Router, private apiService: ApiService) { }
 
   ngOnInit() {
-   /* if(!window.localStorage.getItem('token')) {
-      this.router.navigate(['login']);
-      return;
-    }
     this.apiService.getUsers()
       .subscribe( data => {
-        this.users = data.result;
-      });*/
-    this.users = [{'id':1,'name':'Francesco','surname':'Cini','age':999},
-                  {'id':2,'name':'Mattia','surname':'Mazzoli','age':999}]
+        debugger
+        this.users = data;
+      });
   }
 
   deleteUser(user: User): void {
-    this.apiService.deleteUser(user.id)
-      .subscribe( data => {
-        this.users = this.users.filter(u => u !== user);
-      })
+    Swal.fire({
+      title: 'Do you want delete User?',
+      showDenyButton: true,
+      confirmButtonText: `Ok`,
+      denyButtonText: `No`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.apiService.deleteUser(user.id)
+        .subscribe( data => {
+          this.users = this.users.filter(u => u !== user);
+        })
+      }
+    })
   };
 
   editUser(user: User): void {

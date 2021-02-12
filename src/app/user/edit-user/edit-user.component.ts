@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {first} from "rxjs/operators";
 import {User} from "../../model/user.model";
 import {ApiService} from "../../service/api.service";
+import { Toaster } from 'ngx-toast-notifications';
 
 @Component({
   selector: 'app-edit-user',
@@ -14,30 +15,30 @@ export class EditUserComponent implements OnInit {
 
   user: User;
   editForm: FormGroup;
-  constructor(private formBuilder: FormBuilder,private router: Router, private route: ActivatedRoute, private apiService: ApiService) { }
+  constructor(private formBuilder: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute,
+    private apiService: ApiService,
+    private toaster: Toaster) { }
 
   ngOnInit() {
-    alert(this.route.snapshot.paramMap.get('id'))
-    debugger
-    let user = window.localStorage.getItem("editUser");
-    if(!user) {
-      alert("Invalid action.")
-      this.router.navigate(['list-user']);
-      return;
-    }
     this.editForm = this.formBuilder.group({
       id: [''],
       name: ['', Validators.required],
       surname: ['', Validators.required],
       age: ['', Validators.required],
+      createdAt: [''],
+      updatedAt: ['']
     });
-    /*this.apiService.getUserById(+userId)
-      .subscribe( data => {
-        this.editForm.setValue(data.result);
-      });*/
+    const id = parseInt(this.route.snapshot.paramMap.get('id'))
+    this.apiService.getUserById(id)
+    .subscribe( data => {
+      this.editForm.setValue(data);
+    });
+  }
 
-      this.editForm.setValue(JSON.parse(user));
-
+  goHome(){
+    this.router.navigate(['list-user']);
   }
 
   onSubmit() {
@@ -45,12 +46,13 @@ export class EditUserComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          if(data.status === 200) {
-            alert('User updated successfully.');
-            this.router.navigate(['list-user']);
-          }else {
-            alert(data.message);
-          }
+          console.log('user updated');
+          this.toaster.open({
+            text: 'User updated',
+            position: 'top-right',
+            duration: 3000,
+            type: 'success'
+          });
         },
         error => {
           alert(error);

@@ -2,35 +2,35 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {User} from "../model/user.model";
 import {Observable} from "rxjs/index";
-import {ApiResponse} from "../model/api.response";
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class ApiService {
 
   constructor(private http: HttpClient) { }
-  baseUrl: string = 'http://localhost:8080/users/';
+  apiURL: string = environment.apiURL;
 
-  login(loginPayload) : Observable<ApiResponse> {
-    return this.http.post<ApiResponse>('http://localhost:8080/' + 'token/generate-token', loginPayload);
+  login(loginPayload) {
+    return this.http.post<any>(this.apiURL + 'token/generate-token', loginPayload);
   }
 
-  getUsers() : Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(this.baseUrl);
+  getUsers() {
+    return this.http.get<any>(this.apiURL + 'user-list');
   }
 
-  getUserById(id: number): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(this.baseUrl + id);
+  getUserById(id: number) {
+    return this.http.get<any>(this.apiURL + 'get-user/' + id);
   }
 
-  createUser(user: User): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(this.baseUrl, user);
+  createUser(user: User) {
+    return this.http.post<any>(this.apiURL + 'create-user', user);
   }
 
-  updateUser(user: User): Observable<ApiResponse> {
-    return this.http.put<ApiResponse>(this.baseUrl + user.id, user);
+  updateUser(user: User) {
+    return this.http.post<any>(this.apiURL + 'update-user/' + user.id, user);
   }
 
-  deleteUser(id: number): Observable<ApiResponse> {
-    return this.http.delete<ApiResponse>(this.baseUrl + id);
+  deleteUser(id: number) {
+    return this.http.delete<any>(this.apiURL + 'delete-user/' + id);
   }
 }
