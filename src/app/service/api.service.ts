@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
 export class ApiService {
 
   constructor(private http: HttpClient) { }
-  apiURL: string = environment.apiURL;
+  apiURL = environment.apiURL;
 
   login(loginPayload) {
     return this.http.post<any>(this.apiURL + 'token/generate-token', loginPayload);
