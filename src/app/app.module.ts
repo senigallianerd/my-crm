@@ -12,6 +12,7 @@ import {ApiService} from "./service/api.service";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {TokenInterceptor} from "./core/interceptor";
 import { ToastNotificationsModule } from 'ngx-toast-notifications';
+import { AuthGuard } from './auth.guard';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { ToastNotificationsModule } from 'ngx-toast-notifications';
     BrowserAnimationsModule, 
     ToastNotificationsModule
   ],
-  providers: [ApiService, {provide: HTTP_INTERCEPTORS,
+  providers: [ApiService, AuthGuard, {provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
     multi : true}],
   bootstrap: [AppComponent]

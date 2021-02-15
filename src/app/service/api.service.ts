@@ -11,7 +11,7 @@ export class ApiService {
   apiURL = environment.apiURL;
 
   login(loginPayload) {
-    return this.http.post<any>(this.apiURL + 'token/generate-token', loginPayload);
+    return this.http.post<any>(this.apiURL + 'auth', loginPayload);
   }
 
   getUsers() {
