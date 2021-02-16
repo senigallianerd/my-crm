@@ -6,6 +6,7 @@ import { ListUserComponent } from './user/list-user/list-user.component';
 import { LoginComponent } from './login/login.component';
 import { AddUserComponent } from './user/add-user/add-user.component';
 import { EditUserComponent } from './user/edit-user/edit-user.component';
+import { HeaderComponent } from './header/header.component';
 import {routing} from "./app.routing";
 import {ReactiveFormsModule} from "@angular/forms";
 import {ApiService} from "./service/api.service";
@@ -20,7 +21,8 @@ import { AuthGuard } from './auth.guard';
     ListUserComponent,
     LoginComponent,
     AddUserComponent,
-    EditUserComponent
+    EditUserComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
