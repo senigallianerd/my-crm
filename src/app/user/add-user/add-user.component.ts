@@ -38,7 +38,7 @@ export class AddUserComponent implements OnInit {
           console.log('user created');
           console.log('user created');
           this.toaster.open({
-            text: 'User updated',
+            text: 'User created',
             position: 'top-right',
             duration: 3000,
             type: 'success'
