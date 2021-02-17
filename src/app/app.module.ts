@@ -9,12 +9,13 @@ import { UserComponent } from './user/user/user.component';
 import { EditUserComponent } from './user/edit-user/edit-user.component';
 import { HeaderComponent } from './header/header.component';
 import {routing} from "./app.routing";
-import {ReactiveFormsModule} from "@angular/forms";
+import {ReactiveFormsModule, FormsModule} from "@angular/forms";
 import {ApiService} from "./service/api.service";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {TokenInterceptor} from "./core/interceptor";
 import { ToastNotificationsModule } from 'ngx-toast-notifications';
 import { AuthGuard } from './auth.guard';
+import { FileUploadModule } from 'ng2-file-upload';
 
 
 @NgModule({
@@ -31,9 +32,11 @@ import { AuthGuard } from './auth.guard';
     BrowserModule,
     routing,
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule,
     BrowserAnimationsModule, 
-    ToastNotificationsModule
+    ToastNotificationsModule,
+    FileUploadModule
   ],
   providers: [ApiService, AuthGuard, {provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
