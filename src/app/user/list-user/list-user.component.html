@@ -12,7 +12,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let user of users">
+    <tr class="item" *ngFor="let user of users" (click)="userDetail(user.id)">
       <td class="hidden">{{user.id}}</td>
       <td>{{user.name}}</td>
       <td>{{user.surname}}</td>

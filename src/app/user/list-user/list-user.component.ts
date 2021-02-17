@@ -22,7 +22,7 @@ export class ListUserComponent implements OnInit {
       });
   }
 
-  deleteUser(user: User): void {
+  deleteUser(user: User) {
     Swal.fire({
       title: 'Do you want delete User?',
       showDenyButton: true,
@@ -39,13 +39,17 @@ export class ListUserComponent implements OnInit {
     })
   };
 
-  editUser(user: User): void {
+  editUser(user: User) {
     window.localStorage.removeItem("editUser");
     window.localStorage.setItem("editUser", JSON.stringify(user));
     this.router.navigate(['edit-user/'+user.id]);
   };
 
-  addUser(): void {
+  addUser() {
     this.router.navigate(['add-user']);
   };
+
+  userDetail(id){
+    this.router.navigate(['user/'+id]);
+  }
 }

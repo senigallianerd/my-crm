@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { ListUserComponent } from './user/list-user/list-user.component';
 import { LoginComponent } from './login/login.component';
 import { AddUserComponent } from './user/add-user/add-user.component';
+import { UserComponent } from './user/user/user.component';
 import { EditUserComponent } from './user/edit-user/edit-user.component';
 import { HeaderComponent } from './header/header.component';
 import {routing} from "./app.routing";
@@ -15,6 +16,7 @@ import {TokenInterceptor} from "./core/interceptor";
 import { ToastNotificationsModule } from 'ngx-toast-notifications';
 import { AuthGuard } from './auth.guard';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +24,8 @@ import { AuthGuard } from './auth.guard';
     LoginComponent,
     AddUserComponent,
     EditUserComponent,
-    HeaderComponent
+    HeaderComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
