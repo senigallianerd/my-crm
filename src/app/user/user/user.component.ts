@@ -18,20 +18,24 @@ export class UserComponent implements OnInit {
   file_data:any=''
   user: User;
   index;
+  model;
+  singleDatePickerOptions;
+  singleDate;
+  uploadData;
+  options = ['vita','auto','scooter'];
+  type;
 
   constructor(private router: Router,
     private http: HttpClient,
     private route: ActivatedRoute,
     private apiService: ApiService,
-    private toaster: Toaster) { }
+    private toaster: Toaster) {
+    }
 
     ngOnInit() {
-       const id = parseInt(this.route.snapshot.paramMap.get('id'))
-       this.apiService.getUserById(id)
-         .subscribe(data => {
-           this.user = data;
-         });
-   }
+      this.user = this.route.snapshot.data['user'];
+      this.uploadData = {expirationDate:new Date(), userId:this.user.id, type:'',fileName:''}
+    }
 
    public onFileSelected(event: EventEmitter<File[]>) {
     const file: File = event[0];
@@ -41,13 +45,16 @@ export class UserComponent implements OnInit {
   uploadFile(){
       this.http.post(environment.apiURL + 'upload.php',this.file_data)
       .subscribe(res => {
-        debugger
-        this.toaster.open({
-          text: 'Upload completed',
-          position: 'top-right',
-          duration: 3000,
-          type: 'success'
-        });
+        this.uploadData.fileName = res['fileName'];
+        this.apiService.setUploadInfo(this.uploadData).subscribe(data => {
+          if(data)
+            this.toaster.open({
+              text: 'Upload completed',
+              position: 'top-right',
+              duration: 3000,
+              type: 'success'
+            });
+         })
       //send success response
       }, (err) => {
         this.toaster.open({
@@ -56,7 +63,6 @@ export class UserComponent implements OnInit {
           duration: 3000,
           type: 'warning'
         });
-        debugger
       //send error response
     });
   }
@@ -79,10 +85,15 @@ export class UserComponent implements OnInit {
     }
   }
 
+  onSelectedChange(event){
+    this.uploadData.type = event;
+  }
+
+  onChangeSingle(event){
+    this.uploadData.date = new Date(event);
+  }
 
   goHome() {
     this.router.navigate(['list-user']);
   }
-
-
 }

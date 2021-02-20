@@ -16,6 +16,8 @@ import {TokenInterceptor} from "./core/interceptor";
 import { ToastNotificationsModule } from 'ngx-toast-notifications';
 import { AuthGuard } from './auth.guard';
 import { FileUploadModule } from 'ng2-file-upload';
+import {UserResolver} from "./user/user/user.resolver";
+import { NgxDatePickerModule } from '@ngx-tiny/date-picker';
 
 
 @NgModule({
@@ -36,9 +38,13 @@ import { FileUploadModule } from 'ng2-file-upload';
     HttpClientModule,
     BrowserAnimationsModule, 
     ToastNotificationsModule,
-    FileUploadModule
+    FileUploadModule,
+    NgxDatePickerModule
   ],
-  providers: [ApiService, AuthGuard, {provide: HTTP_INTERCEPTORS,
+  providers: [ApiService, 
+    AuthGuard,
+    UserResolver,
+    {provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
     multi : true}],
   bootstrap: [AppComponent]

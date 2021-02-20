@@ -19,7 +19,7 @@ export class ApiService {
   }
 
   getUserById(id: number) {
-    return this.http.get<any>(this.apiURL + 'get-user.php?id=' + id);
+    return this.http.get<User>(this.apiURL + 'get-user.php?id=' + id);
   }
 
   createUser(user: User) {
@@ -32,5 +32,9 @@ export class ApiService {
 
   deleteUser(id: number) {
     return this.http.delete<any>(this.apiURL + 'delete-user.php?id=' + id);
+  }
+
+  setUploadInfo(info) {
+    return this.http.post<any>(this.apiURL + 'set-upload-info.php', info);
   }
 }

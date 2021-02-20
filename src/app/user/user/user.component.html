@@ -19,6 +19,20 @@
     </div>
   </form>
 
+  Type:  {{type}}
+  <select type="submit" [ngModel]="type" (ngModelChange)="onSelectedChange($event)">
+    <option *ngFor="let option of options">{{ option }}</option>
+  </select>
+
+  <br> Date:
+  <div class="form-group">
+    <input class="form-control w-25" placeholder="Select Date" 
+        [ngxDatePicker]="dateInstanceSingle" 
+        [value]="singleDate"
+        (valueChange)="onChangeSingle($event)">
+    <ngx-date-picker #dateInstanceSingle [options]="singleDatePickerOptions"></ngx-date-picker>
+  </div>
+
   <input [formControl]="file" (change)="fileChange(index,$event)" type="file" placeholder="File">
 
   <button style="margin-top:20px" (click)="uploadFile()" mat-raised-button color="primary">
