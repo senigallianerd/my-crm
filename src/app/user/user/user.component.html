@@ -4,32 +4,25 @@
     <div class="hidden">
       <input type="hidden" formcontrolname="id" placeholder="id" name="id" id="id" readonly
         class="form-control ng-untouched ng-pristine ng-valid" ng-reflect-name="id" value="1">
-      </div>
+    </div>
     <div class="form-group"><label for="firstName">Name:</label>
-      <input  placeholder="{{user.name}}" readonly
-        name="Name" id="Name" class="form-control ng-pristine ng-valid ng-touched"  >
+      <input placeholder="{{user.name}}" readonly name="Name" id="Name"
+        class="form-control ng-pristine ng-valid ng-touched">
     </div>
     <div class="form-group"><label for="lastName">Surname:</label>
-      <input formcontrolname="surname" placeholder="{{user.surname}}" readonly
-        name="surname" id="surname" class="form-control ng-untouched ng-pristine ng-valid">
+      <input formcontrolname="surname" placeholder="{{user.surname}}" readonly name="surname" id="surname"
+        class="form-control ng-untouched ng-pristine ng-valid">
     </div>
     <div class="form-group"><label for="age">Age:</label>
-      <input type="number" formcontrolname="age" placeholder="{{user.age}}" readonly
-        name="age" id="age" class="form-control ng-untouched ng-pristine ng-valid" >
-      </div>
-      </form>
+      <input type="number" formcontrolname="age" placeholder="{{user.age}}" readonly name="age" id="age"
+        class="form-control ng-untouched ng-pristine ng-valid">
+    </div>
+  </form>
 
-      <div class="col-sm-9">
-        <span class="hidden-file">
-          <input type="file" #fileInput ng2FileSelect [uploader]="uploader" (onFileSelected)="onFileSelected($event)" />
-        </span>
-        <div class="btn-group" (click)="fileInput.click()">
-          <button type="button" class="btn btn-primary btn-group-icon btn-group-divider">
-               <i class="ion-plus-round"></i>
-          </button>
-          <button type="button" class="btn btn-primary">
-             Aggiungi Polizze
-          </button>
-        </div>
-      </div>
+  <input [formControl]="file" (change)="fileChange(index,$event)" type="file" placeholder="File">
+
+  <button style="margin-top:20px" (click)="uploadFile()" mat-raised-button color="primary">
+    Upload
+  </button>
+
 </div>

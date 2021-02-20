@@ -11,26 +11,26 @@ export class ApiService {
   apiURL = environment.apiURL;
 
   login(loginPayload) {
-    return this.http.post<any>(this.apiURL + 'auth', loginPayload);
+    return this.http.post<any>(this.apiURL + 'login.php', loginPayload);
   }
 
   getUsers() {
-    return this.http.get<any>(this.apiURL + 'user-list');
+    return this.http.get<any>(this.apiURL + 'user-list.php');
   }
 
   getUserById(id: number) {
-    return this.http.get<any>(this.apiURL + 'get-user/' + id);
+    return this.http.get<any>(this.apiURL + 'get-user.php?id=' + id);
   }
 
   createUser(user: User) {
-    return this.http.post<any>(this.apiURL + 'create-user', user);
+    return this.http.post<any>(this.apiURL + 'create-user.php', user);
   }
 
   updateUser(user: User) {
-    return this.http.post<any>(this.apiURL + 'update-user/' + user.id, user);
+    return this.http.post<any>(this.apiURL + 'update-user.php', user);
   }
 
   deleteUser(id: number) {
-    return this.http.delete<any>(this.apiURL + 'delete-user/' + id);
+    return this.http.delete<any>(this.apiURL + 'delete-user.php?id=' + id);
   }
 }

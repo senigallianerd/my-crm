@@ -3,8 +3,9 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { User } from "../../model/user.model";
 import { ApiService } from "../../service/api.service";
 import { Toaster } from 'ngx-toast-notifications';
-import { FileUploader, FileLikeObject, FileItem, ParsedResponseHeaders } from 'ng2-file-upload';
 import { environment } from '../../../environments/environment';
+import { FormControl } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'user',
@@ -13,28 +14,18 @@ import { environment } from '../../../environments/environment';
 })
 
 export class UserComponent implements OnInit {
-
+  file=new FormControl('');
+  file_data:any=''
   user: User;
-  public uploader: FileUploader = new FileUploader({
-    url: environment.apiURL + 'upload',
-    disableMultipart : false,
-    autoUpload: true,
-    method: 'post',
-    itemAlias: 'attachment',
-    allowedFileType: ['image', 'pdf','doc','xls','compress'],
-    authToken: 'Bearer '+localStorage.getItem('token'),
-    });
+  index;
 
   constructor(private router: Router,
+    private http: HttpClient,
     private route: ActivatedRoute,
     private apiService: ApiService,
     private toaster: Toaster) { }
 
     ngOnInit() {
-      this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
-      this.uploader.onErrorItem = (item, response, status, headers) => this.onErrorItem(item, response, status, headers);
-      this.uploader.onSuccessItem = (item, response, status, headers) => this.onSuccessItem(item, response, status, headers);
-  
        const id = parseInt(this.route.snapshot.paramMap.get('id'))
        this.apiService.getUserById(id)
          .subscribe(data => {
@@ -42,31 +33,50 @@ export class UserComponent implements OnInit {
          });
    }
 
-  onSuccessItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
-    let data = JSON.parse(response); 
-    console.log('item uploaded',data);
-    this.toaster.open({
-      text: 'Item uploaded',
-      position: 'top-right',
-      duration: 3000,
-      type: 'success'
-    });
-  }
-
-  onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
-    let error = JSON.parse(response); 
-    console.log('error on item upload',error);
-    this.toaster.open({
-      text: 'Upload error',
-      position: 'top-right',
-      duration: 3000,
-      type: 'warning'
-    });
-  }
-
    public onFileSelected(event: EventEmitter<File[]>) {
     const file: File = event[0];
     console.log(file);
+  }
+
+  uploadFile(){
+      this.http.post(environment.apiURL + 'upload.php',this.file_data)
+      .subscribe(res => {
+        debugger
+        this.toaster.open({
+          text: 'Upload completed',
+          position: 'top-right',
+          duration: 3000,
+          type: 'success'
+        });
+      //send success response
+      }, (err) => {
+        this.toaster.open({
+          text: 'Upload error',
+          position: 'top-right',
+          duration: 3000,
+          type: 'warning'
+        });
+        debugger
+      //send error response
+    });
+  }
+
+  fileChange(index,event) {
+    const fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+        const file = fileList[0];
+        console.log('finfo',file.name,file.size,file.type);
+        //max file size is 20mb
+        if((file.size/1048576)<=20)
+        {
+          let formData = new FormData();
+          formData.append('file', file, file.name);
+          formData.append('ts',new Date().toISOString())
+          this.file_data=formData
+        }else{
+          console.log('Errore dimensione file')
+        }
+    }
   }
 
 

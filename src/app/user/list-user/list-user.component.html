@@ -12,10 +12,10 @@
     </tr>
     </thead>
     <tbody>
-    <tr class="item" *ngFor="let user of users" (click)="userDetail(user.id)">
+    <tr class="item" *ngFor="let user of users" >
       <td class="hidden">{{user.id}}</td>
-      <td>{{user.name}}</td>
-      <td>{{user.surname}}</td>
+      <td (click)="userDetail(user.id)">{{user.name}}</td>
+      <td (click)="userDetail(user.id)">{{user.surname}}</td>
       <td>{{user.age}}</td>
       <td><button class="btn btn-success" (click)="deleteUser(user)"> Delete</button>
         <button class="btn btn-success" (click)="editUser(user)" style="margin-left: 20px;"> Edit</button></td>

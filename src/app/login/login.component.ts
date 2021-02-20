@@ -28,19 +28,15 @@ export class LoginComponent implements OnInit {
     }
 
     this.apiService.login(loginPayload).subscribe(data => {
-      if(data.token) {
-        window.localStorage.setItem('token', data.token);
+      if(data && data.username) {
+        window.localStorage.setItem('token', data.username);
         this.router.navigate(['list-user']);
       }else {
         this.invalidLogin = true;   
+        this.loginError();
       }
     },err =>{
-      this.toaster.open({
-        text: 'Login Error',
-        position: 'top-right',
-        duration: 3000,
-        type: 'warning'
-      });
+      this.loginError();
     });
   }
 
@@ -49,6 +45,15 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.compose([Validators.required])],
       password: ['', Validators.required]
+    });
+  }
+
+  loginError(){
+    this.toaster.open({
+      text: 'Login Error',
+      position: 'top-right',
+      duration: 3000,
+      type: 'warning'
     });
   }
 

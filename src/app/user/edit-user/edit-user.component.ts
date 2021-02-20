@@ -26,13 +26,12 @@ export class EditUserComponent implements OnInit {
       id: [''],
       name: ['', Validators.required],
       surname: ['', Validators.required],
-      age: ['', Validators.required],
-      createdAt: [''],
-      updatedAt: ['']
+      age: ['', Validators.required]
     });
     const id = parseInt(this.route.snapshot.paramMap.get('id'))
     this.apiService.getUserById(id)
     .subscribe( data => {
+      debugger
       this.editForm.setValue(data);
     });
   }
