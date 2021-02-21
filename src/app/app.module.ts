@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { ListUserComponent } from './user/list-user/list-user.component';
 import { LoginComponent } from './login/login.component';
+import { LoginService } from './login/login.service';
 import { AddUserComponent } from './user/add-user/add-user.component';
 import { UserComponent } from './user/user/user.component';
 import { EditUserComponent } from './user/edit-user/edit-user.component';
@@ -18,6 +19,7 @@ import { AuthGuard } from './auth.guard';
 import { FileUploadModule } from 'ng2-file-upload';
 import {UserResolver} from "./user/user/user.resolver";
 import { NgxDatePickerModule } from '@ngx-tiny/date-picker';
+import { LocalStorageService } from 'ngx-webstorage';
 
 
 @NgModule({
@@ -44,6 +46,8 @@ import { NgxDatePickerModule } from '@ngx-tiny/date-picker';
   providers: [ApiService, 
     AuthGuard,
     UserResolver,
+    LocalStorageService,
+    LoginService,
     {provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
     multi : true}],

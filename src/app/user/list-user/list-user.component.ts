@@ -2,7 +2,8 @@ import { Component, OnInit , Inject} from '@angular/core';
 import {Router} from "@angular/router";
 import {User} from "../../model/user.model";
 import {ApiService} from "../../service/api.service";
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-list-user',
@@ -13,7 +14,9 @@ export class ListUserComponent implements OnInit {
 
   users: User[];
 
-  constructor(private router: Router, private apiService: ApiService) { }
+  constructor(private router: Router, 
+    private apiService: ApiService,
+    private storage: LocalStorageService) { }
 
   ngOnInit() {
     this.apiService.getUsers()
@@ -40,8 +43,6 @@ export class ListUserComponent implements OnInit {
   };
 
   editUser(user: User) {
-    window.localStorage.removeItem("editUser");
-    window.localStorage.setItem("editUser", JSON.stringify(user));
     this.router.navigate(['edit-user/'+user.id]);
   };
 

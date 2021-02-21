@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {User} from "../model/user.model";
+import {Policy} from "../model/policy.model";
 import {Observable} from "rxjs/index";
 import { environment } from '../../environments/environment';
 
@@ -37,4 +38,10 @@ export class ApiService {
   setUploadInfo(info) {
     return this.http.post<any>(this.apiURL + 'set-upload-info.php', info);
   }
+
+  getUserPolicy(userId: number) {
+    return this.http.get<Policy[]>(this.apiURL + 'get-policy.php?userId=' + userId);
+  }
+
+
 }

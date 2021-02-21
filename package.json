@@ -36,7 +36,8 @@
     "sweetalert2": "^10.14.1",
     "tslib": "^2.0.0",
     "typescript": "~4.0.2",
-    "zone.js": "~0.10.2"
+    "zone.js": "~0.10.2",
+    "ngx-webstorage": "^2.0.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1001.0",

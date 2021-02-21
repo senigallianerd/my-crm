@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { User } from "../../model/user.model";
+import { Policy } from "../../model/policy.model";
 import { ApiService } from "../../service/api.service";
 import { Toaster } from 'ngx-toast-notifications';
 import { environment } from '../../../environments/environment';
@@ -21,9 +22,10 @@ export class UserComponent implements OnInit {
   model;
   singleDatePickerOptions;
   singleDate;
-  uploadData;
   options = ['vita','auto','scooter'];
-  type;
+  type = this.options[0];
+  fileList: Policy[] = [];
+  uploadData: Policy;
 
   constructor(private router: Router,
     private http: HttpClient,
@@ -34,7 +36,10 @@ export class UserComponent implements OnInit {
 
     ngOnInit() {
       this.user = this.route.snapshot.data['user'];
-      this.uploadData = {expirationDate:new Date(), userId:this.user.id, type:'',fileName:''}
+      this.uploadData = new Policy(this.type, this.user.id, '','' );
+      this.apiService.getUserPolicy(this.user.id).subscribe(data => {
+        this.fileList = data;
+       })
     }
 
    public onFileSelected(event: EventEmitter<File[]>) {
@@ -67,6 +72,10 @@ export class UserComponent implements OnInit {
     });
   }
 
+  getFile(fileName){
+    window.open(environment.policyURL + fileName)
+  }
+
   fileChange(index,event) {
     const fileList: FileList = event.target.files;
     if (fileList.length > 0) {
@@ -90,7 +99,7 @@ export class UserComponent implements OnInit {
   }
 
   onChangeSingle(event){
-    this.uploadData.date = new Date(event);
+    this.uploadData.expirationDate = new Date(event);
   }
 
   goHome() {

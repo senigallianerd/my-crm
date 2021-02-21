@@ -19,7 +19,14 @@
     </div>
   </form>
 
-  Type:  {{type}}
+  <span>
+    File list: <br>
+    <span *ngFor="let file of fileList">
+      <a class="file" (click)="getFile(file.fileName)">{{file.type}}</a> 
+    </span>
+  </span> <br><br>
+
+  Type:
   <select type="submit" [ngModel]="type" (ngModelChange)="onSelectedChange($event)">
     <option *ngFor="let option of options">{{ option }}</option>
   </select>

@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {ApiService} from "../service/api.service";
 import { Toaster } from 'ngx-toast-notifications';
+import { LocalStorageService } from 'ngx-webstorage';
+import { LoginService } from './login.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +18,9 @@ export class LoginComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, 
     private router: Router, 
     private apiService: ApiService,
-    private toaster: Toaster) { }
+    private toaster: Toaster,
+    private storage: LocalStorageService,
+    private loginService: LoginService) { }
 
   onSubmit() {
     if (this.loginForm.invalid) {
@@ -27,9 +31,12 @@ export class LoginComponent implements OnInit {
       password: this.loginForm.controls.password.value
     }
 
+    debugger
+
     this.apiService.login(loginPayload).subscribe(data => {
-      if(data && data.username) {
-        window.localStorage.setItem('token', data.username);
+      if(data) {
+        this.storage.store('user', data);
+        this.loginService.setUser(data)
         this.router.navigate(['list-user']);
       }else {
         this.invalidLogin = true;   
@@ -41,7 +48,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    window.localStorage.removeItem('token');
+    this.storage.clear('user');
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.compose([Validators.required])],
       password: ['', Validators.required]
@@ -56,7 +63,5 @@ export class LoginComponent implements OnInit {
       type: 'warning'
     });
   }
-
-
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
   selector: 'header',
@@ -8,7 +9,8 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor( private router: Router) { }
+  constructor( private router: Router,
+    private storage: LocalStorageService) { }
 
   ngOnInit() {
   }
@@ -18,7 +20,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout(){
-    localStorage.removeItem('token');
+    this.storage.clear('user');
     this.router.navigate(['login']);
     console.log('logout')
   }
