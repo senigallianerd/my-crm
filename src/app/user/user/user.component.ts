@@ -17,7 +17,7 @@ import { HttpClient } from '@angular/common/http';
 export class UserComponent implements OnInit {
   file=new FormControl('');
   file_data:any=''
-  user: User;
+  user: User = this.route.snapshot.data['user'];
   index;
   model;
   singleDatePickerOptions;
@@ -26,6 +26,7 @@ export class UserComponent implements OnInit {
   type = this.options[0];
   fileList: Policy[] = [];
   uploadData: Policy;
+  uploading: boolean = false;
 
   constructor(private router: Router,
     private http: HttpClient,
@@ -35,9 +36,12 @@ export class UserComponent implements OnInit {
     }
 
     ngOnInit() {
-      this.user = this.route.snapshot.data['user'];
       this.uploadData = new Policy(this.type, this.user.id, '','' );
-      this.apiService.getUserPolicy(this.user.id).subscribe(data => {
+      this.getUserPolicy(this.user.id);
+    }
+
+    getUserPolicy(userId){
+      this.apiService.getUserPolicy(userId).subscribe(data => {
         this.fileList = data;
        })
     }
@@ -48,19 +52,21 @@ export class UserComponent implements OnInit {
   }
 
   uploadFile(){
+      this.uploading = true;
       this.http.post(environment.apiURL + 'upload.php',this.file_data)
       .subscribe(res => {
         this.uploadData.fileName = res['fileName'];
         this.apiService.setUploadInfo(this.uploadData).subscribe(data => {
-          if(data)
+          if(data){
+            this.uploading = false;
             this.toaster.open({
               text: 'Upload completed',
               position: 'top-right',
               duration: 3000,
               type: 'success'
             });
+          }
          })
-      //send success response
       }, (err) => {
         this.toaster.open({
           text: 'Upload error',
@@ -68,12 +74,32 @@ export class UserComponent implements OnInit {
           duration: 3000,
           type: 'warning'
         });
-      //send error response
     });
   }
 
   getFile(fileName){
     window.open(environment.policyURL + fileName)
+  }
+
+  deleteFile(file) {
+    this.apiService.deletePolicy(file.id).subscribe(data => {
+      if (data) {
+        this.toaster.open({
+          text: 'File deleted',
+          position: 'top-right',
+          duration: 3000,
+          type: 'success'
+        });
+        this.getUserPolicy(this.user.id)
+      }
+      else
+        this.toaster.open({
+          text: 'Delete file error',
+          position: 'top-right',
+          duration: 3000,
+          type: 'warning'
+        });
+    })
   }
 
   fileChange(index,event) {

@@ -22,7 +22,7 @@
   <span>
     File list: <br>
     <span *ngFor="let file of fileList">
-      <a class="file" (click)="getFile(file.fileName)">{{file.type}}</a> 
+      <a class="file" (click)="getFile(file.fileName)">{{file.type}}</a> <span class="delete" (click)="deleteFile(file)">(cancella)</span><br>
     </span>
   </span> <br><br>
 
@@ -45,5 +45,8 @@
   <button style="margin-top:20px" (click)="uploadFile()" mat-raised-button color="primary">
     Upload
   </button>
+  <div *ngIf="uploading" class="uploading">
+    Upload in corso...
+  </div>
 
 </div>

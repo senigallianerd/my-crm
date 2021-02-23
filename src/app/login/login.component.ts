@@ -31,8 +31,6 @@ export class LoginComponent implements OnInit {
       password: this.loginForm.controls.password.value
     }
 
-    debugger
-
     this.apiService.login(loginPayload).subscribe(data => {
       if(data) {
         this.storage.store('user', data);

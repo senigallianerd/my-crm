@@ -8,6 +8,8 @@
       <th>Name</th>
       <th>Surname</th>
       <th>Age</th>
+      <th>Link</th>
+      <th>User</th>
       <th></th>
     </tr>
     </thead>
@@ -17,8 +19,12 @@
       <td (click)="userDetail(user.id)">{{user.name}}</td>
       <td (click)="userDetail(user.id)">{{user.surname}}</td>
       <td>{{user.age}}</td>
-      <td><button class="btn btn-success" (click)="deleteUser(user)"> Delete</button>
-        <button class="btn btn-success" (click)="editUser(user)" style="margin-left: 20px;"> Edit</button></td>
+      <td>{{user.link}}</td>
+      <td (click)="userDetail(user.userId)">{{user.userData}}</td>
+      <td class="buttons">
+        <button class="btn btn-success" (click)="editUser(user)" > Edit</button>
+        <button class="btn btn-success" (click)="deleteUser(user)" style="margin-left: 20px;"> Delete</button>
+      </td>
     </tr>
     </tbody>
   </table>

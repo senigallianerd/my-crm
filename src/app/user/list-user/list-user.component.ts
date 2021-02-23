@@ -32,7 +32,6 @@ export class ListUserComponent implements OnInit {
       confirmButtonText: `Ok`,
       denyButtonText: `No`,
     }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         this.apiService.deleteUser(user.id)
         .subscribe( data => {
