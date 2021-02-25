@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiURL: 'https://my-crm-be.herokuapp.com/api/',
-  policyURL: 'http://my-crm-be/api/uploads'
+  apiURL: 'http://www.lunahoeicini.it/api/',
+  policyURL: 'http://www.lunahoeicini.it/api/uploads/'
 };

@@ -65,6 +65,7 @@ export class UserComponent implements OnInit {
               duration: 3000,
               type: 'success'
             });
+            this.getUserPolicy(this.user.id)
           }
          })
       }, (err) => {

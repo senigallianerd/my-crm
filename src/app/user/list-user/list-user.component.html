@@ -20,7 +20,7 @@
       <td (click)="userDetail(user.id)">{{user.surname}}</td>
       <td>{{user.age}}</td>
       <td>{{user.link}}</td>
-      <td (click)="userDetail(user.userId)">{{user.userData}}</td>
+      <td class="link" (click)="userDetail(user.userId)">{{user.userData}}</td>
       <td class="buttons">
         <button class="btn btn-success" (click)="editUser(user)" > Edit</button>
         <button class="btn btn-success" (click)="deleteUser(user)" style="margin-left: 20px;"> Delete</button>
