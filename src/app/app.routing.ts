@@ -3,8 +3,10 @@ import {LoginComponent} from "./login/login.component";
 import {AddUserComponent} from "./user/add-user/add-user.component";
 import {UserComponent} from "./user/user/user.component";
 import {UserResolver} from "./user/user/user.resolver";
+import {CalendarResolver} from "./calendar/calendar.resolver";
 import {ListUserComponent} from "./user/list-user/list-user.component";
 import {EditUserComponent} from "./user/edit-user/edit-user.component";
+import {CalendarComponent} from "./calendar/calendar.component";
 import {AuthGuard} from './auth.guard';
 
 const routes: Routes = [
@@ -16,6 +18,10 @@ const routes: Routes = [
   } },
   { path: 'list-user', component: ListUserComponent, canActivate: [AuthGuard]},
   { path: 'edit-user/:id', component: EditUserComponent, canActivate: [AuthGuard]},  
+  { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard],
+  resolve: {
+    calendar: CalendarResolver
+  }},  
   {path : '', component : LoginComponent}
 ];
 

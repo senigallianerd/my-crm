@@ -43,6 +43,10 @@ export class ApiService {
     return this.http.get<Policy[]>(this.apiURL + 'get-policy.php?userId=' + userId);
   }
 
+  getPolicy() {
+    return this.http.get<Policy[]>(this.apiURL + 'get-policy.php');
+  }
+
   deletePolicy(policyId: number) {
     return this.http.get<Policy[]>(this.apiURL + 'delete-policy.php?policyId=' + policyId);
   }

@@ -18,8 +18,13 @@ import { ToastNotificationsModule } from 'ngx-toast-notifications';
 import { AuthGuard } from './auth.guard';
 import { FileUploadModule } from 'ng2-file-upload';
 import {UserResolver} from "./user/user/user.resolver";
+import {CalendarResolver} from "./calendar/calendar.resolver";
 import { NgxDatePickerModule } from '@ngx-tiny/date-picker';
 import { LocalStorageService } from 'ngx-webstorage';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { CalendarComponent } from './calendar/calendar.component';
+ 
 
 
 @NgModule({
@@ -30,10 +35,15 @@ import { LocalStorageService } from 'ngx-webstorage';
     AddUserComponent,
     EditUserComponent,
     HeaderComponent,
-    UserComponent
+    UserComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
     routing,
     ReactiveFormsModule,
     FormsModule,
@@ -46,6 +56,7 @@ import { LocalStorageService } from 'ngx-webstorage';
   providers: [ApiService, 
     AuthGuard,
     UserResolver,
+    CalendarResolver,
     LocalStorageService,
     LoginService,
     {provide: HTTP_INTERCEPTORS,
