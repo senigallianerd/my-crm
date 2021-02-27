@@ -74,7 +74,7 @@ export class CalendarComponent {
     this.calendar.forEach(e => {
       eventsArray.push({
         start: new Date(e['expirationDate']),
-        title: e['fileName'],
+        title: e['surname'],
         color: colors.red,
         actions: this.actions,
         allDay: true,

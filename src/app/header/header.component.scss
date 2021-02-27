@@ -1,3 +1,15 @@
-.nav-link{
+.nav-link, .nav-item{
   cursor: pointer;
 }
+
+#navbar-toggle-cbox {
+  display:none
+}
+#navbar-toggle-cbox:checked ~ .collapse {
+    display: block;
+}
+
+.active{
+  font-weight: bolder;
+}
+

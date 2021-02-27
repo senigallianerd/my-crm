@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
@@ -9,14 +9,21 @@ import { LocalStorageService } from 'ngx-webstorage';
 })
 export class HeaderComponent implements OnInit {
 
+  currentPage: string;
+
   constructor( private router: Router,
     private storage: LocalStorageService) { }
 
   ngOnInit() {
+    this.router.events.subscribe(e => {
+      if (e instanceof NavigationEnd) {
+        this.currentPage = e.url.replace('/','')
+      }
+    });
   }
 
-  goHome(){
-    this.router.navigate(['list-user']);
+  goTo(route){
+      this.router.navigate([route]);
   }
 
   logout(){
