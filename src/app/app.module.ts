@@ -24,7 +24,7 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CalendarComponent } from './calendar/calendar.component';
- 
+import { DataTablesModule } from 'angular-datatables';
 
 
 @NgModule({
@@ -40,9 +40,11 @@ import { CalendarComponent } from './calendar/calendar.component';
   ],
   imports: [
     BrowserModule,
+    DataTablesModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
+
     }),
     routing,
     ReactiveFormsModule,

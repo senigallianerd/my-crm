@@ -1,31 +1,31 @@
 <div class="col-md-6 user-container">
   <h2 style="margin: auto"> User Details</h2>
   <button class="btn btn-danger" style="width:100px" (click)="addUser()"> Add User</button>
-  <table class="table table-striped">
+  <table datatable datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="row-border hover">
     <thead>
-    <tr>
-      <th class="hidden">Id</th>
-      <th>Name</th>
-      <th>Surname</th>
-      <th>Age</th>
-      <th>Link</th>
-      <th>User</th>
-      <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr class="item" *ngFor="let user of users" >
-      <td class="hidden">{{user.id}}</td>
-      <td (click)="userDetail(user.id)">{{user.name}}</td>
-      <td (click)="userDetail(user.id)">{{user.surname}}</td>
-      <td>{{user.age}}</td>
-      <td>{{user.link}}</td>
-      <td class="link" (click)="userDetail(user.userId)">{{user.userData}}</td>
-      <td class="buttons">
-        <button class="btn btn-success" (click)="editUser(user)" > Edit</button>
-        <button class="btn btn-success" (click)="deleteUser(user)" style="margin-left: 20px;"> Delete</button>
-      </td>
-    </tr>
-    </tbody>
+      <tr>
+        <th class="hidden">Id</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Age</th>
+        <th>Link</th>
+        <th>User</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr class="item" *ngFor="let user of users" >
+          <td class="hidden">{{user.id}}</td>
+          <td (click)="userDetail(user.id)">{{user.name}}</td>
+          <td (click)="userDetail(user.id)">{{user.surname}}</td>
+          <td>{{user.age}}</td>
+          <td>{{user.link}}</td>
+          <td class="link" (click)="userDetail(user.userId)">{{user.userData}}</td>
+          <td class="buttons">
+            <button class="btn btn-success" (click)="editUser(user)" > Edit</button>
+            <button class="btn btn-success" (click)="deleteUser(user)" style="margin-left: 20px;"> Delete</button>
+          </td>
+        </tr>
+        </tbody>
   </table>
 </div>

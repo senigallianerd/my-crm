@@ -4,6 +4,7 @@ import {User} from "../../model/user.model";
 import {ApiService} from "../../service/api.service";
 import Swal from 'sweetalert2';
 import { LocalStorageService } from 'ngx-webstorage';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-list-user',
@@ -13,6 +14,8 @@ import { LocalStorageService } from 'ngx-webstorage';
 export class ListUserComponent implements OnInit {
 
   users: User[];
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(private router: Router, 
     private apiService: ApiService,
@@ -22,6 +25,7 @@ export class ListUserComponent implements OnInit {
     this.apiService.getUsers()
       .subscribe( data => {
         this.users = data;
+        this.dtTrigger.next();
       });
   }
 
@@ -51,5 +55,10 @@ export class ListUserComponent implements OnInit {
 
   userDetail(id){
     this.router.navigate(['user/'+id]);
+  }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
   }
 }
