@@ -109,7 +109,7 @@ export class UserComponent implements OnInit {
         const file = fileList[0];
         console.log('finfo',file.name,file.size,file.type);
         //max file size is 20mb
-        if((file.size/1048576)<=20)
+        if((file.size/1048576)<=50)
         {
           let formData = new FormData();
           formData.append('file', file, file.name);
