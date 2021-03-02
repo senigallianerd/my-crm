@@ -11,7 +11,7 @@
               <div class="error-msg" *ngIf="loginForm.controls['username'].hasError('required') && loginForm.controls['username'].touched">Username is required</div>
             </div>
             <div class="form-label-group">
-              <input type="text" id="password" class="form-control" formControlName="password" id="password"  placeholder="Password" required autofocus>
+              <input type="password" id="password" class="form-control" formControlName="password" id="password"  placeholder="Password" required autofocus>
               <label for="password">Password</label>
               <div class="error-msg" *ngIf="loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched">Password is required</div>
             </div>

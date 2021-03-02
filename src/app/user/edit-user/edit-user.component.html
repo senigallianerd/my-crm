@@ -19,6 +19,18 @@
       <input type="number" formControlName="age" placeholder="age" name="age" class="form-control" id="age">
     </div>
 
+    <div class="form-group">
+      <label for="link">Link:</label>
+      <input type="text" formControlName="link" placeholder="link" name="link" class="form-control" id="link">
+    </div>
+
+    <div class="form-group">
+      <label for="userId">User:</label>
+      <select type="submit" formControlName="userId" [(ngModel)]="selectedUser" (change)="onSelectedChange($event)">
+        <option [ngValue]="user" *ngFor="let user of users">{{ user.surname }}</option>
+      </select>
+    </div>  
+
     <button class="btn btn-success">Update</button>
   </form>
 

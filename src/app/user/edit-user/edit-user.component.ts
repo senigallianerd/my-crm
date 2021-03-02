@@ -13,7 +13,8 @@ import { Toaster } from 'ngx-toast-notifications';
 })
 export class EditUserComponent implements OnInit {
 
-  user: User;
+  users: User[];
+  selectedUser;
   editForm: FormGroup;
   constructor(private formBuilder: FormBuilder,
     private router: Router,
@@ -26,12 +27,29 @@ export class EditUserComponent implements OnInit {
       id: [''],
       name: ['', Validators.required],
       surname: ['', Validators.required],
-      age: ['', Validators.required]
+      age: ['', Validators.required],
+      link: [],
+      userId: [],
+      userData: []
     });
     const id = parseInt(this.route.snapshot.paramMap.get('id'))
     this.apiService.getUserById(id)
     .subscribe( data => {
       this.editForm.setValue(data);
+      this.getUsers(data['userId']);
+    });
+
+  }
+
+  onSelectedChange(event){
+    debugger
+  }
+
+  getUsers(userId){
+    this.apiService.getUsers()
+    .subscribe( data => {
+      this.users = data;
+      this.selectedUser = this.users.find((u) => u.id==userId)
     });
   }
 
@@ -40,7 +58,9 @@ export class EditUserComponent implements OnInit {
   }
 
   onSubmit() {
-    this.apiService.updateUser(this.editForm.value)
+    const dataToSend = this.editForm.value;
+    dataToSend.userId = this.editForm.value.userId.id
+    this.apiService.updateUser(dataToSend)
       .pipe(first())
       .subscribe(
         data => {
