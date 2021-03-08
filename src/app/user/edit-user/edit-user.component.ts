@@ -29,14 +29,12 @@ export class EditUserComponent implements OnInit {
       surname: ['', Validators.required],
       age: ['', Validators.required],
       link: [],
-      userId: [],
       userData: []
     });
     const id = parseInt(this.route.snapshot.paramMap.get('id'))
     this.apiService.getUserById(id)
     .subscribe( data => {
       this.editForm.setValue(data);
-      this.getUsers(data['userId']);
     });
 
   }
@@ -59,18 +57,23 @@ export class EditUserComponent implements OnInit {
 
   onSubmit() {
     const dataToSend = this.editForm.value;
-    dataToSend.userId = this.editForm.value.userId.id
     this.apiService.updateUser(dataToSend)
       .pipe(first())
       .subscribe(
         data => {
-          console.log('user updated');
-          this.toaster.open({
-            text: 'User updated',
-            position: 'top-right',
-            duration: 3000,
-            type: 'success'
-          });
+          if(data){
+            console.log('user updated');
+            this.toaster.open({
+              text: 'User updated',
+              position: 'top-right',
+              duration: 3000,
+              type: 'success'
+            });
+          }
+          else{
+            alert("Error")
+          }
+
         },
         error => {
           alert(error);

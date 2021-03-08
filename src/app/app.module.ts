@@ -25,7 +25,7 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CalendarComponent } from './calendar/calendar.component';
 import { DataTablesModule } from 'angular-datatables';
-
+import { TagDirective } from './directives/tag.directive';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,8 @@ import { DataTablesModule } from 'angular-datatables';
     EditUserComponent,
     HeaderComponent,
     UserComponent,
-    CalendarComponent
+    CalendarComponent,
+    TagDirective
   ],
   imports: [
     BrowserModule,

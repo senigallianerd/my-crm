@@ -45,6 +45,10 @@ export class ListUserComponent implements OnInit {
     })
   };
 
+  findUser(user){
+    debugger
+  }
+
   editUser(user: User) {
     this.router.navigate(['edit-user/'+user.id]);
   };
