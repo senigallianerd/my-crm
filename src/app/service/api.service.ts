@@ -23,6 +23,10 @@ export class ApiService {
     return this.http.get<User>(this.apiURL + 'get-user.php?id=' + id);
   }
 
+  getUserByName(name:string, surname: string) {
+    return this.http.get<any>(this.apiURL + 'get-user.php?name=' + name + '&surname='+surname);
+  }
+
   createUser(user: User) {
     return this.http.post<any>(this.apiURL + 'create-user.php', user);
   }

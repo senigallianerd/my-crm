@@ -8,22 +8,20 @@ export class TagDirective{
 
     @Input() tagDirective: string
     @Output() findUser = new EventEmitter();
-
-    tag: string;
     
     constructor(private elementRef: ElementRef){
     }
 
     ngOnInit() {
-        this.tag = this.tagDirective.split('@')[1];
-        if(this.tag)
-            this.tag = this.tag.split(' ')[0];
-
-        this.elementRef.nativeElement.innerHTML = this.tagDirective;
+        this.tagDirective = this.tagDirective || '';
+        let keyword = '@([^ ]+)';
+        let regex = new RegExp(`(${keyword})`, "ig");
+        this.elementRef.nativeElement.innerHTML = this.tagDirective.replace(regex, '<a class="link" link="$1">$1</a>');
     }
 
     @HostListener('click', ['$event']) onClick($event){
-        this.findUser.emit(this.tag);
+        if($event.target.innerText.indexOf('@')!==-1)
+            this.findUser.emit($event.target.innerText);
     }
     
 }

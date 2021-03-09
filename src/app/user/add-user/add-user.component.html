@@ -16,13 +16,7 @@
     <div class="form-group">
       <label for="link">Link:</label>
       <input type="text" formControlName="link" placeholder="link" name="link" class="form-control" id="link">
-    </div>
-    <div class="form-group">
-      <label for="user">User:</label>
-      <select type="submit" formControlName="user" [(ngModel)]="selectedUser" (change)="onSelectedChange($event)">
-        <option [ngValue]="user" *ngFor="let user of users">{{ user.surname }}</option>
-      </select>
-    </div>    
+    </div>  
     <button class="btn btn-success">Add</button>
   </form>
 <br>

@@ -27,8 +27,7 @@ export class AddUserComponent implements OnInit {
       name: ['', Validators.required],
       surname: ['', Validators.required],
       age: ['', Validators.required],
-      link: [''],
-      user: ['']
+      link: ['']
     });
     this.getUsers();
   }
@@ -59,8 +58,9 @@ export class AddUserComponent implements OnInit {
       });
       return;
     }
+    debugger
     let userForm = this.addForm.value;
-    userForm = {...userForm, userId: this.addForm.value.user.id, userData: this.addForm.value.user.surname };
+debugger
     this.apiService.createUser(userForm)
       .subscribe( data => {
         if(data){
