@@ -18,10 +18,5 @@ export class TagDirective{
         let regex = new RegExp(`(${keyword})`, "ig");
         this.elementRef.nativeElement.innerHTML = this.tagDirective.replace(regex, '<a class="link" link="$1">$1</a>');
     }
-
-    @HostListener('click', ['$event']) onClick($event){
-        if($event.target.innerText.indexOf('@')!==-1)
-            this.findUser.emit($event.target.innerText);
-    }
     
 }

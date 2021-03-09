@@ -25,7 +25,7 @@
           <td (click)="userDetail(user.id)">{{user.name}}</td>
           <td (click)="userDetail(user.id)">{{user.surname}}</td>
           <td>{{user.age}}</td>
-          <td [tagDirective]="user.link" (findUser)="findUser($event)"></td>
+          <td [tagDirective]="user.link"></td>
           <td class="buttons">
             <button class="btn btn-success" (click)="editUser(user)">Edit</button>
           </td>
