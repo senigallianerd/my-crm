@@ -1,6 +1,12 @@
 <div class="col-md-6 user-container">
   <h2 style="margin: auto"> User Details</h2>
-  <button class="btn btn-danger" style="width:100px" (click)="addUser()"> Add User</button>
+
+  <div class="d-flex flex-row">
+    <div class="p-2"><button class="btn btn-danger" (click)="addUser()">Add User</button></div>
+    <div class="p-2"><button *ngIf="back" class="btn btn-info" (click)="goBack()">Go Back</button></div>
+    <div class="p-2"></div>
+  </div>
+
   <table datatable datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="row-border hover">
     <thead>
       <tr>
@@ -9,6 +15,7 @@
         <th>Surname</th>
         <th>Age</th>
         <th>Link</th>
+        <th></th>
         <th></th>
       </tr>
       </thead>
@@ -20,8 +27,10 @@
           <td>{{user.age}}</td>
           <td [tagDirective]="user.link" (findUser)="findUser($event)"></td>
           <td class="buttons">
-            <button class="btn btn-success" (click)="editUser(user)" > Edit</button>
-            <button class="btn btn-success" (click)="deleteUser(user)" style="margin-left: 20px;"> Delete</button>
+            <button class="btn btn-success" (click)="editUser(user)">Edit</button>
+          </td>
+          <td class="buttons">
+            <button class="btn btn-success" (click)="deleteUser(user)">Delete</button>
           </td>
         </tr>
         </tbody>

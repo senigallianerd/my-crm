@@ -16,16 +16,22 @@ export class ListUserComponent implements OnInit {
   users: User[];
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
+  back: boolean;
 
   constructor(private router: Router, 
     private apiService: ApiService,
     private storage: LocalStorageService) { }
 
   ngOnInit() {
+    this.initUsers(true);
+  }
+
+  initUsers(init){
     this.apiService.getUsers()
       .subscribe( data => {
         this.users = data;
-        this.dtTrigger.next();
+        if(init)
+          this.dtTrigger.next();
       });
   }
 
@@ -51,6 +57,7 @@ export class ListUserComponent implements OnInit {
     this.apiService.getUserByName(name,surname)
     .subscribe( data => {
       this.users = data;
+      this.back = true;
     });
   }
 
@@ -64,6 +71,11 @@ export class ListUserComponent implements OnInit {
 
   userDetail(id){
     this.router.navigate(['user/'+id]);
+  }
+
+  goBack(){
+    this.back = false;
+    this.initUsers();
   }
 
   ngOnDestroy(): void {
