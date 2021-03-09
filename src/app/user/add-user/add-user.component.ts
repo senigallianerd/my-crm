@@ -41,7 +41,6 @@ export class AddUserComponent implements OnInit {
   }
 
   onSelectedChange(event){
-    debugger
   }
 
   goHome(){
@@ -58,9 +57,7 @@ export class AddUserComponent implements OnInit {
       });
       return;
     }
-    debugger
     let userForm = this.addForm.value;
-debugger
     this.apiService.createUser(userForm)
       .subscribe( data => {
         if(data){

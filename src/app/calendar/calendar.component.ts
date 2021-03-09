@@ -48,7 +48,6 @@ export class CalendarComponent {
   events: CalendarEvent[];
 
   handleEvent(action: string, event: CalendarEvent): void {
-    debugger
   }
 
   actions: CalendarEventAction[] = [
