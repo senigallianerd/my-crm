@@ -26,7 +26,7 @@ export class ListUserComponent implements OnInit {
     this.initUsers(true);
   }
 
-  initUsers(init){
+  initUsers(init?){
     this.apiService.getUsers()
       .subscribe( data => {
         this.users = data;
