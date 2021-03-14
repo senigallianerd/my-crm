@@ -1,0 +1,18 @@
+.insurance-container {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.buttons{
+  text-align:center;
+}
+
+.item{
+    cursor: pointer;
+}
+
+.link{
+  cursor:pointer;
+  color:blue;
+}

@@ -1,0 +1,34 @@
+<div class="col-md-6 insurance-container">
+  <h2 style="margin: auto"> Insurance Details</h2>
+
+  <div class="d-flex flex-row">
+    <div class="p-2"><button class="btn btn-danger" (click)="addInsurance()">Add Insurance</button></div>
+    <div class="p-2"><button *ngIf="back" class="btn btn-info" (click)="goBack()">Go Back</button></div>
+    <div class="p-2"></div>
+  </div>
+
+  <table class="row-border hover">
+    <thead>
+      <tr>
+        <th class="hidden">Id</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr class="item" *ngFor="let insurance of insurances" >
+          <td class="hidden">{{insurance.id}}</td>
+          <td (click)="insuranceDetail(insurance.id)">{{insurance.type}}</td>
+          <td (click)="insuranceDetail(insurance.id)">{{insurance.description}}</td>
+          <td class="buttons">
+            <button class="btn btn-success" (click)="editInsurance(insurance)">Edit</button>
+          </td>
+          <td class="buttons">
+            <button class="btn btn-success" (click)="deleteInsurance(insurance)">Delete</button>
+          </td>
+        </tr>
+        </tbody>
+  </table>
+</div>

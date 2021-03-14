@@ -6,6 +6,9 @@
       <span [ngClass]="{'active' : currentPage==='list-user'}" class="nav-link" (click)="goTo('list-user')">Home</span>
     </li>
     <li class="nav-item">
+      <span [ngClass]="{'active' : currentPage==='list-insurance'}" class="nav-link" (click)="goTo('list-insurance')">List Insurance</span>
+    </li>
+    <li class="nav-item">
       <span [ngClass]="{'active' : currentPage==='calendar'}" class="nav-link" (click)="goTo('calendar')">Calendar</span>
     </li>
   </ul>
