@@ -24,7 +24,7 @@ export class AddInsuranceComponent implements OnInit {
     this.addForm = this.formBuilder.group({
       id: [],
       type: ['', Validators.required],
-      description: ['', Validators.required]
+      description: ['']
     });
     this.getInsurances();
   }
@@ -54,7 +54,7 @@ export class AddInsuranceComponent implements OnInit {
       });
       return;
     }
-    debugger
+
     let insuranceForm = this.addForm.value;
     this.apiService.createInsurance(insuranceForm)
       .subscribe( data => {

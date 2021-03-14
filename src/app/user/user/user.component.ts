@@ -22,8 +22,8 @@ export class UserComponent implements OnInit {
   model;
   singleDatePickerOptions;
   singleDate;
-  options = ['vita','auto','scooter'];
-  type = this.options[0];
+  insurances;
+  selectedInsurance;
   fileList: Policy[] = [];
   uploadData: Policy;
   uploading: boolean = false;
@@ -36,8 +36,20 @@ export class UserComponent implements OnInit {
     }
 
     ngOnInit() {
-      this.uploadData = new Policy(this.type, this.user.id, '','' );
+      this.uploadData = new Policy(this.selectedInsurance, this.user.id, '','' );
       this.getUserPolicy(this.user.id);
+      this.getInsurances();
+    }
+
+    getInsurances(){
+      this.apiService.getInsurances().subscribe(data => {
+        this.insurances = data;
+        this.selectedInsurance = this.insurances[0];
+       })
+    }
+
+    consoleLog(selectedInsurance:any){
+      this.uploadData.insuranceId =this.selectedInsurance.id;
     }
 
     getUserPolicy(userId){
@@ -119,10 +131,6 @@ export class UserComponent implements OnInit {
           console.log('Errore dimensione file')
         }
     }
-  }
-
-  onSelectedChange(event){
-    this.uploadData.type = event;
   }
 
   onChangeSingle(event){

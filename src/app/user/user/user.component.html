@@ -22,13 +22,12 @@
   <span>
     File list: <br>
     <span *ngFor="let file of fileList">
-      <a class="file" (click)="getFile(file.fileName)">{{file.type}}</a> <span class="delete" (click)="deleteFile(file)">(cancella)</span><br>
+      <a class="file" (click)="getFile(file.fileName)">{{file.type}} {{file.description}}</a> <span class="delete" (click)="deleteFile(file)">(cancella)</span><br>
     </span>
   </span> <br><br>
 
-  Type:
-  <select type="submit" [ngModel]="type" (ngModelChange)="onSelectedChange($event)">
-    <option *ngFor="let option of options">{{ option }}</option>
+  <select [(ngModel)]="selectedInsurance" (change)="consoleLog(selectedInsurance)">
+    <option *ngFor="let insurance of insurances" [ngValue]="insurance">{{ insurance.type }}</option>
   </select>
 
   <br> Date:
