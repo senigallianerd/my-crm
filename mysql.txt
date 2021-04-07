@@ -1,0 +1,7 @@
+Per l’accesso al DB tramite script:
+Host: 89.46.111.224
+Username: Sql1464427
+Password: 5d72knf085
+
+Nome Database: uno dei 5 disponibili: (Sql1464427_1, Sql1464427_2, Sql1464427_3, Sql1464427_4, Sql1464427_5
+

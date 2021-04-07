@@ -25,11 +25,25 @@ export class EditUserComponent implements OnInit {
   ngOnInit() {
     this.editForm = this.formBuilder.group({
       id: [''],
-      name: ['', Validators.required],
-      surname: ['', Validators.required],
-      age: ['', Validators.required],
-      link: [],
-      userData: []
+      nome: ['', Validators.required],
+      cognome: ['', Validators.required],
+      azienda: [''],
+      collaboratore: [''],
+      telCasa: [''],
+      telUfficio: [''],
+      email: [''],
+      secondaEmail: [''],
+      PEC: [''],
+      indirizzoResidenza: [''],
+      occupazione: [''],
+      dataNascita: [''],
+      codiceFiscale: [''],
+      cartaIdentita: [''],
+      partitaIva: [''],
+      sdi: [''],
+      iban: [''],
+      hobby: [''],
+      note: ['']
     });
     const id = parseInt(this.route.snapshot.paramMap.get('id'))
     this.apiService.getUserById(id)

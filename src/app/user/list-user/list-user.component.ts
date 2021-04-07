@@ -38,9 +38,9 @@ export class ListUserComponent implements OnInit {
   }
 
   findUser(user) {
-    const name = user.match(/[A-Z][a-z]+/g)[0];
-    const surname = user.match(/[A-Z][a-z]+/g)[1];
-    this.apiService.getUserByName(name, surname)
+    const nome = user.match(/[A-Z][a-z]+/g)[0];
+    const cognome = user.match(/[A-Z][a-z]+/g)[1];
+    this.apiService.getUserByName(nome, cognome)
       .subscribe(data => {
         this.users = data;
         this.back = true;

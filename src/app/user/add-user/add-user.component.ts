@@ -24,10 +24,25 @@ export class AddUserComponent implements OnInit {
   ngOnInit() {
     this.addForm = this.formBuilder.group({
       id: [],
-      name: ['', Validators.required],
-      surname: ['', Validators.required],
-      age: ['', Validators.required],
-      link: ['']
+      nome: ['', Validators.required],
+      cognome: ['', Validators.required],
+      azienda: [''],
+      collaboratore: [''],
+      telCasa: [''],
+      telUfficio: [''],
+      email: [''],
+      secondaEmail: [''],
+      PEC: [''],
+      indirizzoResidenza: [''],
+      occupazione: [''],
+      dataNascita: [''],
+      codiceFiscale: [''],
+      cartaIdentita: [''],
+      partitaIva: [''],
+      sdi: [''],
+      iban: [''],
+      hobby: [''],
+      note: ['']
     });
     this.getUsers();
   }

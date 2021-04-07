@@ -11,10 +11,9 @@
     <thead>
       <tr>
         <th class="hidden">Id</th>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>Age</th>
-        <th>Link</th>
+        <th>Nome</th>
+        <th>Cognome</th>
+        <th>Note</th>
         <th></th>
         <th></th>
       </tr>
@@ -22,10 +21,9 @@
       <tbody>
         <tr class="item" *ngFor="let user of users" >
           <td class="hidden">{{user.id}}</td>
-          <td (click)="userDetail(user.id)">{{user.name}}</td>
-          <td (click)="userDetail(user.id)">{{user.surname}}</td>
-          <td>{{user.age}}</td>
-          <td [tagDirective]="user.link"></td>
+          <td (click)="userDetail(user.id)">{{user.nome}}</td>
+          <td (click)="userDetail(user.id)">{{user.cognome}}</td>
+          <td class="link" [tagDirective]="user.note"></td>
           <td class="buttons">
             <button class="btn btn-success" (click)="editUser(user)">Edit</button>
           </td>
