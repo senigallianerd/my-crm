@@ -20,6 +20,8 @@ export class AddUserComponent implements OnInit {
   addForm: FormGroup;
   users: User[];
   selectedUser;
+  singleDatePickerOptions;
+  singleDate;
 
   ngOnInit() {
     this.addForm = this.formBuilder.group({
@@ -28,6 +30,7 @@ export class AddUserComponent implements OnInit {
       cognome: ['', Validators.required],
       azienda: [''],
       collaboratore: [''],
+      cellulare: [''],
       telCasa: [''],
       telUfficio: [''],
       email: [''],
@@ -35,7 +38,6 @@ export class AddUserComponent implements OnInit {
       PEC: [''],
       indirizzoResidenza: [''],
       occupazione: [''],
-      dataNascita: [''],
       codiceFiscale: [''],
       cartaIdentita: [''],
       partitaIva: [''],
@@ -60,6 +62,9 @@ export class AddUserComponent implements OnInit {
 
   goHome(){
     this.router.navigate(['list-user']);
+  }
+
+  onChangeSingle(event){
   }
 
   onSubmit() {

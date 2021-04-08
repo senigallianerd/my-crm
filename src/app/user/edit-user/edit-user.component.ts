@@ -16,6 +16,10 @@ export class EditUserComponent implements OnInit {
   users: User[];
   selectedUser;
   editForm: FormGroup;
+  singleDatePickerOptions;
+  singleDate;
+  user: User;
+
   constructor(private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
@@ -23,12 +27,15 @@ export class EditUserComponent implements OnInit {
     private toaster: Toaster) { }
 
   ngOnInit() {
+    this.user = this.route.snapshot.data['user'];
+    this.singleDate = this.user && this.user.dataNascita ? new Date(this.user.dataNascita) : '';
     this.editForm = this.formBuilder.group({
       id: [''],
       nome: ['', Validators.required],
       cognome: ['', Validators.required],
       azienda: [''],
       collaboratore: [''],
+      cellulare: [''],
       telCasa: [''],
       telUfficio: [''],
       email: [''],
@@ -53,8 +60,11 @@ export class EditUserComponent implements OnInit {
 
   }
 
+  onChangeSingle(event){
+    this.editForm.value.dataNascita = new Date(event)
+  }
+
   onSelectedChange(event){
-    debugger
   }
 
   getUsers(userId){

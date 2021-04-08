@@ -50,7 +50,7 @@
         class="form-control ng-untouched ng-pristine ng-valid">
     </div>
     <div class="form-group"><label for="dataNascita">Data di nascita:</label>
-      <input formcontrolname="dataNascita" placeholder="{{user.dataNascita}}" readonly name="dataNascita" id="dataNascita"
+      <input formcontrolname="dataNascita" placeholder="{{user.dataNascita | date:'dd/MM/yy'}}" readonly name="dataNascita" id="dataNascita"
         class="form-control ng-untouched ng-pristine ng-valid">
     </div>
     <div class="form-group"><label for="codiceFiscale">Codice Fiscale:</label>

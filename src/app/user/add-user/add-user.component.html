@@ -18,6 +18,10 @@
       <input type="text" formControlName="collaboratore" placeholder="collaboratore" name="collaboratore" class="form-control" id="collaboratore">
     </div>  
     <div class="form-group">
+      <label for="cellulare">Cellulare:</label>
+      <input type="text" formControlName="cellulare" placeholder="cellulare" name="cellulare" class="form-control" id="cellulare">
+    </div>  
+    <div class="form-group">
       <label for="telCasa">Tel Casa:</label>
       <input type="text" formControlName="telCasa" placeholder="telCasa" name="telCasa" class="form-control" id="telCasa">
     </div>  
@@ -47,8 +51,12 @@
     </div>  
     <div class="form-group">
       <label for="dataNascita">Data Nascita:</label>
-      <input type="text" formControlName="dataNascita" placeholder="dataNascita" name="dataNascita" class="form-control" id="dataNascita">
-    </div>  
+      <input type="text" formControlName="dataNascita" placeholder="dataNascita" name="dataNascita" class="form-control w-25" id="dataNascita"  
+          [ngxDatePicker]="dateInstanceSingle" 
+          [value]="singleDate"
+          (valueChange)="onChangeSingle($event)">
+      <ngx-date-picker #dateInstanceSingle [options]="singleDatePickerOptions"></ngx-date-picker>
+    </div> 
     <div class="form-group">
       <label for="codiceFiscale">Codice Fiscale:</label>
       <input type="text" formControlName="codiceFiscale" placeholder="codiceFiscale" name="codiceFiscale" class="form-control" id="codiceFiscale">

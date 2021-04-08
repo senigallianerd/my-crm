@@ -36,7 +36,6 @@ export class EditInsuranceComponent implements OnInit {
   }
 
   onSelectedChange(event){
-    debugger
   }
 
   getInsurances(userId){

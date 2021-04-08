@@ -7,6 +7,7 @@ import { Toaster } from 'ngx-toast-notifications';
 import { environment } from '../../../environments/environment';
 import { FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'user',
@@ -30,6 +31,7 @@ export class UserComponent implements OnInit {
 
   constructor(private router: Router,
     private http: HttpClient,
+    public datepipe: DatePipe,
     private route: ActivatedRoute,
     private apiService: ApiService,
     private toaster: Toaster) {
