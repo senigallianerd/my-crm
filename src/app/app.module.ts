@@ -12,17 +12,18 @@ import { UserComponent } from './user/user/user.component';
 import { EditUserComponent } from './user/edit-user/edit-user.component';
 import { EditInsuranceComponent } from './insurance/edit-insurance/edit-insurance.component';
 import { HeaderComponent } from './header/header.component';
-import {routing} from "./app.routing";
-import {ReactiveFormsModule, FormsModule} from "@angular/forms";
-import {ApiService} from "./service/api.service";
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {TokenInterceptor} from "./core/interceptor";
+import { routing } from "./app.routing";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { ApiService } from "./service/api.service";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { TokenInterceptor } from "./core/interceptor";
 import { ToastNotificationsModule } from 'ngx-toast-notifications';
 import { AuthGuard } from './auth.guard';
 import { FileUploadModule } from 'ng2-file-upload';
-import {UserResolver} from "./user/user/user.resolver";
-import {EditUserResolver} from "./user/edit-user/edit-user.resolver";
-import {CalendarResolver} from "./calendar/calendar.resolver";
+import { UserResolver} from "./user/user/user.resolver";
+import { EditUserResolver } from "./user/edit-user/edit-user.resolver";
+import { EditInsuranceResolver } from "./insurance/edit-insurance/edit-insurance.resolver";
+import { CalendarResolver } from "./calendar/calendar.resolver";
 import { NgxDatePickerModule } from '@ngx-tiny/date-picker';
 import { LocalStorageService } from 'ngx-webstorage';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
@@ -31,6 +32,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { DataTablesModule } from 'angular-datatables';
 import { TagDirective } from './directives/tag.directive';
 import { DatePipe } from '@angular/common';
+import { InsuranceService } from "./insurance/insurance.service";
 
 @NgModule({
   declarations: [
@@ -69,8 +71,10 @@ import { DatePipe } from '@angular/common';
     UserResolver,
     EditUserResolver,
     CalendarResolver,
+    EditInsuranceResolver,
     LocalStorageService,
     LoginService,
+    InsuranceService,
     DatePipe,
     {provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,

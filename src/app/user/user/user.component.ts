@@ -50,7 +50,7 @@ export class UserComponent implements OnInit {
        })
     }
 
-    consoleLog(selectedInsurance:any){
+    selectInsurance(selectedInsurance:any){
       this.uploadData.insuranceId =this.selectedInsurance.id;
     }
 

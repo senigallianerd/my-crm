@@ -1,9 +1,10 @@
-import { Component, OnInit , Inject} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {first} from "rxjs/operators";
-import {ApiService} from "../../service/api.service";
+import { Component, OnInit , Inject } from '@angular/core';
+import { ActivatedRoute, Router } from "@angular/router";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { first } from "rxjs/operators";
+import { ApiService } from "../../service/api.service";
 import { Toaster } from 'ngx-toast-notifications';
+import { InsuranceService } from '../insurance.service';
 
 @Component({
   selector: 'app-edit-insurance',
@@ -15,27 +16,61 @@ export class EditInsuranceComponent implements OnInit {
   insurances = [];
   selectedInsurance;
   editForm: FormGroup;
+  singleDatePickerOptions;
+  singleDate;
+  insurance;
+  rami;
+  compagnie;
+  selectedRamo;
+  selectedCompagnia;
+
   constructor(private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
     private apiService: ApiService,
+    private insuranceService: InsuranceService,
     private toaster: Toaster) { }
 
   ngOnInit() {
+    this.insurance = this.route.snapshot.data['insurance'];
+    this.rami = this.insuranceService.getRami();
+    this.compagnie = this.insuranceService.getCompagnie();
+    this.selectedRamo = this.insurance['ramo'];
+    this.selectedCompagnia = this.insurance['compagnia'];
+    this.singleDate = this.insurance && this.insurance.scadenzaAnnuale ? new Date(this.insurance.scadenzaAnnuale) : '';
     this.editForm = this.formBuilder.group({
       id: [''],
-      type: ['', Validators.required],
-      description: ['', Validators.required],
+      numero: ['', Validators.required],
+      ramo: [''],
+      compagnia: [''],
+      targa: [''],
+      scadenzaAnnuale: [''],
+      frazionamento: [''],
+      premioAnnuale: [''],
+      premioRata: [''],
+      fattura: [''],
+      note: ['']
     });
     const id = parseInt(this.route.snapshot.paramMap.get('id'))
     this.apiService.getInsuranceById(id)
     .subscribe( data => {
       this.editForm.setValue(data);
     });
+  }
 
+  onChangeSingle(event){
+    this.editForm.value.scadenzaAnnuale = new Date(event)
   }
 
   onSelectedChange(event){
+  }
+
+  selectCompagnia(){
+    this.editForm.value.compagnia =  this.selectedCompagnia;
+  }
+
+  selectRamo(){
+    this.editForm.value.ramo = this.selectedRamo;
   }
 
   getInsurances(userId){
@@ -68,7 +103,6 @@ export class EditInsuranceComponent implements OnInit {
           else{
             alert("Error")
           }
-
         },
         error => {
           alert(error);

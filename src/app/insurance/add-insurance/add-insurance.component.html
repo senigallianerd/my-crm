@@ -2,17 +2,56 @@
   <h2 class="text-center">Add Insurance</h2>
   <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <label for="type">Type: *</label>
-      <input type="text" formControlName="type" placeholder="type" name="type" class="form-control" id="type">
+      <label for="numero">Numero: *</label>
+      <input type="text" formControlName="numero" placeholder="numero" name="numero" class="form-control" id="numero">
     </div>
     <div class="form-group">
-      <label for="Description">Description: </label>
-      <input type="text" formControlName="description" placeholder="Description" name="description" class="form-control" id="description">
+      <label for="ramo">Ramo:</label>
+      <input type="text" formControlName="ramo" placeholder="ramo" name="ramo" class="form-control" id="ramo">
     </div>
-    <button class="btn btn-success">Add</button>
+    <div class="form-group">
+      <label for="compagnia">Compagnia:</label>
+      <input type="text" formControlName="compagnia" placeholder="compagnia" name="compagnia" class="form-control" id="compagnia">
+    </div>
+    <div class="form-group">
+      <label for="targa">Targa:</label>
+      <input type="text" formControlName="targa" placeholder="targa" name="targa" class="form-control" id="targa">
+    </div>
+    <div class="form-group">
+      <label for="scadenzaAnnuale">Scadenza Annuale: *</label>
+      <input type="text" formControlName="scadenzaAnnuale" placeholder="scadenzaAnnuale" name="scadenzaAnnuale" class="form-control w-25" id="scadenzaAnnuale"  
+          [ngxDatePicker]="dateInstanceSingle" 
+          [value]="singleDate"
+          (valueChange)="onChangeSingle($event)">
+      <ngx-date-picker #dateInstanceSingle [options]="singleDatePickerOptions"></ngx-date-picker>
+    </div> 
+    <div class="form-group">
+      <label for="frazionamento">Frazionamento:</label>
+      <input type="text" formControlName="frazionamento" placeholder="frazionamento" name="frazionamento" class="form-control" id="frazionamento">
+    </div>
+    <div class="form-group">
+      <label for="premioAnnuale">Premio Annuale:</label>
+      <input type="text" formControlName="premioAnnuale" placeholder="premioAnnuale" name="premioAnnuale" class="form-control" id="premioAnnuale">
+    </div>
+    <div class="form-group">
+      <label for="premioRata">Premio Rata:</label>
+      <input type="text" formControlName="premioRata" placeholder="premioRata" name="premioRata" class="form-control" id="premioRata">
+    </div>
+    <div class="form-group">
+      <label for="fattura">Fattura:</label>
+      <input type="text" formControlName="fattura" placeholder="fattura" name="fattura" class="form-control" id="fattura">
+    </div>
+    <div class="form-group">
+      <label for="note">Note:</label>
+      <input type="text" formControlName="note" placeholder="note" name="note" class="form-control" id="note">
+    </div>
+
+    <div class="footer">
+      <button class="btn btn-success">Add</button>
+    </div>
+
   </form>
 <br>
-<button class="btn btn-info" (click)="goHome()">Home</button>
 
 </div>
 

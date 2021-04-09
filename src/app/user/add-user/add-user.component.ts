@@ -81,9 +81,9 @@ export class AddUserComponent implements OnInit {
     this.apiService.createUser(userForm)
       .subscribe( data => {
         if(data){
-          console.log('user created');
+          console.log('cliente creato');
           this.toaster.open({
-            text: 'User created',
+            text: 'Cliente creato',
             position: 'top-right',
             duration: 3000,
             type: 'success'

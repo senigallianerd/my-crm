@@ -19,14 +19,27 @@ export class AddInsuranceComponent implements OnInit {
 
   addForm: FormGroup;
   selectedInsurance;
+  singleDatePickerOptions;
+  singleDate;
 
   ngOnInit() {
     this.addForm = this.formBuilder.group({
       id: [],
-      type: ['', Validators.required],
-      description: ['']
+      numero: ['', Validators.required],
+      ramo: [''],
+      compagnia: [''],
+      targa: [''],
+      scadenzaAnnuale: [''],
+      frazionamento: [''],
+      premioAnnuale: [''],
+      premioRata: [''],
+      fattura: [''],
+      note: ['']
     });
     this.getInsurances();
+  }
+
+  onChangeSingle(event){
   }
 
   getInsurances(){
@@ -59,9 +72,9 @@ export class AddInsuranceComponent implements OnInit {
     this.apiService.createInsurance(insuranceForm)
       .subscribe( data => {
         if(data){
-          console.log('insurance created');
+          console.log('Polizza creata');
           this.toaster.open({
-            text: 'Insurance created',
+            text: 'Polizza creata',
             position: 'top-right',
             duration: 3000,
             type: 'success'

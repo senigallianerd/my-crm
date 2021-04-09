@@ -4,6 +4,7 @@ import { AddUserComponent } from "./user/add-user/add-user.component";
 import { UserComponent } from "./user/user/user.component";
 import { UserResolver } from "./user/user/user.resolver";
 import { EditUserResolver } from "./user/edit-user/edit-user.resolver";
+import { EditInsuranceResolver } from "./insurance/edit-insurance/edit-insurance.resolver";
 
 import { AddInsuranceComponent } from "./insurance/add-insurance/add-insurance.component";
 import { ListInsuranceComponent } from "./insurance/list-insurance/list-insurance.component";
@@ -33,7 +34,12 @@ const routes: Routes = [
   },
   { path: 'add-insurance', component: AddInsuranceComponent, canActivate: [AuthGuard] },
   { path: 'list-insurance', component: ListInsuranceComponent, canActivate: [AuthGuard] },
-  { path: 'edit-insurance/:id', component: EditInsuranceComponent, canActivate: [AuthGuard] },
+  {
+    path: 'edit-insurance/:id', component: EditInsuranceComponent, canActivate: [AuthGuard],
+    resolve: {
+      insurance: EditInsuranceResolver
+    }
+  },
 
   {
     path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard],

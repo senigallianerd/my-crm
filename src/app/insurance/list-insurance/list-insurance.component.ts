@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 import { ApiService } from "../../service/api.service";
 import Swal from 'sweetalert2';
 import { LocalStorageService } from 'ngx-webstorage';
-import { Subject } from 'rxjs';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-list-insurance',
@@ -17,6 +17,7 @@ export class ListInsuranceComponent implements OnInit {
 
   constructor(private router: Router,
     private apiService: ApiService,
+    public datepipe: DatePipe,
     private storage: LocalStorageService) {
    
   }

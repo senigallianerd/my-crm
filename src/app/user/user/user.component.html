@@ -5,15 +5,15 @@
       <input type="hidden" formcontrolname="id" placeholder="id" name="id" id="id" readonly
         class="form-control ng-untouched ng-pristine ng-valid" ng-reflect-name="id" value="1">
     </div>
-    <div class="form-group"><label for="firstName">Nome:</label>
+    <div class="form-group"><label for="nome">Nome:</label>
       <input placeholder="{{user.nome}}" readonly name="nome" id="nome"
         class="form-control ng-pristine ng-valid ng-touched">
     </div>
-    <div class="form-group"><label for="lastName">Cognome:</label>
+    <div class="form-group"><label for="cognome">Cognome:</label>
       <input formcontrolname="cognome" placeholder="{{user.cognome}}" readonly name="cognome" id="cognome"
         class="form-control ng-untouched ng-pristine ng-valid">
     </div>
-    <div class="form-group"><label for="lastName">Azienda:</label>
+    <div class="form-group"><label for="azienda">Azienda:</label>
       <input formcontrolname="azienda" placeholder="{{user.azienda}}" readonly name="azienda" id="azienda"
         class="form-control ng-untouched ng-pristine ng-valid">
     </div>
@@ -91,8 +91,8 @@
     </span>
   </span> <br><br>
 
-  <select [(ngModel)]="selectedInsurance" (change)="consoleLog(selectedInsurance)">
-    <option *ngFor="let insurance of insurances" [ngValue]="insurance">{{ insurance.type }}</option>
+  <select [(ngModel)]="selectedInsurance" (change)="selectInsurance(selectedInsurance)">
+    <option *ngFor="let insurance of insurances" [ngValue]="insurance">{{ insurance.numero }}</option>
   </select>
 
   <br> Date:
