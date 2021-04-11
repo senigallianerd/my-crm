@@ -8,17 +8,13 @@
   text-align:center;
 }
 
-.item{
-    cursor: pointer;
-}
-
 .link{
   cursor:pointer;
   color:blue;
 }
 
 .hidden{
-  visibility: hidden;
+  display:none;
 }
 
 tr,td, th{

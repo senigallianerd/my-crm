@@ -46,16 +46,20 @@ export class UserComponent implements OnInit {
     getInsurances(){
       this.apiService.getInsurances().subscribe(data => {
         this.insurances = data;
+        debugger
         this.selectedInsurance = this.insurances[0];
+        this.uploadData.insuranceId = this.insurances[0].id;
        })
     }
 
     selectInsurance(selectedInsurance:any){
+      debugger
       this.uploadData.insuranceId =this.selectedInsurance.id;
     }
 
     getUserPolicy(userId){
       this.apiService.getUserPolicy(userId).subscribe(data => {
+        debugger
         this.fileList = data;
        })
     }
@@ -67,6 +71,7 @@ export class UserComponent implements OnInit {
 
   uploadFile(){
       this.uploading = true;
+      debugger
       this.http.post(environment.apiURL + 'upload.php',this.file_data)
       .subscribe(res => {
         this.uploadData.fileName = res['fileName'];
@@ -97,6 +102,7 @@ export class UserComponent implements OnInit {
   }
 
   deleteFile(file) {
+    debugger
     this.apiService.deletePolicy(file.id).subscribe(data => {
       if (data) {
         this.toaster.open({

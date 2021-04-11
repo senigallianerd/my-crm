@@ -2,8 +2,8 @@
   <h2 style="margin: auto">Clienti</h2>
 
   <div class="d-flex flex-row">
-    <div class="p-2"><button class="btn btn-danger" (click)="addUser()">Add User</button></div>
-    <div class="p-2"><button *ngIf="back" class="btn btn-info" (click)="goBack()">Go Back</button></div>
+    <div class="p-2"><button class="btn btn-danger" (click)="addUser()">Aggiungi cliente</button></div>
+    <div class="p-2"><button *ngIf="back" class="btn btn-info" (click)="goBack()">Indietro</button></div>
     <div class="p-2"></div>
   </div>
 
@@ -25,10 +25,10 @@
           <td (click)="userDetail(user.id)">{{user.cognome}}</td>
           <td class="link" [tagDirective]="user.note"></td>
           <td class="buttons">
-            <button class="btn btn-success" (click)="editUser(user)">Edit</button>
+            <button class="btn btn-success" (click)="editUser(user)">Modifica</button>
           </td>
           <td class="buttons">
-            <button class="btn btn-success" (click)="deleteUser(user)">Delete</button>
+            <button class="btn btn-success" (click)="deleteUser(user)">Cancella</button>
           </td>
         </tr>
         </tbody>

@@ -1,9 +1,9 @@
 <div class="col-md-6 insurance-container">
-  <h2 style="margin: auto"> Insurance Details</h2>
+  <h2 style="margin: auto"> Dettaglio Assicurazione</h2>
 
   <div class="d-flex flex-row">
-    <div class="p-2"><button class="btn btn-danger" (click)="addInsurance()">Add Insurance</button></div>
-    <div class="p-2"><button *ngIf="back" class="btn btn-info" (click)="goBack()">Go Back</button></div>
+    <div class="p-2"><button class="btn btn-danger" (click)="addInsurance()">Aggiungi Assicurazione</button></div>
+    <div class="p-2"><button *ngIf="back" class="btn btn-info" (click)="goBack()">Indietro</button></div>
     <div class="p-2"></div>
   </div>
 
@@ -29,10 +29,10 @@
           <td (click)="insuranceDetail(insurance.id)">{{insurance.targa}}</td>
           <td (click)="insuranceDetail(insurance.id)">{{insurance.scadenzaAnnuale | date:'dd/MM/yy'}}</td>
           <td class="buttons">
-            <button class="btn btn-success" (click)="editInsurance(insurance)">Edit</button>
+            <button class="btn btn-success" (click)="editInsurance(insurance)">Modifica</button>
           </td>
           <td class="buttons">
-            <button class="btn btn-success" (click)="deleteInsurance(insurance)">Delete</button>
+            <button class="btn btn-success" (click)="deleteInsurance(insurance)">Cancella</button>
           </td>
         </tr>
         </tbody>

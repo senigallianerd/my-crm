@@ -81,21 +81,20 @@
       <input formcontrolname="note" placeholder="{{user.note}}" readonly name="note" id="note"
         class="form-control ng-untouched ng-pristine ng-valid">
     </div>
-
   </form>
 
   <span>
-    File list: <br>
-    <span *ngFor="let file of fileList">
-      <a class="file" (click)="getFile(file.fileName)">{{file.type}} {{file.description}}</a> <span class="delete" (click)="deleteFile(file)">(cancella)</span><br>
-    </span>
+   Polizze: <br>
+    <div class="file-list" *ngFor="let file of fileList">
+      <a class="file" (click)="getFile(file.fileName)">{{file.fileName}}</a>scadenza: <i>{{file.expirationDate | date:'dd/MM/yy'}}</i> -  <button class="btn btn-danger" (click)="deleteFile(file)">cancella file</button><br>
+    </div>
   </span> <br><br>
 
   <select [(ngModel)]="selectedInsurance" (change)="selectInsurance(selectedInsurance)">
     <option *ngFor="let insurance of insurances" [ngValue]="insurance">{{ insurance.numero }}</option>
   </select>
 
-  <br> Date:
+  <br> Data:
   <div class="form-group">
     <input class="form-control w-25" placeholder="Select Date" 
         [ngxDatePicker]="dateInstanceSingle" 

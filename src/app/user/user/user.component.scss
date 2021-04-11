@@ -11,3 +11,12 @@
 .user-container{
     margin-bottom:30px;
 }
+
+.form-control:disabled, .form-control[readonly] {
+    background-color: white;
+    opacity: 1;
+}
+
+.file-list{
+    margin-bottom:10px;
+}
