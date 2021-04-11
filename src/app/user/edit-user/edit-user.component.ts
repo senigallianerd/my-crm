@@ -88,7 +88,7 @@ export class EditUserComponent implements OnInit {
           if(data){
             console.log('user updated');
             this.toaster.open({
-              text: 'User updated',
+              text: 'Aggiornamento completato',
               position: 'top-right',
               duration: 3000,
               type: 'success'

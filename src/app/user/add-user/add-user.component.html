@@ -1,5 +1,6 @@
 <div class="col-md-6 user-container">
   <h2 class="text-center">Aggiungi cliente</h2>
+
   <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="nome">Nome: *</label>
@@ -7,91 +8,101 @@
     </div>
     <div class="form-group">
       <label for="cognome">Cognome: *</label>
-      <input type="text" formControlName="cognome" placeholder="cognome" name="cognome" class="form-control" id="cognome">
+      <input type="text" formControlName="cognome" placeholder="cognome" name="cognome" class="form-control"
+        id="cognome">
     </div>
     <div class="form-group">
       <label for="azienda">Azienda:</label>
-      <input type="text" formControlName="azienda" placeholder="azienda" name="azienda" class="form-control" id="azienda">
+      <input type="text" formControlName="azienda" placeholder="azienda" name="azienda" class="form-control"
+        id="azienda">
     </div>
     <div class="form-group">
       <label for="collaboratore">Collaboratore:</label>
-      <input type="text" formControlName="collaboratore" placeholder="collaboratore" name="collaboratore" class="form-control" id="collaboratore">
-    </div>  
+      <input type="text" formControlName="collaboratore" placeholder="collaboratore" name="collaboratore"
+        class="form-control" id="collaboratore">
+    </div>
     <div class="form-group">
       <label for="cellulare">Cellulare:</label>
-      <input type="text" formControlName="cellulare" placeholder="cellulare" name="cellulare" class="form-control" id="cellulare">
-    </div>  
+      <input type="text" formControlName="cellulare" placeholder="cellulare" name="cellulare" class="form-control"
+        id="cellulare">
+    </div>
     <div class="form-group">
       <label for="telCasa">Tel Casa:</label>
-      <input type="text" formControlName="telCasa" placeholder="telCasa" name="telCasa" class="form-control" id="telCasa">
-    </div>  
+      <input type="text" formControlName="telCasa" placeholder="telCasa" name="telCasa" class="form-control"
+        id="telCasa">
+    </div>
     <div class="form-group">
       <label for="telUfficio">Tel Ufficio:</label>
-      <input type="text" formControlName="telUfficio" placeholder="telUfficio" name="telUfficio" class="form-control" id="telUfficio">
-    </div>  
+      <input type="text" formControlName="telUfficio" placeholder="telUfficio" name="telUfficio" class="form-control"
+        id="telUfficio">
+    </div>
     <div class="form-group">
       <label for="email">Email:</label>
       <input type="text" formControlName="email" placeholder="email" name="email" class="form-control" id="email">
-    </div>  
+    </div>
     <div class="form-group">
       <label for="secondaEmail">Seconda Email:</label>
-      <input type="text" formControlName="secondaEmail" placeholder="secondaEmail" name="secondaEmail" class="form-control" id="secondaEmail">
-    </div>  
+      <input type="text" formControlName="secondaEmail" placeholder="secondaEmail" name="secondaEmail"
+        class="form-control" id="secondaEmail">
+    </div>
     <div class="form-group">
       <label for="PEC">PEC:</label>
       <input type="text" formControlName="PEC" placeholder="PEC" name="PEC" class="form-control" id="PEC">
-    </div>  
+    </div>
     <div class="form-group">
       <label for="indirizzoResidenza">Indirizzo Residenza:</label>
-      <input type="text" formControlName="indirizzoResidenza" placeholder="indirizzoResidenza" name="indirizzoResidenza" class="form-control" id="indirizzoResidenza">
-    </div>  
+      <input type="text" formControlName="indirizzoResidenza" placeholder="indirizzoResidenza" name="indirizzoResidenza"
+        class="form-control" id="indirizzoResidenza">
+    </div>
     <div class="form-group">
       <label for="occupazione">Occupazione:</label>
-      <input type="text" formControlName="occupazione" placeholder="occupazione" name="occupazione" class="form-control" id="occupazione">
-    </div>  
+      <input type="text" formControlName="occupazione" placeholder="occupazione" name="occupazione" class="form-control"
+        id="occupazione">
+    </div>
     <div class="form-group">
       <label for="dataNascita">Data Nascita:</label>
-      <input type="text" formControlName="dataNascita" placeholder="dataNascita" name="dataNascita" class="form-control w-25" id="dataNascita"  
-          [ngxDatePicker]="dateInstanceSingle" 
-          [value]="singleDate"
-          (valueChange)="onChangeSingle($event)">
+      <input type="text" formControlName="dataNascita" placeholder="dataNascita" name="dataNascita"
+        class="form-control w-25" id="dataNascita" [ngxDatePicker]="dateInstanceSingle" [value]="singleDate"
+        (valueChange)="onChangeSingle($event)">
       <ngx-date-picker #dateInstanceSingle [options]="singleDatePickerOptions"></ngx-date-picker>
-    </div> 
+    </div>
     <div class="form-group">
       <label for="codiceFiscale">Codice Fiscale:</label>
-      <input type="text" formControlName="codiceFiscale" placeholder="codiceFiscale" name="codiceFiscale" class="form-control" id="codiceFiscale">
-    </div>  
+      <input type="text" formControlName="codiceFiscale" placeholder="codiceFiscale" name="codiceFiscale"
+        class="form-control" id="codiceFiscale">
+    </div>
     <div class="form-group">
       <label for="cartaIdentita">Carta di Identità:</label>
-      <input type="text" formControlName="cartaIdentita" placeholder="cartaIdentita" name="cartaIdentita" class="form-control" id="cartaIdentita">
-    </div>  
+      <input type="text" formControlName="cartaIdentita" placeholder="cartaIdentita" name="cartaIdentita"
+        class="form-control" id="cartaIdentita">
+    </div>
     <div class="form-group">
       <label for="partitaIva">Partita Iva:</label>
-      <input type="text" formControlName="partitaIva" placeholder="partitaIva" name="partitaIva" class="form-control" id="partitaIva">
-    </div>  
+      <input type="text" formControlName="partitaIva" placeholder="partitaIva" name="partitaIva" class="form-control"
+        id="partitaIva">
+    </div>
     <div class="form-group">
       <label for="sdi">SDI:</label>
       <input type="text" formControlName="sdi" placeholder="sdi" name="sdi" class="form-control" id="sdi">
-    </div>  
+    </div>
     <div class="form-group">
       <label for="iban">IBAN:</label>
       <input type="text" formControlName="iban" placeholder="iban" name="iban" class="form-control" id="iban">
-    </div>  
+    </div>
     <div class="form-group">
       <label for="hobby">Hobby:</label>
       <input type="text" formControlName="hobby" placeholder="hobby" name="hobby" class="form-control" id="hobby">
-    </div>  
+    </div>
     <div class="form-group">
       <label for="note">Note:</label>
       <input type="text" formControlName="note" placeholder="note" name="note" class="form-control" id="note">
-    </div>  
-  
+    </div>
+
     <div class="footer">
       <button class="btn btn-success">Add</button>
     </div>
   </form>
-<br>
+  <br>
 
 
 </div>
-

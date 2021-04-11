@@ -94,7 +94,7 @@ export class EditInsuranceComponent implements OnInit {
           if(data){
             console.log('insurance updated');
             this.toaster.open({
-              text: 'Insurance updated',
+              text: 'Aggiornamento completato',
               position: 'top-right',
               duration: 3000,
               type: 'success'

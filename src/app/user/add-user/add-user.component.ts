@@ -36,6 +36,7 @@ export class AddUserComponent implements OnInit {
       email: [''],
       secondaEmail: [''],
       PEC: [''],
+      dataNascita: [''],
       indirizzoResidenza: [''],
       occupazione: [''],
       codiceFiscale: [''],
@@ -65,9 +66,12 @@ export class AddUserComponent implements OnInit {
   }
 
   onChangeSingle(event){
+    debugger
+    this.addForm.value.dataNascita = event;
   }
 
   onSubmit() {
+    debugger
     if (this.addForm.invalid) {
       this.toaster.open({
         text: "Errore nel form di salvataggio",
