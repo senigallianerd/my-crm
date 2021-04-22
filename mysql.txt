@@ -5,3 +5,7 @@ Password: 5d72knf085
 
 Nome Database: uno dei 5 disponibili: (Sql1464427_1, Sql1464427_2, Sql1464427_3, Sql1464427_4, Sql1464427_5
 
+https://mysql.aruba.it/login/index.php?lang=it-iso-8859-1
+
+
+

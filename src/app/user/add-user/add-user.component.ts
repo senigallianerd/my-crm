@@ -21,7 +21,8 @@ export class AddUserComponent implements OnInit {
   users: User[];
   selectedUser;
   singleDatePickerOptions;
-  singleDate;
+  dataNascita;
+  dataScadenzaCartaIdentita;
 
   ngOnInit() {
     this.addForm = this.formBuilder.group({
@@ -41,6 +42,7 @@ export class AddUserComponent implements OnInit {
       occupazione: [''],
       codiceFiscale: [''],
       cartaIdentita: [''],
+      dataScadenzaCartaIdentita: [''],
       partitaIva: [''],
       sdi: [''],
       iban: [''],
@@ -65,9 +67,12 @@ export class AddUserComponent implements OnInit {
     this.router.navigate(['list-user']);
   }
 
-  onChangeSingle(event){
-    debugger
-    this.addForm.value.dataNascita = event;
+  onChangeDataNascita(event){
+    this.addForm.value.dataNascita = new Date(event)
+  }
+
+  onChangeDataScadenzaIdentita(event){
+    this.addForm.value.dataScadenzaCartaIdentita = new Date(event)
   }
 
   onSubmit() {

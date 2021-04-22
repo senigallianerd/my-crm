@@ -17,7 +17,8 @@ export class EditUserComponent implements OnInit {
   selectedUser;
   editForm: FormGroup;
   singleDatePickerOptions;
-  singleDate;
+  dataNascita;
+  dataScadenzaCartaIdentita;
   user: User;
 
   constructor(private formBuilder: FormBuilder,
@@ -28,7 +29,8 @@ export class EditUserComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.route.snapshot.data['user'];
-    this.singleDate = this.user && this.user.dataNascita ? new Date(this.user.dataNascita) : '';
+    this.dataNascita = this.user && this.user.dataNascita ? new Date(this.user.dataNascita) : '';
+    this.dataScadenzaCartaIdentita = this.user && this.user.dataScadenzaCartaIdentita ? new Date(this.user.dataScadenzaCartaIdentita) : '';
     this.editForm = this.formBuilder.group({
       id: [''],
       nome: ['', Validators.required],
@@ -46,6 +48,7 @@ export class EditUserComponent implements OnInit {
       dataNascita: [''],
       codiceFiscale: [''],
       cartaIdentita: [''],
+      dataScadenzaCartaIdentita: [''],
       partitaIva: [''],
       sdi: [''],
       iban: [''],
@@ -60,8 +63,12 @@ export class EditUserComponent implements OnInit {
 
   }
 
-  onChangeSingle(event){
+  onChangeDataNascita(event){
     this.editForm.value.dataNascita = new Date(event)
+  }
+
+  onChangeDataScadenzaIdentita(event){
+    this.editForm.value.dataScadenzaCartaIdentita = new Date(event)
   }
 
   onSelectedChange(event){

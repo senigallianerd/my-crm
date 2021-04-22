@@ -14,6 +14,7 @@ export class User {
   dataNascita:string;
   codiceFiscale: string;
   cartaIdentita: string;
+  dataScadenzaCartaIdentita: string;
   partitaIva:string;
   sdi: string;
   iban: string;

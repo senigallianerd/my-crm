@@ -56,10 +56,10 @@
     <div class="form-group">
       <label for="dataNascita">Data Nascita:</label>
       <input type="text"  placeholder="dataNascita" name="dataNascita" class="form-control w-25" id="dataNascita"  
-          [ngxDatePicker]="dateInstanceSingle" 
-          [value]="singleDate"
-          (valueChange)="onChangeSingle($event)">
-      <ngx-date-picker #dateInstanceSingle [options]="singleDatePickerOptions"></ngx-date-picker>
+          [ngxDatePicker]="dataNascitaIstance" 
+          [value]="dataNascita"
+          (valueChange)="onChangeDataNascita($event)">
+      <ngx-date-picker #dataNascitaIstance [options]="singleDatePickerOptions"></ngx-date-picker>
     </div>  
     <div class="form-group">
       <label for="codiceFiscale">Codice Fiscale:</label>
@@ -68,6 +68,14 @@
     <div class="form-group">
       <label for="cartaIdentita">Carta di Identità:</label>
       <input type="text" formControlName="cartaIdentita" placeholder="cartaIdentita" name="cartaIdentita" class="form-control" id="cartaIdentita">
+    </div>  
+    <div class="form-group">
+      <label for="dataScadenzaCartaIdentita">Data Scadenza Carta D'Itentità:</label>
+      <input type="text"  placeholder="dataScadenzaCartaIdentita" name="dataScadenzaCartaIdentita" class="form-control w-25" id="dataScadenzaCartaIdentita"  
+          [ngxDatePicker]="dataScadenzaCartaIstance" 
+          [value]="dataScadenzaCartaIdentita"
+          (valueChange)="onChangeDataScadenzaIdentita($event)">
+      <ngx-date-picker #dataScadenzaCartaIstance [options]="singleDatePickerOptions"></ngx-date-picker>
     </div>  
     <div class="form-group">
       <label for="partitaIva">Partita Iva:</label>

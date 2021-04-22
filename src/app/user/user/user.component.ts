@@ -46,7 +46,6 @@ export class UserComponent implements OnInit {
     getInsurances(){
       this.apiService.getInsurances().subscribe(data => {
         this.insurances = data;
-        debugger
         this.selectedInsurance = this.insurances[0];
         this.uploadData.insuranceId = this.insurances[0].id;
        })
@@ -59,7 +58,6 @@ export class UserComponent implements OnInit {
 
     getUserPolicy(userId){
       this.apiService.getUserPolicy(userId).subscribe(data => {
-        debugger
         this.fileList = data;
        })
     }
