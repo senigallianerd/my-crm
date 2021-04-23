@@ -87,33 +87,24 @@
     </div>
   </form>
 
-  <span>
-   Polizze: <br>
-    <div class="file-list" *ngFor="let file of fileList">
-      <a class="file" (click)="getFile(file.fileName)">{{file.fileName}}</a>scadenza: <i>{{file.expirationDate | date:'dd/MM/yy'}}</i> -  <button class="btn btn-danger" (click)="deleteFile(file)">cancella file</button><br>
-    </div>
-  </span> <br><br>
+  <button  class="btn btn-success" (click)="componentInsideModal.open()">Aggiungi Polizza</button>
 
-  <select [(ngModel)]="selectedInsurance" (change)="selectInsurance(selectedInsurance)">
-    <option *ngFor="let insurance of insurances" [ngValue]="insurance">{{ insurance.numero }}</option>
-  </select>
+  <modal #componentInsideModal>
+    <ng-template #modalHeader><h2>Aggiungi Polizza</h2></ng-template>
+    <ng-template #modalBody>
+      <app-add-insurance [userId]="userId"></app-add-insurance>
+    </ng-template>
+    <ng-template #modalFooter></ng-template>
+  </modal>
 
-  <br> Data:
-  <div class="form-group">
-    <input class="form-control w-25" placeholder="Select Date" 
-        [ngxDatePicker]="dateInstanceSingle" 
-        [value]="singleDate"
-        (valueChange)="onChangeSingle($event)">
-    <ngx-date-picker #dateInstanceSingle [options]="singleDatePickerOptions"></ngx-date-picker>
-  </div>
+  <br><br>
+  <span class="policy-list">
+    Polizze: <br>
+    <div class="file-list" *ngIf="fileList.length===0"><i>Non ci sono polizze per questo utente</i></div>
+     <div class="file-list" *ngFor="let file of fileList">
+       <a class="file" (click)="getFile(file.fileName)">{{file.compagnia}}</a>scadenza: <i>{{file.scadenzaAnnuale | date:'dd/MM/yy'}}</i> -  <button class="btn btn-danger" (click)="deletePolicy(file)">cancella polizza</button><br>
+     </div>
+   </span> 
 
-  <input [formControl]="file" (change)="fileChange(index,$event)" type="file" placeholder="File">
-
-  <button style="margin-top:20px" (click)="uploadFile()" mat-raised-button color="primary">
-    Upload
-  </button> (Max 50Mb)
-  <div *ngIf="uploading" class="uploading">
-    Upload in corso...
-  </div>
 
 </div>

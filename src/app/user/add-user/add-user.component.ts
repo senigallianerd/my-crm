@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
-import {ApiService} from "../../service/api.service";
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { ApiService } from "../../service/api.service";
 import { Toaster } from 'ngx-toast-notifications';
-import {User} from "../../model/user.model";
+import { User } from "../../model/user.model";
 
 @Component({
   selector: 'app-add-user',
@@ -75,8 +75,8 @@ export class AddUserComponent implements OnInit {
     this.addForm.value.dataScadenzaCartaIdentita = new Date(event)
   }
 
+
   onSubmit() {
-    debugger
     if (this.addForm.invalid) {
       this.toaster.open({
         text: "Errore nel form di salvataggio",
@@ -87,7 +87,7 @@ export class AddUserComponent implements OnInit {
       return;
     }
     let userForm = this.addForm.value;
-    this.apiService.createUser(userForm)
+    this.apiService.addUser(userForm)
       .subscribe( data => {
         if(data){
           console.log('cliente creato');

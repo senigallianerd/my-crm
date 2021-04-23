@@ -32,7 +32,7 @@ const routes: Routes = [
       user: EditUserResolver
     }
   },
-  { path: 'add-insurance', component: AddInsuranceComponent, canActivate: [AuthGuard] },
+  { path: 'add-insurance/:userId', component: AddInsuranceComponent, canActivate: [AuthGuard] },
   { path: 'list-insurance', component: ListInsuranceComponent, canActivate: [AuthGuard] },
   {
     path: 'edit-insurance/:id', component: EditInsuranceComponent, canActivate: [AuthGuard],

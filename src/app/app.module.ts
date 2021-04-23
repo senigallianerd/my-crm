@@ -33,6 +33,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { TagDirective } from './directives/tag.directive';
 import { DatePipe } from '@angular/common';
 import { InsuranceService } from "./insurance/insurance.service";
+import { ModalModule } from './modal/modal.module';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { InsuranceService } from "./insurance/insurance.service";
   imports: [
     BrowserModule,
     DataTablesModule,
+    ModalModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,

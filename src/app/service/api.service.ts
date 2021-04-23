@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {User} from "../model/user.model";
 import {Policy} from "../model/policy.model";
@@ -8,8 +8,14 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class ApiService {
 
+  @Output() onUpdate: EventEmitter<{ [key: string]: any }> = new EventEmitter();
+
   constructor(private http: HttpClient) { }
   apiURL = environment.apiURL;
+
+  update(message) {
+    this.onUpdate.emit({ message: message });
+  }
 
   login(loginPayload) {
     return this.http.post<any>(this.apiURL + 'login.php', loginPayload);
@@ -31,16 +37,20 @@ export class ApiService {
     return this.http.get<any>(this.apiURL + 'get-insurance.php?id=' + id);
   }
 
+  getUserInsurances(id: number) {
+    return this.http.get<any>(this.apiURL + 'get-insurance.php?userId=' + id);
+  }
+
   getUserByName(nome:string, cognome: string) {
     return this.http.get<any>(this.apiURL + 'get-user.php?nome=' + nome + '&cognome='+cognome);
   }
 
-  createUser(user: User) {
-    return this.http.post<any>(this.apiURL + 'create-user.php', user);
+  addUser(user: User) {
+    return this.http.post<any>(this.apiURL + 'add-user.php', user);
   }
 
-  createInsurance(insurance) {
-    return this.http.post<any>(this.apiURL + 'create-insurance.php', insurance);
+  addInsurance(insurance) {
+    return this.http.post<any>(this.apiURL + 'add-insurance.php', insurance);
   }
 
   updateUser(user: User) {
@@ -61,14 +71,6 @@ export class ApiService {
 
   setUploadInfo(info) {
     return this.http.post<any>(this.apiURL + 'set-upload-info.php', info);
-  }
-
-  getUserPolicy(userId: number) {
-    return this.http.get<Policy[]>(this.apiURL + 'get-policy.php?userId=' + userId);
-  }
-
-  getPolicy() {
-    return this.http.get<Policy[]>(this.apiURL + 'get-policy.php');
   }
 
   deletePolicy(policyId: number) {

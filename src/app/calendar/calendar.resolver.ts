@@ -10,6 +10,6 @@ export class CalendarResolver implements Resolve<any> {
     private apiService: ApiService ) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    return this.apiService.getPolicy();
+    return this.apiService.getInsurances();
   }
 }
