@@ -101,4 +101,8 @@ export class UserComponent implements OnInit {
   goHome() {
     this.router.navigate(['list-user']);
   }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }
