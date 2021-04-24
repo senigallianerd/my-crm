@@ -73,7 +73,8 @@ export class UserComponent implements OnInit {
   }
 
   getFile(fileName){
-    window.open(environment.policyURL + fileName)
+    if(fileName)
+      window.open(environment.policyURL + fileName)
   }
 
   deletePolicy(policy) {

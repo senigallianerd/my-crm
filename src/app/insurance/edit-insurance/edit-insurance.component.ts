@@ -75,7 +75,8 @@ export class EditInsuranceComponent implements OnInit {
   }
 
   viewFile(fileName){
-    window.open(environment.policyURL + fileName)
+    if(fileName)
+      window.open(environment.policyURL + fileName)
   }
 
   deleteFile(fileName){

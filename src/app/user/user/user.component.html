@@ -102,7 +102,7 @@
     Polizze: <br>
     <div class="file-list" *ngIf="fileList.length===0"><i>Non ci sono polizze per questo utente</i></div>
      <div class="file-list" *ngFor="let file of fileList">
-       <a class="file" (click)="getFile(file.fileName)">{{file.compagnia}}</a>scadenza: <i>{{file.scadenzaAnnuale | date:'dd/MM/yy'}}</i> -  <button class="btn btn-danger" (click)="deletePolicy(file)">cancella polizza</button> -  <button class="btn btn-warning" (click)="updatePolicy(file)">modifica polizza</button><br>
+       <a [ngClass]="{'file' : file.fileName!==''}" (click)="getFile(file.fileName)">{{file.compagnia}}</a> scadenza: <i>{{file.scadenzaAnnuale | date:'dd/MM/yy'}}</i> -  <button class="btn btn-danger" (click)="deletePolicy(file)">cancella polizza</button> -  <button class="btn btn-warning" (click)="updatePolicy(file)">modifica polizza</button><br>
      </div>
    </span> 
 
