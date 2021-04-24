@@ -87,7 +87,7 @@ export class AddInsuranceComponent implements OnInit {
     this.router.navigate(['list-user']);
   }
 
-  fileChange(index, event) {
+  fileChange(event) {
     const fileList: FileList = event.target.files;
     if (fileList.length > 0) {
       const file = fileList[0];

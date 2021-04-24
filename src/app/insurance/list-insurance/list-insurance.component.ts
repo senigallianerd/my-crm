@@ -35,7 +35,7 @@ export class ListInsuranceComponent implements OnInit {
 
   deleteInsurance(insurance) {
     Swal.fire({
-      title: 'Do you want delete Insurance?',
+      title: 'Vuoi veramente cancellare?',
       showDenyButton: true,
       confirmButtonText: `Ok`,
       denyButtonText: `No`,

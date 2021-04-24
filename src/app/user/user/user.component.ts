@@ -68,6 +68,10 @@ export class UserComponent implements OnInit {
     console.log(file);
   }
 
+  updatePolicy(policy) {
+    this.router.navigate(['edit-insurance/' + policy.id]);
+  }
+
   getFile(fileName){
     window.open(environment.policyURL + fileName)
   }

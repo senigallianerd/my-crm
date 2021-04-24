@@ -58,7 +58,7 @@ export class ListUserComponent implements OnInit {
 
   deleteUser(user: User) {
     Swal.fire({
-      title: 'Do you want delete User?',
+      title: "Sei sicuro di cancellare l'utente?",
       showDenyButton: true,
       confirmButtonText: `Ok`,
       denyButtonText: `No`,

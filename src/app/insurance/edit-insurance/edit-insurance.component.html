@@ -10,16 +10,17 @@
     </div>
     <div class="form-group">
       <label for="ramo">Ramo:</label>
-      <select class="custom-select" (change)="selectRamo()" formControlName="ramo"  [(ngModel)]="selectedRamo">
+      <select class="custom-select" (change)="selectRamo()" formControlName="ramo" [(ngModel)]="selectedRamo">
         <option *ngFor="let ramo of rami" [ngValue]="ramo">{{ramo}}</option>
-     </select>
+      </select>
     </div>
 
     <div class="form-group">
       <label for="compagnia">Compagnia:</label>
-      <select class="custom-select" (change)="selectCompagnia()" formControlName="compagnia"  [(ngModel)]="selectedCompagnia">
+      <select class="custom-select" (change)="selectCompagnia()" formControlName="compagnia"
+        [(ngModel)]="selectedCompagnia">
         <option *ngFor="let compagnia of compagnie" [ngValue]="compagnia">{{compagnia}}</option>
-     </select>
+      </select>
     </div>
 
     <div class="form-group">
@@ -28,19 +29,20 @@
     </div>
     <div class="form-group">
       <label for="scadenzaAnnuale">Scadenza Annuale: *</label>
-      <input type="text"  placeholder="scadenzaAnnuale" name="scadenzaAnnuale" class="form-control w-25" id="scadenzaAnnuale"  
-          [ngxDatePicker]="dateInstanceSingle" 
-          [value]="singleDate"
-          (valueChange)="onChangeSingle($event)">
+      <input type="text" placeholder="scadenzaAnnuale" name="scadenzaAnnuale" class="form-control w-25"
+        id="scadenzaAnnuale" [ngxDatePicker]="dateInstanceSingle" [value]="singleDate"
+        (valueChange)="onChangeSingle($event)">
       <ngx-date-picker #dateInstanceSingle [options]="singleDatePickerOptions"></ngx-date-picker>
-    </div> 
+    </div>
     <div class="form-group">
       <label for="frazionamento">Frazionamento:</label>
-      <input formControlName="frazionamento" placeholder="frazionamento" name="frazionamento" class="form-control" id="frazionamento">
+      <input formControlName="frazionamento" placeholder="frazionamento" name="frazionamento" class="form-control"
+        id="frazionamento">
     </div>
     <div class="form-group">
       <label for="premioAnnuale">Premio Annuale:</label>
-      <input formControlName="premioAnnuale" placeholder="premioAnnuale" name="premioAnnuale" class="form-control" id="premioAnnuale">
+      <input formControlName="premioAnnuale" placeholder="premioAnnuale" name="premioAnnuale" class="form-control"
+        id="premioAnnuale">
     </div>
     <div class="form-group">
       <label for="fattura">Fattura:</label>
@@ -51,9 +53,24 @@
       <input formControlName="note" placeholder="note" name="note" class="form-control" id="note">
     </div>
 
+    <div class="form-group" *ngIf="!fileName">
+      Upload Polizza
+      <input [formControl]="file" (change)="fileChange($event)" type="file" placeholder="File">
+  
+      <button style="margin-top:20px" (click)="uploadFile()" mat-raised-button color="primary">
+        Upload
+      </button> (Max 50Mb)
+      <div *ngIf="uploading" class="uploading">
+        Upload in corso...
+      </div>
+    </div>
+
     <button class="btn btn-success">Aggiorna</button>
   </form>
+  <br>
+  <div class="form-group" *ngIf="fileName">
+    File Allegato:
+    <a class="link" (click)="viewFile(fileName)">{{fileName}}</a> - <button
+      class="btn btn-danger" (click)="deleteFile(fileName)">cancella file</button>
+  </div>
 
-<br>
-<button class="btn btn-info" (click)="goHome()">Home</button>
-</div>
