@@ -17,9 +17,16 @@
         id="azienda">
     </div>
     <div class="form-group">
-      <label for="collaboratore">Collaboratore:</label>
-      <input type="text" formControlName="collaboratore" placeholder="collaboratore" name="collaboratore"
-        class="form-control" id="collaboratore">
+      <label for="collaboratore">Tag:</label>
+      <select class="custom-select" (change)="selectTag()" formControlName="collaboratore"  [(ngModel)]="selectedTag">
+        <option *ngFor="let tag of tags" [ngValue]="tag">{{tag}}</option>
+     </select>
+    </div>
+    <div class="form-group">
+      <label for="tipoContatto">Tipo Contatto:</label>
+      <select class="custom-select" (change)="selectTipoContatto()" formControlName="tipoContatto"  [(ngModel)]="selectedTipoContatto">
+        <option *ngFor="let tipoContatto of tipoContatti" [ngValue]="tipoContatto">{{tipoContatto}}</option>
+     </select>
     </div>
     <div class="form-group">
       <label for="cellulare">Cellulare:</label>

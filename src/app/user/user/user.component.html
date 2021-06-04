@@ -21,6 +21,10 @@
       <input formcontrolname="collaboratore" placeholder="{{user.collaboratore}}" readonly name="collaboratore" id="collaboratore"
         class="form-control ng-untouched ng-pristine ng-valid">
     </div>
+    <div class="form-group"><label for="tipoContatto">Tipo Contatto:</label>
+      <input formcontrolname="collaboratore" placeholder="{{user.tipoContatto}}" readonly name="tipoContatto" id="tipoContatto"
+        class="form-control ng-untouched ng-pristine ng-valid">
+    </div>
     <div class="form-group"><label for="telCasa">Tel Casa:</label>
       <input formcontrolname="telCasa" placeholder="{{user.telCasa}}" readonly name="telCasa" id="telCasa"
         class="form-control ng-untouched ng-pristine ng-valid">
@@ -94,20 +98,24 @@
     </div>
   </span> <br><br>
 
-  <select [(ngModel)]="selectedInsurance" (change)="selectInsurance(selectedInsurance)">
-    <option *ngFor="let insurance of insurances" [ngValue]="insurance">{{ insurance.numero }}</option>
-  </select>
+  <div class="upload-group">
+    <span class="title-upload">Upload Documenti</span>
+    <label for="selectedInsurance">Assicurazione:</label>
+    <select class="custom-select small" (change)="selectInsurance()" [(ngModel)]="selectedInsurance">
+      <option *ngFor="let compagnia of compagnie" [ngValue]="compagnia">{{compagnia}}</option>
+   </select>
+
 
   <br> Data:
   <div class="form-group">
-    <input class="form-control w-25" placeholder="Select Date" 
+    <input class="form-control w-25 small" placeholder="Select Date" 
         [ngxDatePicker]="dateInstanceSingle" 
         [value]="singleDate"
         (valueChange)="onChangeSingle($event)">
     <ngx-date-picker #dateInstanceSingle [options]="singleDatePickerOptions"></ngx-date-picker>
   </div>
 
-  <input [formControl]="file" (change)="fileChange(index,$event)" type="file" placeholder="File">
+  <input  [formControl]="file" (change)="fileChange(index,$event)" type="file" placeholder="File">
 
   <button style="margin-top:20px" (click)="uploadFile()" mat-raised-button color="primary">
     Upload
@@ -115,5 +123,7 @@
   <div *ngIf="uploading" class="uploading">
     Upload in corso...
   </div>
+
+</div>
 
 </div>

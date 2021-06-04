@@ -1,19 +1,28 @@
 import { Injectable } from '@angular/core';
+import { ApiService } from "./../service/api.service";
+import { map } from 'rxjs/operators';
+import { pipe } from 'rxjs';
 
 @Injectable()
 export class InsuranceService {
 
-    private compagnie = ['compagnia1', 'compagnia2', 'compagnia3'];;
-    private rami = ['ramo1', 'ramo2', 'ramo3'];
-
-    constructor() { }
+    constructor(private apiService: ApiService) {
+    }
 
     getRami() {
-        return this.rami;
+        return this.apiService.getRami().pipe(
+            map(data => data.map(({ nome }) => nome)),
+        );
     }
 
     getCompagnie() {
-        return this.compagnie;
+        return this.apiService.getCompagnie().pipe(
+            map(data => data.map(({ nome }) => nome)),
+        );
     }
 
 }
+
+
+
+

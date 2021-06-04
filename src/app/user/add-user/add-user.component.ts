@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
-import {ApiService} from "../../service/api.service";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { ApiService } from "../../service/api.service";
 import { Toaster } from 'ngx-toast-notifications';
-import {User} from "../../model/user.model";
+import { User } from "../../model/user.model";
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-add-user',
@@ -13,8 +14,9 @@ import {User} from "../../model/user.model";
 export class AddUserComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
-    private router: Router, 
+    private router: Router,
     private apiService: ApiService,
+    private userService: UserService,
     private toaster: Toaster) { }
 
   addForm: FormGroup;
@@ -23,14 +25,20 @@ export class AddUserComponent implements OnInit {
   singleDatePickerOptions;
   dataNascita;
   dataScadenzaCartaIdentita;
+  tags;
+  tipoContatti;
+  selectedTag;
+  selectedTipoContatto;
 
   ngOnInit() {
+    this.initValues();
     this.addForm = this.formBuilder.group({
       id: [],
       nome: ['', Validators.required],
       cognome: ['', Validators.required],
       azienda: [''],
       collaboratore: [''],
+      tipoContatto: [''],
       cellulare: [''],
       telCasa: [''],
       telUfficio: [''],
@@ -52,31 +60,47 @@ export class AddUserComponent implements OnInit {
     this.getUsers();
   }
 
-  getUsers(){
-    this.apiService.getUsers()
-    .subscribe( data => {
-      this.users = data;
-      this.selectedUser = this.users[0];
+  initValues(){
+    this.tags = this.userService.initTags().subscribe(values => {
+      this.tags = values;
+    });
+    this.tipoContatti = this.userService.initTipoContatti().subscribe(values => {
+      this.tipoContatti = values;
     });
   }
 
-  onSelectedChange(event){
+  selectTipoContatto() {
+
   }
 
-  goHome(){
+  selectTag() {
+
+  }
+
+  getUsers() {
+    this.apiService.getUsers()
+      .subscribe(data => {
+        this.users = data;
+        this.selectedUser = this.users[0];
+      });
+  }
+
+  onSelectedChange(event) {
+  }
+
+  goHome() {
     this.router.navigate(['list-user']);
   }
 
-  onChangeDataNascita(event){
+  onChangeDataNascita(event) {
     this.addForm.value.dataNascita = new Date(event)
   }
 
-  onChangeDataScadenzaIdentita(event){
+  onChangeDataScadenzaIdentita(event) {
     this.addForm.value.dataScadenzaCartaIdentita = new Date(event)
   }
 
   onSubmit() {
-    debugger
     if (this.addForm.invalid) {
       this.toaster.open({
         text: "Errore nel form di salvataggio",
@@ -88,8 +112,8 @@ export class AddUserComponent implements OnInit {
     }
     let userForm = this.addForm.value;
     this.apiService.createUser(userForm)
-      .subscribe( data => {
-        if(data){
+      .subscribe(data => {
+        if (data) {
           console.log('cliente creato');
           this.toaster.open({
             text: 'Cliente creato',

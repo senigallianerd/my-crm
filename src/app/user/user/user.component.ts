@@ -8,6 +8,7 @@ import { environment } from '../../../environments/environment';
 import { FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
+import { InsuranceService } from '../../insurance/insurance.service';
 
 @Component({
   selector: 'user',
@@ -25,41 +26,42 @@ export class UserComponent implements OnInit {
   singleDate;
   insurances;
   selectedInsurance;
-  fileList: Policy[] = [];
+  fileList: any = [];
   uploadData: Policy;
   uploading: boolean = false;
+  insurance;
+  compagnie;
+  compagnia;
 
   constructor(private router: Router,
     private http: HttpClient,
     public datepipe: DatePipe,
     private route: ActivatedRoute,
+    private insuranceService: InsuranceService,
     private apiService: ApiService,
     private toaster: Toaster) {
     }
 
     ngOnInit() {
-      this.uploadData = new Policy(this.selectedInsurance, this.user.id, '','' );
-      this.getUserPolicy(this.user.id);
-      this.getInsurances();
+      this.uploadData = new Policy(this.selectedInsurance, this.user.id, '','','' );
+      this.getInsurances(this.user.id);
+      this.getCompagnie();
     }
 
-    getInsurances(){
-      this.apiService.getInsurances().subscribe(data => {
-        this.insurances = data;
-        this.selectedInsurance = this.insurances[0];
-        this.uploadData.insuranceId = this.insurances[0].id;
-       })
-    }
-
-    selectInsurance(selectedInsurance:any){
-      debugger
-      this.uploadData.insuranceId =this.selectedInsurance.id;
-    }
-
-    getUserPolicy(userId){
-      this.apiService.getUserPolicy(userId).subscribe(data => {
+    getInsurances(userId){
+      this.apiService.getInsuranceByUserId(userId).subscribe(data => {
         this.fileList = data;
        })
+    }
+
+    getCompagnie(){
+      this.insuranceService.getCompagnie().subscribe(data => {
+        this.compagnie = data;
+       })
+    }
+
+    selectInsurance(){
+      this.uploadData.compagnia =this.selectedInsurance;
     }
 
    public onFileSelected(event: EventEmitter<File[]>) {
@@ -69,7 +71,6 @@ export class UserComponent implements OnInit {
 
   uploadFile(){
       this.uploading = true;
-      debugger
       this.http.post(environment.apiURL + 'upload.php',this.file_data)
       .subscribe(res => {
         this.uploadData.fileName = res['fileName'];
@@ -82,7 +83,6 @@ export class UserComponent implements OnInit {
               duration: 3000,
               type: 'success'
             });
-            this.getUserPolicy(this.user.id)
           }
          })
       }, (err) => {
@@ -100,7 +100,6 @@ export class UserComponent implements OnInit {
   }
 
   deleteFile(file) {
-    debugger
     this.apiService.deletePolicy(file.id).subscribe(data => {
       if (data) {
         this.toaster.open({
@@ -109,7 +108,6 @@ export class UserComponent implements OnInit {
           duration: 3000,
           type: 'success'
         });
-        this.getUserPolicy(this.user.id)
       }
       else
         this.toaster.open({
@@ -140,7 +138,7 @@ export class UserComponent implements OnInit {
   }
 
   onChangeSingle(event){
-    this.uploadData.expirationDate = new Date(event);
+    this.uploadData.scadenzaAnnuale = new Date(event);
   }
 
   goHome() {

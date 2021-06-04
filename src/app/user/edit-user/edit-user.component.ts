@@ -1,10 +1,11 @@
 import { Component, OnInit , Inject} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {first} from "rxjs/operators";
-import {User} from "../../model/user.model";
-import {ApiService} from "../../service/api.service";
+import { ActivatedRoute, Router} from "@angular/router";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { first} from "rxjs/operators";
+import { User} from "../../model/user.model";
+import { ApiService } from "../../service/api.service";
 import { Toaster } from 'ngx-toast-notifications';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-edit-user',
@@ -20,14 +21,20 @@ export class EditUserComponent implements OnInit {
   dataNascita;
   dataScadenzaCartaIdentita;
   user: User;
+  selectedTag;
+  selectedTipoContatto;
+  tags:any = [];
+  tipoContatti:any = [];
 
   constructor(private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
     private apiService: ApiService,
+    private userService: UserService,
     private toaster: Toaster) { }
 
   ngOnInit() {
+    this.initValues();
     this.user = this.route.snapshot.data['user'];
     this.dataNascita = this.user && this.user.dataNascita ? new Date(this.user.dataNascita) : '';
     this.dataScadenzaCartaIdentita = this.user && this.user.dataScadenzaCartaIdentita ? new Date(this.user.dataScadenzaCartaIdentita) : '';
@@ -38,6 +45,7 @@ export class EditUserComponent implements OnInit {
       azienda: [''],
       collaboratore: [''],
       cellulare: [''],
+      tipoContatto: [''],
       telCasa: [''],
       telUfficio: [''],
       email: [''],
@@ -60,7 +68,23 @@ export class EditUserComponent implements OnInit {
     .subscribe( data => {
       this.editForm.setValue(data);
     });
+  }
 
+  initValues(){
+    this.tags = this.userService.initTags().subscribe(values => {
+      this.tags = values;
+    });
+    this.tipoContatti = this.userService.initTipoContatti().subscribe(values => {
+      this.tipoContatti = values;
+    });
+  }
+
+  selectTipoContatto(){
+    this.editForm.value.tipoContatto =  this.selectedTipoContatto;
+  }
+
+  selectTag(){
+    this.editForm.value.collaboratore = this.selectedTag;
   }
 
   onChangeDataNascita(event){

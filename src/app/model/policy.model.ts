@@ -1,14 +1,16 @@
 export class Policy {
 
-    constructor(insuranceId, userId, expirationDate, fileName) { 
-        this.expirationDate = expirationDate,
+    constructor(insuranceId, userId, scadenzaAnnuale, fileName, compagnia) { 
+        this.scadenzaAnnuale = scadenzaAnnuale,
         this.userId = userId,
         this.insuranceId = insuranceId,
         this.fileName = fileName;
+        this.compagnia = compagnia;
     }   
 
-    expirationDate: Date;
+    scadenzaAnnuale: Date;
     userId: string;
     insuranceId: string;
     fileName: string;
+    compagnia: string;
 }

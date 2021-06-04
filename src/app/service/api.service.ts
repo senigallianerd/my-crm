@@ -31,16 +31,20 @@ export class ApiService {
     return this.http.get<any>(this.apiURL + 'get-insurance.php?id=' + id);
   }
 
+  getInsuranceByUserId(userId: number) {
+    return this.http.get<any>(this.apiURL + 'get-insurance.php?userId=' + userId);
+  }
+
   getUserByName(nome:string, cognome: string) {
     return this.http.get<any>(this.apiURL + 'get-user.php?nome=' + nome + '&cognome='+cognome);
   }
 
   createUser(user: User) {
-    return this.http.post<any>(this.apiURL + 'create-user.php', user);
+    return this.http.post<any>(this.apiURL + 'add-user.php', user);
   }
 
   createInsurance(insurance) {
-    return this.http.post<any>(this.apiURL + 'create-insurance.php', insurance);
+    return this.http.post<any>(this.apiURL + 'add-insurance.php', insurance);
   }
 
   updateUser(user: User) {
@@ -63,12 +67,24 @@ export class ApiService {
     return this.http.post<any>(this.apiURL + 'set-upload-info.php', info);
   }
 
-  getUserPolicy(userId: number) {
-    return this.http.get<Policy[]>(this.apiURL + 'get-policy.php?userId=' + userId);
-  }
-
   getPolicy() {
     return this.http.get<Policy[]>(this.apiURL + 'get-policy.php');
+  }
+
+  getCompagnie() {
+    return this.http.get<any>(this.apiURL + 'get-compagnie.php');
+  }
+
+  getCollaboratore() {
+    return this.http.get<any>(this.apiURL + 'get-collaboratore.php');
+  }
+
+  getTipoContatto() {
+    return this.http.get<any>(this.apiURL + 'get-tipo-contatto.php');
+  }
+
+  getRami() {
+    return this.http.get<any>(this.apiURL + 'get-rami.php');
   }
 
   deletePolicy(policyId: number) {

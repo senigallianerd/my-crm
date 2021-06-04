@@ -1,5 +1,5 @@
 <div class="col-md-6 user-container">
-  <h2 style="margin: auto">Clienti</h2>
+  <h2 style="margin: auto">Anagrafica</h2>
 
   <div class="d-flex flex-row">
     <div class="p-2"><button class="btn btn-danger" (click)="addUser()">Aggiungi cliente</button></div>
@@ -14,6 +14,7 @@
         <th>Nome</th>
         <th>Cognome</th>
         <th>Note</th>
+        <th>Tag</th>
         <th></th>
         <th></th>
       </tr>
@@ -24,6 +25,7 @@
           <td (click)="userDetail(user.id)">{{user.nome}}</td>
           <td (click)="userDetail(user.id)">{{user.cognome}}</td>
           <td class="link" [tagDirective]="user.note"></td>
+          <td (click)="userDetail(user.id)">{{user.collaboratore}}</td>
           <td class="buttons">
             <button class="btn btn-success" (click)="editUser(user)">Modifica</button>
           </td>

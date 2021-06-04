@@ -33,6 +33,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { TagDirective } from './directives/tag.directive';
 import { DatePipe } from '@angular/common';
 import { InsuranceService } from "./insurance/insurance.service";
+import { UserService } from './user/user.service';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { InsuranceService } from "./insurance/insurance.service";
     LoginService,
     InsuranceService,
     DatePipe,
+    UserService,
     {provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
     multi : true}],
