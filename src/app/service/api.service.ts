@@ -80,7 +80,11 @@ export class ApiService {
   }
 
   getTipoContatto() {
-    return this.http.get<any>(this.apiURL + 'get-tipo-contatto.php');
+    return this.http.get<any>(this.apiURL + 'get-tipo-contatti.php');
+  }
+
+  getTipoDocs() {
+    return this.http.get<any>(this.apiURL + 'get-tipo-docs.php');
   }
 
   getRami() {

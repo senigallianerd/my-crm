@@ -91,19 +91,27 @@
     </div>
   </form>
 
-  <span>
+  <span class="file-list">
    Polizze: <br>
     <div class="file-list" *ngFor="let file of fileList">
       <a class="file" (click)="getFile(file.fileName)">{{file.fileName}}</a>scadenza: <i>{{file.expirationDate | date:'dd/MM/yy'}}</i> -  <button class="btn btn-danger" (click)="deleteFile(file)">cancella file</button><br>
     </div>
   </span> <br><br>
 
+  <div class="choose-doc"> 
+    Scegli tipo documento: <select class="custom-select small" [(ngModel)]="tipoDoc">
+      <option *ngFor="let doc of tipoDocs" [ngValue]="doc">{{doc}}</option>
+    </select>
+  </div>
+
   <div class="upload-group">
-    <span class="title-upload">Upload Documenti</span>
-    <label for="selectedInsurance">Assicurazione:</label>
-    <select class="custom-select small" (change)="selectInsurance()" [(ngModel)]="selectedInsurance">
-      <option *ngFor="let compagnia of compagnie" [ngValue]="compagnia">{{compagnia}}</option>
-   </select>
+    <span class="title-upload">Upload {{tipoDoc}}</span>
+    <div class="polizze-section" *ngIf="tipoDoc==='polizze'">
+      <label for="selectedInsurance">Assicurazione:</label>
+      <select class="custom-select small" (change)="selectInsurance()" [(ngModel)]="selectedInsurance">
+        <option *ngFor="let compagnia of compagnie" [ngValue]="compagnia">{{compagnia}}</option>
+     </select>
+    </div>
 
 
   <br> Data:

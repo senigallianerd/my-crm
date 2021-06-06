@@ -9,6 +9,7 @@ import { FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { InsuranceService } from '../../insurance/insurance.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'user',
@@ -32,6 +33,8 @@ export class UserComponent implements OnInit {
   insurance;
   compagnie;
   compagnia;
+  tipoDocs;
+  tipoDoc;
 
   constructor(private router: Router,
     private http: HttpClient,
@@ -43,15 +46,26 @@ export class UserComponent implements OnInit {
     }
 
     ngOnInit() {
-      this.uploadData = new Policy(this.selectedInsurance, this.user.id, '','','' );
+      this.uploadData = new Policy(this.selectedInsurance, this.user.id, '','','','' );
       this.getInsurances(this.user.id);
       this.getCompagnie();
+      this.getTipoDocs();
     }
 
     getInsurances(userId){
       this.apiService.getInsuranceByUserId(userId).subscribe(data => {
         this.fileList = data;
        })
+    }
+
+    getTipoDocs(){
+      this.apiService.getTipoDocs().pipe(
+        map(data => data.map(({ nome }) => nome))).subscribe(data => {
+
+          this.tipoDocs = data;
+          this.tipoDoc = this.tipoDocs[0];
+         })
+    
     }
 
     getCompagnie(){
@@ -74,9 +88,11 @@ export class UserComponent implements OnInit {
       this.http.post(environment.apiURL + 'upload.php',this.file_data)
       .subscribe(res => {
         this.uploadData.fileName = res['fileName'];
+        this.uploadData.tipo = this.tipoDoc;
         this.apiService.setUploadInfo(this.uploadData).subscribe(data => {
           if(data){
             this.uploading = false;
+            setTimeout(()=>this.getInsurances(this.user.id), 5);
             this.toaster.open({
               text: 'Upload completed',
               position: 'top-right',
@@ -101,6 +117,7 @@ export class UserComponent implements OnInit {
 
   deleteFile(file) {
     this.apiService.deletePolicy(file.id).subscribe(data => {
+      this.getInsurances(this.user.id);
       if (data) {
         this.toaster.open({
           text: 'File deleted',
@@ -108,6 +125,7 @@ export class UserComponent implements OnInit {
           duration: 3000,
           type: 'success'
         });
+
       }
       else
         this.toaster.open({
