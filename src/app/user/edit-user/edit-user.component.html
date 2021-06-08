@@ -18,7 +18,7 @@
       <input type="text" formControlName="azienda" placeholder="azienda" name="azienda" class="form-control" id="azienda">
     </div>
     <div class="form-group">
-      <label for="collaboratore">Tag:</label>
+      <label for="collaboratore">Assegnato a:</label>
       <select class="custom-select" (change)="selectTag()" formControlName="collaboratore"  [(ngModel)]="selectedTag">
         <option *ngFor="let tag of tags" [ngValue]="tag">{{tag}}</option>
      </select>

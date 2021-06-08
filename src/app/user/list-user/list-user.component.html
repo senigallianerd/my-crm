@@ -2,7 +2,7 @@
   <h2 style="margin: auto">Anagrafica</h2>
 
   <div class="d-flex flex-row">
-    <div class="p-2"><button class="btn btn-danger" (click)="addUser()">Aggiungi cliente</button></div>
+    <div class="p-2"><button class="btn btn-warning" (click)="addUser()">Aggiungi cliente</button></div>
     <div class="p-2"><button *ngIf="back" class="btn btn-info" (click)="goBack()">Indietro</button></div>
     <div class="p-2"></div>
   </div>
@@ -30,7 +30,7 @@
             <button class="btn btn-success" (click)="editUser(user)">Modifica</button>
           </td>
           <td class="buttons">
-            <button class="btn btn-success" (click)="deleteUser(user)">Cancella</button>
+            <button class="btn btn-danger" (click)="deleteUser(user)">Cancella</button>
           </td>
         </tr>
         </tbody>

@@ -4,8 +4,12 @@
     margin-right: 10px;
 }
 
-.delete, thead{
+.delete, thead, .item-file{
     cursor: pointer;
+}
+
+.item-file{
+    color:blue;
 }
 
 .user-container{

@@ -93,9 +93,9 @@
   </form>
 
   <span class="file-list">
-    Documenti: <br>
+    <span class="file-list-title" *ngIf="fileList.length">Documenti:</span>
 
-    <table class="row-border hover table">
+    <table *ngIf="fileList.length" class="row-border hover table">
       <thead>
         <tr>
           <th (click)="orderBy('tipoDoc')">Tipo</th>
@@ -107,10 +107,10 @@
       </thead>
       <tbody>
         <tr class="item" *ngFor="let file of fileList">
-          <td (click)="getFile(file.fileName)">{{file.tipoDoc}}</td>
-          <td (click)="getFile(file.fileName)">{{file.data | date:'dd/MM/yy'}}</td>
-          <td (click)="getFile(file.fileName)">{{file.fileName}}</td>
-          <td (click)="getFile(file.fileName)">{{file.sottotipoDoc}}</td>
+          <td>{{file.tipoDoc}}</td>
+          <td>{{file.data | date:'dd/MM/yy'}}</td>
+          <td><span class="item-file" (click)="getFile(file.fileName)">{{file.fileName}}</span></td>
+          <td>{{file.sottotipoDoc}}</td>
           <td class="buttons">
             <button class="btn btn-danger" (click)="deleteFile(file)">Cancella</button>
           </td>
@@ -127,9 +127,9 @@
   </div>
 
   <div class="upload-group">
-    <span class="title-upload">Upload {{tipoDoc}}</span>
+    <span class="title-upload"><b>Upload {{tipoDoc}}</b></span>
     <div class="sottotipodoc-section" *ngIf="tipoDoc==='polizza' || tipoDoc==='preventivo' || tipoDoc==='documento'">
-      <label for="sottotipodoc">{{tipoDoc==='polizza'? 'Compagnia':'Tipo'}}</label>
+      <label for="sottotipodoc">{{tipoDoc==='polizza'? 'Compagnia':'Tipo'}} : </label>
       <select class="custom-select small" [(ngModel)]="sottotipoDoc">
         <option *ngFor="let sottotipo of sottotipoDocs" [ngValue]="sottotipo">{{sottotipo}}</option>
       </select>
@@ -138,7 +138,7 @@
 
     <br> Data:
     <div class="form-group">
-      <input class="form-control w-25 small" placeholder="Select Date" [ngxDatePicker]="dateInstanceSingle"
+      <input class="form-control w-25 small" placeholder="Scegli Data" [ngxDatePicker]="dateInstanceSingle"
         [value]="singleDate" (valueChange)="onChangeSingle($event)">
       <ngx-date-picker #dateInstanceSingle [options]="singleDatePickerOptions"></ngx-date-picker>
     </div>
