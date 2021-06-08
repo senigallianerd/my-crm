@@ -128,8 +128,8 @@
 
   <div class="upload-group">
     <span class="title-upload">Upload {{tipoDoc}}</span>
-    <div class="sottotipodoc-section" *ngIf="tipoDoc==='polizze' || tipoDoc==='preventivi' || tipoDoc==='documenti'">
-      <label for="sottotipodoc">{{tipoDoc==='polizze'? 'Compagnia':'Tipo'}}</label>
+    <div class="sottotipodoc-section" *ngIf="tipoDoc==='polizza' || tipoDoc==='preventivo' || tipoDoc==='documento'">
+      <label for="sottotipodoc">{{tipoDoc==='polizza'? 'Compagnia':'Tipo'}}</label>
       <select class="custom-select small" [(ngModel)]="sottotipoDoc">
         <option *ngFor="let sottotipo of sottotipoDocs" [ngValue]="sottotipo">{{sottotipo}}</option>
       </select>

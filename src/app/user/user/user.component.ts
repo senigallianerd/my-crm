@@ -56,11 +56,11 @@ export class UserComponent implements OnInit {
   }
 
   onSelectChange(type) {
-    if (type === 'documenti')
+    if (type === 'documento')
       this.getListaDocs();
-    else if (type === 'polizze')
+    else if (type === 'polizza')
       this.getCompagnie();
-    else if (type === 'preventivi')
+    else if (type === 'preventivo')
       this.getListaPreventivi();
   }
 
