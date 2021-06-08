@@ -75,6 +75,14 @@ export class ApiService {
     return this.http.get<any>(this.apiURL + 'get-compagnie.php');
   }
 
+  getListaPreventivi() {
+    return this.http.get<any>(this.apiURL + 'get-lista-preventivi.php');
+  }
+
+  getListaDocs() {
+    return this.http.get<any>(this.apiURL + 'get-lista-docs.php');
+  }
+
   getCollaboratore() {
     return this.http.get<any>(this.apiURL + 'get-collaboratore.php');
   }

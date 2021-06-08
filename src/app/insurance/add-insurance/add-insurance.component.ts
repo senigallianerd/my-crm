@@ -29,7 +29,7 @@ export class AddInsuranceComponent implements OnInit {
       ramo: [''],
       compagnia: [''],
       targa: [''],
-      scadenzaAnnuale: [''],
+      data: [''],
       frazionamento: [''],
       premioAnnuale: [''],
       premioRata: [''],

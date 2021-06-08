@@ -72,7 +72,7 @@ export class CalendarComponent {
     let eventsArray = [];
     this.calendar.forEach(e => {
       eventsArray.push({
-        start: new Date(e['scadenzaAnnuale']),
+        start: new Date(e['data']),
         title: e['cognome'],
         color: colors.red,
         actions: this.actions,

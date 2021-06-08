@@ -21,6 +21,18 @@ export class InsuranceService {
         );
     }
 
+    getListaPreventivi() {
+        return this.apiService.getListaPreventivi().pipe(
+            map(data => data.map(({ nome }) => nome)),
+        );
+    }
+
+    getListaDocs() {
+        return this.apiService.getListaDocs().pipe(
+            map(data => data.map(({ nome }) => nome)),
+        );
+    }
+
 }
 
 

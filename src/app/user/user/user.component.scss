@@ -4,7 +4,7 @@
     margin-right: 10px;
 }
 
-.delete{
+.delete, thead{
     cursor: pointer;
 }
 
@@ -35,4 +35,9 @@
     text-align: center;
     display:block;
     padding-bottom:10px;
+}
+
+.table{
+    margin-bottom:30px;
+    margin-top:30px;
 }

@@ -37,14 +37,14 @@ export class EditInsuranceComponent implements OnInit {
     this.compagnie = this.insuranceService.getCompagnie();
     this.selectedRamo = this.insurance['ramo'];
     this.selectedCompagnia = this.insurance['compagnia'];
-    this.singleDate = this.insurance && this.insurance.scadenzaAnnuale ? new Date(this.insurance.scadenzaAnnuale) : '';
+    this.singleDate = this.insurance && this.insurance.data ? new Date(this.insurance.data) : '';
     this.editForm = this.formBuilder.group({
       id: [''],
       numero: ['', Validators.required],
       ramo: [''],
       compagnia: [''],
       targa: [''],
-      scadenzaAnnuale: [''],
+      data: [''],
       frazionamento: [''],
       premioAnnuale: [''],
       premioRata: [''],
@@ -59,7 +59,7 @@ export class EditInsuranceComponent implements OnInit {
   }
 
   onChangeSingle(event){
-    this.editForm.value.scadenzaAnnuale = new Date(event)
+    this.editForm.value.data = new Date(event)
   }
 
   onSelectedChange(event){

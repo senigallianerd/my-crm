@@ -27,7 +27,7 @@
           <td (click)="insuranceDetail(insurance.id)">{{insurance.ramo}}</td>
           <td (click)="insuranceDetail(insurance.id)">{{insurance.compagnia}}</td>
           <td (click)="insuranceDetail(insurance.id)">{{insurance.targa}}</td>
-          <td (click)="insuranceDetail(insurance.id)">{{insurance.scadenzaAnnuale | date:'dd/MM/yy'}}</td>
+          <td (click)="insuranceDetail(insurance.id)">{{insurance.data | date:'dd/MM/yy'}}</td>
           <td class="buttons">
             <button class="btn btn-success" (click)="editInsurance(insurance)">Modifica</button>
           </td>

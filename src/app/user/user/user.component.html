@@ -17,13 +17,13 @@
       <input formcontrolname="azienda" placeholder="{{user.azienda}}" readonly name="azienda" id="azienda"
         class="form-control ng-untouched ng-pristine ng-valid">
     </div>
-    <div class="form-group"><label for="collaboratore">Collaboratore:</label>
-      <input formcontrolname="collaboratore" placeholder="{{user.collaboratore}}" readonly name="collaboratore" id="collaboratore"
-        class="form-control ng-untouched ng-pristine ng-valid">
+    <div class="form-group"><label for="collaboratore">Assegnato a:</label>
+      <input formcontrolname="collaboratore" placeholder="{{user.collaboratore}}" readonly name="collaboratore"
+        id="collaboratore" class="form-control ng-untouched ng-pristine ng-valid">
     </div>
     <div class="form-group"><label for="tipoContatto">Tipo Contatto:</label>
-      <input formcontrolname="collaboratore" placeholder="{{user.tipoContatto}}" readonly name="tipoContatto" id="tipoContatto"
-        class="form-control ng-untouched ng-pristine ng-valid">
+      <input formcontrolname="collaboratore" placeholder="{{user.tipoContatto}}" readonly name="tipoContatto"
+        id="tipoContatto" class="form-control ng-untouched ng-pristine ng-valid">
     </div>
     <div class="form-group"><label for="telCasa">Tel Casa:</label>
       <input formcontrolname="telCasa" placeholder="{{user.telCasa}}" readonly name="telCasa" id="telCasa"
@@ -38,36 +38,37 @@
         class="form-control ng-untouched ng-pristine ng-valid">
     </div>
     <div class="form-group"><label for="secondaEmail">Seconda Email:</label>
-      <input formcontrolname="secondaEmail" placeholder="{{user.secondaEmail}}" readonly name="secondaEmail" id="secondaEmail"
-        class="form-control ng-untouched ng-pristine ng-valid">
+      <input formcontrolname="secondaEmail" placeholder="{{user.secondaEmail}}" readonly name="secondaEmail"
+        id="secondaEmail" class="form-control ng-untouched ng-pristine ng-valid">
     </div>
     <div class="form-group"><label for="PEC">PEC:</label>
       <input formcontrolname="PEC" placeholder="{{user.PEC}}" readonly name="PEC" id="PEC"
         class="form-control ng-untouched ng-pristine ng-valid">
     </div>
     <div class="form-group"><label for="indirizzoResidenza">Indirizzo di residenza:</label>
-      <input formcontrolname="indirizzoResidenza" placeholder="{{user.indirizzoResidenza}}" readonly name="indirizzoResidenza" id="indirizzoResidenza"
-        class="form-control ng-untouched ng-pristine ng-valid">
+      <input formcontrolname="indirizzoResidenza" placeholder="{{user.indirizzoResidenza}}" readonly
+        name="indirizzoResidenza" id="indirizzoResidenza" class="form-control ng-untouched ng-pristine ng-valid">
     </div>
     <div class="form-group"><label for="occupazione">Occupazione:</label>
-      <input formcontrolname="occupazione" placeholder="{{user.occupazione}}" readonly name="occupazione" id="occupazione"
-        class="form-control ng-untouched ng-pristine ng-valid">
+      <input formcontrolname="occupazione" placeholder="{{user.occupazione}}" readonly name="occupazione"
+        id="occupazione" class="form-control ng-untouched ng-pristine ng-valid">
     </div>
     <div class="form-group"><label for="dataNascita">Data di nascita:</label>
-      <input formcontrolname="dataNascita" placeholder="{{user.dataNascita | date:'dd/MM/yy'}}" readonly name="dataNascita" id="dataNascita"
-        class="form-control ng-untouched ng-pristine ng-valid">
+      <input formcontrolname="dataNascita" placeholder="{{user.dataNascita | date:'dd/MM/yy'}}" readonly
+        name="dataNascita" id="dataNascita" class="form-control ng-untouched ng-pristine ng-valid">
     </div>
     <div class="form-group"><label for="codiceFiscale">Codice Fiscale:</label>
-      <input formcontrolname="codiceFiscale" placeholder="{{user.codiceFiscale}}" readonly name="codiceFiscale" id="codiceFiscale"
-        class="form-control ng-untouched ng-pristine ng-valid">
+      <input formcontrolname="codiceFiscale" placeholder="{{user.codiceFiscale}}" readonly name="codiceFiscale"
+        id="codiceFiscale" class="form-control ng-untouched ng-pristine ng-valid">
     </div>
     <div class="form-group"><label for="cartaIdentita">Carta di Identità:</label>
-      <input formcontrolname="cartaIdentita" placeholder="{{user.cartaIdentita}}" readonly name="cartaIdentita" id="cartaIdentita"
-        class="form-control ng-untouched ng-pristine ng-valid">
+      <input formcontrolname="cartaIdentita" placeholder="{{user.cartaIdentita}}" readonly name="cartaIdentita"
+        id="cartaIdentita" class="form-control ng-untouched ng-pristine ng-valid">
     </div>
     <div class="form-group"><label for="dataScadenzaCartaIdentita">Data Scadenza Carta Identità:</label>
-      <input formcontrolname="dataScadenzaCartaIdentita" placeholder="{{user.dataScadenzaCartaIdentita | date:'dd/MM/yy'}}" readonly name="dataScadenzaCartaIdentita" id="dataScadenzaCartaIdentita"
-        class="form-control ng-untouched ng-pristine ng-valid">
+      <input formcontrolname="dataScadenzaCartaIdentita"
+        placeholder="{{user.dataScadenzaCartaIdentita | date:'dd/MM/yy'}}" readonly name="dataScadenzaCartaIdentita"
+        id="dataScadenzaCartaIdentita" class="form-control ng-untouched ng-pristine ng-valid">
     </div>
     <div class="form-group"><label for="partitaIva">P.IVA:</label>
       <input formcontrolname="partitaIva" placeholder="{{user.partitaIva}}" readonly name="partitaIva" id="partitaIva"
@@ -92,46 +93,65 @@
   </form>
 
   <span class="file-list">
-   Polizze: <br>
-    <div class="file-list" *ngFor="let file of fileList">
-      <a class="file" (click)="getFile(file.fileName)">{{file.fileName}}</a>scadenza: <i>{{file.expirationDate | date:'dd/MM/yy'}}</i> -  <button class="btn btn-danger" (click)="deleteFile(file)">cancella file</button><br>
-    </div>
-  </span> <br><br>
+    Documenti: <br>
 
-  <div class="choose-doc"> 
-    Scegli tipo documento: <select class="custom-select small" [(ngModel)]="tipoDoc">
+    <table class="row-border hover table">
+      <thead>
+        <tr>
+          <th (click)="orderBy('tipoDoc')">Tipo</th>
+          <th (click)="orderBy('data')">Scadenza</th>
+          <th (click)="orderBy('fileName')">Nome File</th>
+          <th (click)="orderBy('sottotipoDoc')">Tipo Doc</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="item" *ngFor="let file of fileList">
+          <td (click)="getFile(file.fileName)">{{file.tipoDoc}}</td>
+          <td (click)="getFile(file.fileName)">{{file.data | date:'dd/MM/yy'}}</td>
+          <td (click)="getFile(file.fileName)">{{file.fileName}}</td>
+          <td (click)="getFile(file.fileName)">{{file.sottotipoDoc}}</td>
+          <td class="buttons">
+            <button class="btn btn-danger" (click)="deleteFile(file)">Cancella</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </span>
+
+  <div class="choose-doc">
+    Scegli tipo documento da caricare:
+    <select class="custom-select small" (change)="onSelectChange(tipoDoc)" [(ngModel)]="tipoDoc">
       <option *ngFor="let doc of tipoDocs" [ngValue]="doc">{{doc}}</option>
     </select>
   </div>
 
   <div class="upload-group">
     <span class="title-upload">Upload {{tipoDoc}}</span>
-    <div class="polizze-section" *ngIf="tipoDoc==='polizze'">
-      <label for="selectedInsurance">Assicurazione:</label>
-      <select class="custom-select small" (change)="selectInsurance()" [(ngModel)]="selectedInsurance">
-        <option *ngFor="let compagnia of compagnie" [ngValue]="compagnia">{{compagnia}}</option>
-     </select>
+    <div class="sottotipodoc-section" *ngIf="tipoDoc==='polizze' || tipoDoc==='preventivi' || tipoDoc==='documenti'">
+      <label for="sottotipodoc">{{tipoDoc==='polizze'? 'Compagnia':'Tipo'}}</label>
+      <select class="custom-select small" [(ngModel)]="sottotipoDoc">
+        <option *ngFor="let sottotipo of sottotipoDocs" [ngValue]="sottotipo">{{sottotipo}}</option>
+      </select>
     </div>
 
 
-  <br> Data:
-  <div class="form-group">
-    <input class="form-control w-25 small" placeholder="Select Date" 
-        [ngxDatePicker]="dateInstanceSingle" 
-        [value]="singleDate"
-        (valueChange)="onChangeSingle($event)">
-    <ngx-date-picker #dateInstanceSingle [options]="singleDatePickerOptions"></ngx-date-picker>
+    <br> Data:
+    <div class="form-group">
+      <input class="form-control w-25 small" placeholder="Select Date" [ngxDatePicker]="dateInstanceSingle"
+        [value]="singleDate" (valueChange)="onChangeSingle($event)">
+      <ngx-date-picker #dateInstanceSingle [options]="singleDatePickerOptions"></ngx-date-picker>
+    </div>
+
+    <input [formControl]="file" (change)="fileChange(index,$event)" type="file" placeholder="File">
+
+    <button style="margin-top:20px" (click)="uploadFile()" mat-raised-button color="primary">
+      Upload
+    </button> (Max 50Mb)
+    <div *ngIf="uploading" class="uploading">
+      Upload in corso...
+    </div>
+
   </div>
-
-  <input  [formControl]="file" (change)="fileChange(index,$event)" type="file" placeholder="File">
-
-  <button style="margin-top:20px" (click)="uploadFile()" mat-raised-button color="primary">
-    Upload
-  </button> (Max 50Mb)
-  <div *ngIf="uploading" class="uploading">
-    Upload in corso...
-  </div>
-
-</div>
 
 </div>

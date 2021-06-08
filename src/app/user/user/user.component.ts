@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { InsuranceService } from '../../insurance/insurance.service';
 import { map } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'user',
@@ -18,8 +19,8 @@ import { map } from 'rxjs/operators';
 })
 
 export class UserComponent implements OnInit {
-  file=new FormControl('');
-  file_data:any=''
+  file = new FormControl('');
+  file_data: any = ''
   user: User = this.route.snapshot.data['user'];
   index;
   model;
@@ -30,11 +31,12 @@ export class UserComponent implements OnInit {
   fileList: any = [];
   uploadData: Policy;
   uploading: boolean = false;
-  insurance;
-  compagnie;
-  compagnia;
+  sottotipoDoc;
+  sottotipoDocs;
   tipoDocs;
   tipoDoc;
+  previousSearch: string;
+  dtOptions: DataTables.Settings = {};
 
   constructor(private router: Router,
     private http: HttpClient,
@@ -43,56 +45,99 @@ export class UserComponent implements OnInit {
     private insuranceService: InsuranceService,
     private apiService: ApiService,
     private toaster: Toaster) {
-    }
+  }
 
-    ngOnInit() {
-      this.uploadData = new Policy(this.selectedInsurance, this.user.id, '','','','' );
-      this.getInsurances(this.user.id);
+  ngOnInit() {
+    this.uploadData = new Policy(this.user.id, '', '', '', '');
+    this.getInsurances(this.user.id);
+    this.getCompagnie();
+    this.getTipoDocs();
+    this.initDtOptions();
+  }
+
+  onSelectChange(type) {
+    if (type === 'documenti')
+      this.getListaDocs();
+    else if (type === 'polizze')
       this.getCompagnie();
-      this.getTipoDocs();
-    }
+    else if (type === 'preventivi')
+      this.getListaPreventivi();
+  }
 
-    getInsurances(userId){
-      this.apiService.getInsuranceByUserId(userId).subscribe(data => {
-        this.fileList = data;
-       })
-    }
+  initDtOptions() {
+    this.dtOptions = {
+      searching: false,
+      paging: false,
+      info: false
+    };
+  }
 
-    getTipoDocs(){
-      this.apiService.getTipoDocs().pipe(
-        map(data => data.map(({ nome }) => nome))).subscribe(data => {
+  getInsurances(userId) {
+    this.apiService.getInsuranceByUserId(userId).subscribe(data => {
+      this.fileList = data;
+    })
+  }
 
-          this.tipoDocs = data;
-          this.tipoDoc = this.tipoDocs[0];
-         })
-    
-    }
+  orderBy(value) {
+    const desc = this.previousSearch === value;
+    this.fileList = this.fileList.sort(function (a, b) {
+      if(desc)
+        return b[value].localeCompare(a[value])
+      else
+       return a[value].localeCompare(b[value])
+    });
+    this.previousSearch = value;
+  }
 
-    getCompagnie(){
-      this.insuranceService.getCompagnie().subscribe(data => {
-        this.compagnie = data;
-       })
-    }
+  getTipoDocs() {
+    this.apiService.getTipoDocs().pipe(
+      map(data => data.map(({ nome }) => nome))).subscribe(data => {
+        this.tipoDocs = data;
+        this.tipoDoc = this.tipoDocs[0];
+      })
+  }
 
-    selectInsurance(){
-      this.uploadData.compagnia =this.selectedInsurance;
-    }
+  getCompagnie() {
+    this.insuranceService.getCompagnie().subscribe(data => {
+      this.sottotipoDocs = data;
+      this.sottotipoDoc = data[0];
+    })
+  }
 
-   public onFileSelected(event: EventEmitter<File[]>) {
+  getListaPreventivi() {
+    this.insuranceService.getListaPreventivi().subscribe(data => {
+      this.sottotipoDocs = data;
+      this.sottotipoDoc = data[0];
+    })
+  }
+
+  getListaDocs() {
+    this.insuranceService.getListaDocs().subscribe(data => {
+      this.sottotipoDocs = data;
+      this.sottotipoDoc = data[0];
+    })
+  }
+
+  selectSottoTipoDoc() {
+    this.uploadData.sottotipoDoc = this.sottotipoDoc;
+  }
+
+  public onFileSelected(event: EventEmitter<File[]>) {
     const file: File = event[0];
     console.log(file);
   }
 
-  uploadFile(){
-      this.uploading = true;
-      this.http.post(environment.apiURL + 'upload.php',this.file_data)
+  uploadFile() {
+    this.uploading = true;
+    this.http.post(environment.apiURL + 'upload.php', this.file_data)
       .subscribe(res => {
         this.uploadData.fileName = res['fileName'];
-        this.uploadData.tipo = this.tipoDoc;
+        this.uploadData.tipoDoc = this.tipoDoc;
+        this.uploadData.sottotipoDoc = this.sottotipoDoc;
         this.apiService.setUploadInfo(this.uploadData).subscribe(data => {
-          if(data){
+          if (data) {
             this.uploading = false;
-            setTimeout(()=>this.getInsurances(this.user.id), 5);
+            setTimeout(() => this.getInsurances(this.user.id), 5);
             this.toaster.open({
               text: 'Upload completed',
               position: 'top-right',
@@ -100,7 +145,7 @@ export class UserComponent implements OnInit {
               type: 'success'
             });
           }
-         })
+        })
       }, (err) => {
         this.toaster.open({
           text: 'Upload error',
@@ -108,10 +153,10 @@ export class UserComponent implements OnInit {
           duration: 3000,
           type: 'warning'
         });
-    });
+      });
   }
 
-  getFile(fileName){
+  getFile(fileName) {
     window.open(environment.policyURL + fileName)
   }
 
@@ -137,26 +182,25 @@ export class UserComponent implements OnInit {
     })
   }
 
-  fileChange(index,event) {
+  fileChange(index, event) {
     const fileList: FileList = event.target.files;
     if (fileList.length > 0) {
-        const file = fileList[0];
-        console.log('finfo',file.name,file.size,file.type);
-        //max file size is 20mb
-        if((file.size/1048576)<=50)
-        {
-          let formData = new FormData();
-          formData.append('file', file, file.name);
-          formData.append('ts',new Date().toISOString())
-          this.file_data=formData
-        }else{
-          console.log('Errore dimensione file')
-        }
+      const file = fileList[0];
+      console.log('finfo', file.name, file.size, file.type);
+      //max file size is 20mb
+      if ((file.size / 1048576) <= 50) {
+        let formData = new FormData();
+        formData.append('file', file, file.name);
+        formData.append('ts', new Date().toISOString())
+        this.file_data = formData
+      } else {
+        console.log('Errore dimensione file')
+      }
     }
   }
 
-  onChangeSingle(event){
-    this.uploadData.scadenzaAnnuale = new Date(event);
+  onChangeSingle(event) {
+    this.uploadData.data = new Date(event);
   }
 
   goHome() {
