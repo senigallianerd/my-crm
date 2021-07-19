@@ -5,6 +5,7 @@ import {ApiService} from "../service/api.service";
 import { Toaster } from 'ngx-toast-notifications';
 import { LocalStorageService } from 'ngx-webstorage';
 import { LoginService } from './login.service';
+import { faFilm } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-login',

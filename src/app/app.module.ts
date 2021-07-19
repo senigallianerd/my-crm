@@ -34,6 +34,7 @@ import { TagDirective } from './directives/tag.directive';
 import { DatePipe } from '@angular/common';
 import { InsuranceService } from "./insurance/insurance.service";
 import { UserService } from './user/user.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { UserService } from './user/user.service';
     BrowserAnimationsModule, 
     ToastNotificationsModule,
     FileUploadModule,
-    NgxDatePickerModule
+    NgxDatePickerModule,
+    FontAwesomeModule
   ],
   providers: [ApiService, 
     AuthGuard,

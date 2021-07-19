@@ -1,8 +1,8 @@
 <div class="col-md-6 user-container">
-  <h2 style="margin: auto">Anagrafica</h2>
+  <h2 style="margin: auto">Elenco Clienti</h2>
 
   <div class="d-flex flex-row">
-    <div class="p-2"><button class="btn btn-warning" (click)="addUser()">Aggiungi cliente</button></div>
+    <div class="p-2"><button class="btn btn-warning" (click)="addUser()"><fa-icon [icon]="faUserPlus"></fa-icon></button></div>
     <div class="p-2"><button *ngIf="back" class="btn btn-info" (click)="goBack()">Indietro</button></div>
     <div class="p-2"></div>
   </div>
@@ -11,8 +11,8 @@
     <thead>
       <tr>
         <th class="hidden">Id</th>
-        <th>Nome</th>
         <th>Cognome</th>
+        <th>Nome</th>
         <th>Note</th>
         <th>Assegnato a</th>
         <th></th>
@@ -22,15 +22,15 @@
       <tbody>
         <tr class="item" *ngFor="let user of users" >
           <td class="hidden">{{user.id}}</td>
-          <td (click)="userDetail(user.id)">{{user.nome}}</td>
           <td (click)="userDetail(user.id)">{{user.cognome}}</td>
+          <td (click)="userDetail(user.id)">{{user.nome}}</td>
           <td class="link" [tagDirective]="user.note"></td>
           <td (click)="userDetail(user.id)">{{user.collaboratore}}</td>
           <td class="buttons">
-            <button class="btn btn-success" (click)="editUser(user)">Modifica</button>
+            <button class="btn btn-success" (click)="editUser(user)"><fa-icon [icon]="faEdit"></fa-icon></button>
           </td>
           <td class="buttons">
-            <button class="btn btn-danger" (click)="deleteUser(user)">Cancella</button>
+            <button class="btn btn-danger" (click)="deleteUser(user)"><fa-icon [icon]="faUserTimes"></fa-icon></button>
           </td>
         </tr>
         </tbody>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { LocalStorageService } from 'ngx-webstorage';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'header',
@@ -10,6 +11,7 @@ import { LocalStorageService } from 'ngx-webstorage';
 export class HeaderComponent implements OnInit {
 
   currentPage: string;
+  faSignOutAlt = faSignOutAlt
 
   constructor( private router: Router,
     private storage: LocalStorageService) { }

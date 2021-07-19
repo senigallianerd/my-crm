@@ -35,9 +35,9 @@ export class ListInsuranceComponent implements OnInit {
 
   deleteInsurance(insurance) {
     Swal.fire({
-      title: 'Do you want delete Insurance?',
+      title: 'Vuoi cancellare l assicurazione?',
       showDenyButton: true,
-      confirmButtonText: `Ok`,
+      confirmButtonText: `Si`,
       denyButtonText: `No`,
     }).then((result) => {
       if (result.isConfirmed) {

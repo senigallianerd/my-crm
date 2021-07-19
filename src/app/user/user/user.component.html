@@ -9,14 +9,14 @@
       <input placeholder="{{user.nome}}" readonly name="nome" id="nome"
         class="form-control ng-pristine ng-valid ng-touched">
     </div>
-    <div class="form-group"><label for="cognome">Cognome:</label>
+    <div class="form-group"><label for="cognome">Cognome/Rag.Soc.:</label>
       <input formcontrolname="cognome" placeholder="{{user.cognome}}" readonly name="cognome" id="cognome"
         class="form-control ng-untouched ng-pristine ng-valid">
     </div>
-    <div class="form-group"><label for="azienda">Azienda:</label>
+    <!--<div class="form-group"><label for="azienda">Azienda:</label>
       <input formcontrolname="azienda" placeholder="{{user.azienda}}" readonly name="azienda" id="azienda"
         class="form-control ng-untouched ng-pristine ng-valid">
-    </div>
+    </div>-->
     <div class="form-group"><label for="collaboratore">Assegnato a:</label>
       <input formcontrolname="collaboratore" placeholder="{{user.collaboratore}}" readonly name="collaboratore"
         id="collaboratore" class="form-control ng-untouched ng-pristine ng-valid">
@@ -101,7 +101,7 @@
           <th (click)="orderBy('tipoDoc')">Tipo</th>
           <th (click)="orderBy('data')">Scadenza</th>
           <th (click)="orderBy('fileName')">Nome File</th>
-          <th (click)="orderBy('sottotipoDoc')">Tipo Doc</th>
+          <th (click)="orderBy('sottotipoDoc')">Compagnia</th>
           <th></th>
         </tr>
       </thead>
@@ -136,12 +136,14 @@
     </div>
 
 
-    <br> Data:
-    <div class="form-group">
-      <input class="form-control w-25 small" placeholder="Scegli Data" [ngxDatePicker]="dateInstanceSingle"
-        [value]="singleDate" (valueChange)="onChangeSingle($event)">
-      <ngx-date-picker #dateInstanceSingle [options]="singleDatePickerOptions"></ngx-date-picker>
-    </div>
+    <span *ngIf="tipoDoc!=='libretto di circolazione'">
+      Data di scadenza:
+      <div class="form-group">
+        <input class="form-control w-25 small" placeholder="Scegli Data" [ngxDatePicker]="dateInstanceSingle"
+          [value]="singleDate" (valueChange)="onChangeSingle($event)">
+        <ngx-date-picker #dateInstanceSingle [options]="singleDatePickerOptions"></ngx-date-picker>
+      </div>
+    </span>
 
     <input [formControl]="file" (change)="fileChange(index,$event)" type="file" placeholder="File">
 

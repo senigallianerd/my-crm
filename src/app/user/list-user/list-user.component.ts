@@ -5,6 +5,7 @@ import { ApiService } from "../../service/api.service";
 import Swal from 'sweetalert2';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Subject } from 'rxjs';
+import { faUserPlus, faEdit, faUserTimes } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-list-user',
@@ -12,6 +13,10 @@ import { Subject } from 'rxjs';
   styleUrls: ['./list-user.component.scss']
 })
 export class ListUserComponent implements OnInit {
+
+  faUserPlus = faUserPlus;
+  faEdit = faEdit;
+  faUserTimes = faUserTimes;
 
   @HostListener('click', ['$event']) 
   onClick(e) {
@@ -23,7 +28,24 @@ export class ListUserComponent implements OnInit {
     }
 
   users: User[];
-  dtOptions: DataTables.Settings = {};
+  dtOptions: DataTables.Settings = {
+    order: [1, 'asc'],
+    pageLength: 25,
+    language: {
+      "lengthMenu": "Mostra _MENU_ records per pagina",
+      "zeroRecords": "0 Risultati",
+      "info": "Mostra pagina _PAGE_ di _PAGES_",
+      "infoEmpty": "No records disponibili",
+      "infoFiltered": "(filtered from _MAX_ total records)",
+      "search": "Ricerca",
+      "paginate": {
+        "previous": "precedente",
+        "next": "prossima",
+        "first": "prima",
+        "last": "ultima"
+      }
+    }
+  };
   dtTrigger: Subject<any> = new Subject<any>();
   back: boolean;
 
@@ -58,9 +80,9 @@ export class ListUserComponent implements OnInit {
 
   deleteUser(user: User) {
     Swal.fire({
-      title: 'Do you want delete User?',
+      title: 'Vuoi cancellare il cliente?',
       showDenyButton: true,
-      confirmButtonText: `Ok`,
+      confirmButtonText: `Si`,
       denyButtonText: `No`,
     }).then((result) => {
       if (result.isConfirmed) {
