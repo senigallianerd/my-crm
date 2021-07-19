@@ -5,6 +5,8 @@ import { ApiService } from "../../service/api.service";
 import { Toaster } from 'ngx-toast-notifications';
 import { User } from "../../model/user.model";
 import { UserService } from '../user.service';
+import { Tag } from "../../model/tag.model"
+import { TypeContact } from "../../model/type.contact";
 
 @Component({
   selector: 'app-add-user',
@@ -25,8 +27,8 @@ export class AddUserComponent implements OnInit {
   singleDatePickerOptions;
   dataNascita;
   dataScadenzaCartaIdentita;
-  tags;
-  tipoContatti;
+  tags: Tag[] = [];
+  tipoContatti: TypeContact[];
   selectedTag;
   selectedTipoContatto;
 
@@ -61,10 +63,10 @@ export class AddUserComponent implements OnInit {
   }
 
   initValues(){
-    this.tags = this.userService.initTags().subscribe(values => {
+    this.userService.initTags().subscribe(values => {
       this.tags = values;
     });
-    this.tipoContatti = this.userService.initTipoContatti().subscribe(values => {
+    this.userService.initTipoContatti().subscribe(values => {
       this.tipoContatti = values;
     });
   }
