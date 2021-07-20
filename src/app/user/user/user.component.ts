@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { InsuranceService } from '../../insurance/insurance.service';
 import { map } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'user',
@@ -19,6 +19,8 @@ import { Subject } from 'rxjs';
 })
 
 export class UserComponent implements OnInit {
+  faChevronDown = faChevronDown;
+  faChevronUp = faChevronUp;
   file = new FormControl('');
   file_data: any = ''
   user: User = this.route.snapshot.data['user'];
@@ -37,6 +39,14 @@ export class UserComponent implements OnInit {
   tipoDoc;
   previousSearch: string;
   dtOptions: DataTables.Settings = {};
+  blockName;
+  blockCity;
+  blockAnagrafica;
+  blockCompany;
+  blockContact;
+  blockOther;
+  blockInternal;
+
 
   constructor(private router: Router,
     private http: HttpClient,
@@ -53,6 +63,23 @@ export class UserComponent implements OnInit {
     this.getCompagnie();
     this.getTipoDocs();
     this.initDtOptions();
+  }
+
+  toggleBlock(block){
+    if(block==='name')
+      this.blockName = !this.blockName
+    else if(block==='city')
+      this.blockCity = !this.blockCity;
+    else if(block==='anagrafica')
+      this.blockAnagrafica = !this.blockAnagrafica;
+    else if(block==='company')
+      this.blockCompany = !this.blockCompany;
+    else if(block==='contact')
+      this.blockContact = !this.blockContact;
+    else if(block==='other')
+      this.blockOther = !this.blockOther;
+    else
+      this.blockInternal = !this.blockInternal;
   }
 
   onSelectChange(type) {

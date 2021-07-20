@@ -5,8 +5,9 @@
       <input type="hidden" formcontrolname="id" placeholder="id" name="id" id="id" readonly
         class="form-control ng-untouched ng-pristine ng-valid" ng-reflect-name="id" value="1">
     </div>
-    <label class="block-title">Nome:</label>
-    <div class="form-row">
+
+    <label class="block-title">Nome: <fa-icon (click)="toggleBlock('name')" class="toggle-block" [icon]="blockName ? faChevronDown : faChevronUp"></fa-icon></label>
+    <div class="form-row" *ngIf="!blockName">
       <div class="form-group col-md-6">
         <label for="nome">Nome:</label>
         <input placeholder="{{user.nome}}" readonly name="nome" id="nome"
@@ -19,8 +20,8 @@
       </div>
     </div>
 
-    <label class="block-title">Informazioni di residenza:</label>
-    <div class="form-row">
+    <label class="block-title">Informazioni di residenza: <fa-icon (click)="toggleBlock('city')" class="toggle-block" [icon]="blockCity ? faChevronDown : faChevronUp"></fa-icon></label>
+    <div class="form-row" *ngIf="!blockCity">
       <div class="form-group col-md-6">
         <label for="indirizzoResidenza">Indirizzo di residenza:</label>
         <input formcontrolname="indirizzoResidenza" placeholder="{{user.indirizzoResidenza}}" readonly
@@ -33,8 +34,8 @@
       </div>
     </div>
 
-    <label class="block-title">Informazioni anagrafiche:</label>
-    <div class="form-row">
+    <label class="block-title">Informazioni anagrafiche:<fa-icon (click)="toggleBlock('anagrafica')" class="toggle-block" [icon]="blockAnagrafica ? faChevronDown : faChevronUp"></fa-icon></label>
+    <div class="form-row" *ngIf="!blockAnagrafica">
       <div class="form-group col-md-6">
         <label for="dataNascita">Data di nascita:</label>
         <input formcontrolname="dataNascita" placeholder="{{user.dataNascita | date:'dd/MM/yy'}}" readonly
@@ -58,8 +59,8 @@
       </div>
     </div>
 
-    <label class="block-title">Informazioni aziendali:</label>
-    <div class="form-row">
+    <label class="block-title">Informazioni aziendali: <fa-icon (click)="toggleBlock('company')" class="toggle-block" [icon]="blockCompany ? faChevronDown : faChevronUp"></fa-icon></label>
+    <div class="form-row" *ngIf="!blockCompany">
       <div class="form-group col-md-6">
         <label for="partitaIva">P.IVA:</label>
         <input formcontrolname="partitaIva" placeholder="{{user.partitaIva}}" readonly name="partitaIva" id="partitaIva"
@@ -77,8 +78,8 @@
       </div>
     </div>
 
-    <label class="block-title">Contatti:</label>
-    <div class="form-row">
+    <label class="block-title">Contatti: <fa-icon (click)="toggleBlock('contact')" class="toggle-block" [icon]="blockContact ? faChevronDown : faChevronUp"></fa-icon></label>
+    <div class="form-row" *ngIf="!blockContact">
       <div class="form-group col-md-6">
         <label for="telCasa">Tel Casa:</label>
         <input formcontrolname="telCasa" placeholder="{{user.telCasa}}" readonly name="telCasa" id="telCasa"
@@ -106,8 +107,8 @@
     </div>
     </div>
 
-    <label class="block-title">Altre informazioni:</label>
-    <div class="form-row">
+    <label class="block-title">Altre informazioni: <fa-icon (click)="toggleBlock('other')" class="toggle-block" [icon]="blockOther ? faChevronDown : faChevronUp"></fa-icon></label>
+    <div class="form-row" *ngIf="!blockOther">
       <div class="form-group col-md-6">
         <label for="occupazione">Occupazione:</label>
         <input formcontrolname="occupazione" placeholder="{{user.occupazione}}" readonly name="occupazione"
@@ -125,8 +126,8 @@
       </div>
     </div>
 
-    <label class="block-title">Gestione interna:</label>
-    <div class="form-row">
+    <label class="block-title">Gestione interna: <fa-icon (click)="toggleBlock('internal')" class="toggle-block" [icon]="blockInternal ? faChevronDown : faChevronUp"></fa-icon></label>
+    <div class="form-row" *ngIf="!blockInternal">
       <div class="form-group col-md-6">
         <label for="collaboratore">Assegnato a:</label>
         <input formcontrolname="collaboratore" placeholder="{{user.collaboratore}}" readonly name="collaboratore"

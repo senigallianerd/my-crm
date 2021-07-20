@@ -48,6 +48,7 @@
 
 .block-title{
     padding-top:10px;
+    display: block;
 }
 
 .form-row{
@@ -59,4 +60,8 @@
 .choose-doc{
     padding-top:20px;
     padding-bottom: 20px;
+}
+
+.toggle-block{
+    cursor: pointer;
 }
