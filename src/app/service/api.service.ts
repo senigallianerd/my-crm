@@ -19,6 +19,18 @@ export class ApiService {
     return this.http.get<any>(this.apiURL + 'user-list.php');
   }
 
+  getComuni(prov) {
+    return this.http.get<any>(this.apiURL + 'get-comuni.php?prov=' + prov);
+  }
+
+  getCAPfromComune(comune){
+    return this.http.get<any>(this.apiURL + 'get-cap.php?comune=' + comune);
+  }
+
+  getProvince() {
+    return this.http.get<any>(this.apiURL + 'get-province.php');
+  }
+
   getInsurances() {
     return this.http.get<any>(this.apiURL + 'insurance-list.php');
   }

@@ -31,6 +31,11 @@ export class AddUserComponent implements OnInit {
   tipoContatti: TypeContact[];
   selectedTag;
   selectedTipoContatto;
+  province;
+  selectedProvincia;
+  comuni;
+  selectedComune;
+  selectedCAP;
 
   ngOnInit() {
     this.initValues();
@@ -48,6 +53,9 @@ export class AddUserComponent implements OnInit {
       secondaEmail: [''],
       PEC: [''],
       dataNascita: [''],
+      provincia: [''],
+      comune: [''],
+      CAP: [''],
       indirizzoResidenza: [''],
       occupazione: [''],
       codiceFiscale: [''],
@@ -69,15 +77,28 @@ export class AddUserComponent implements OnInit {
     this.userService.initTipoContatti().subscribe(values => {
       this.tipoContatti = values;
     });
+    this.userService.initProvince().subscribe(values => {
+      this.province = values;
+    });    
   }
 
-  selectTipoContatto() {
+  selectTipoContatto() { }
 
-  }
+  selectTag() { }
 
-  selectTag() {
+  selectProvincia() {
+    const prov = this.selectedProvincia;
+    this.userService.initComuni(prov).subscribe(values => {
+      this.comuni = values;
+    }); 
+   }
 
-  }
+   selectComune() {
+    const comune = this.selectedComune;
+    this.userService.getCAPfromComune(comune).subscribe(value => {
+      this.selectedCAP = value;
+    }); 
+   }
 
   getUsers() {
     this.apiService.getUsers()
@@ -102,6 +123,70 @@ export class AddUserComponent implements OnInit {
     this.addForm.value.dataScadenzaCartaIdentita = new Date(event)
   }
 
+  checkValidation(): boolean{
+    if(this.addForm.value.email){
+      const validateEmail = this.userService.validateEmail(this.addForm.value.email);
+      if(!validateEmail){
+        this.toaster.open({
+          text: "Errore nel formato della email",
+          position: 'top-right',
+          duration: 3000,
+          type: 'info'
+        });
+        return false;
+      }
+    }
+    if(this.addForm.value.secondaEmail){
+      const validateEmail = this.userService.validateEmail(this.addForm.value.secondaEmail);
+      if(!validateEmail){
+        this.toaster.open({
+          text: "Errore nel formato della seconda email",
+          position: 'top-right',
+          duration: 3000,
+          type: 'info'
+        });
+        return false;
+      }
+    }
+    if(this.addForm.value.PEC){
+      const validateEmail = this.userService.validateEmail(this.addForm.value.PEC);
+      if(!validateEmail){
+        this.toaster.open({
+          text: "Errore nel formato della PEC email",
+          position: 'top-right',
+          duration: 3000,
+          type: 'info'
+        });
+        return false;
+      }
+    }
+    if(this.addForm.value.partitaIva){
+      const validatePIVA = this.userService.validateEmail(this.addForm.value.partitaIva);
+      if(!validatePIVA){
+        this.toaster.open({
+          text: "Errore nel formato della partita IVA",
+          position: 'top-right',
+          duration: 3000,
+          type: 'info'
+        });
+        return false;
+      }
+    }
+    if(this.addForm.value.codiceFiscale){
+      const validateCodiceFiscale = this.userService.validateEmail(this.addForm.value.codiceFiscale);
+      if(!validateCodiceFiscale){
+        this.toaster.open({
+          text: "Errore nel formato del codice fiscale",
+          position: 'top-right',
+          duration: 3000,
+          type: 'info'
+        });
+        return false;
+      }
+    }                 
+    return true;
+  }
+
   onSubmit() {
     if (this.addForm.invalid) {
       this.toaster.open({
@@ -112,6 +197,9 @@ export class AddUserComponent implements OnInit {
       });
       return;
     }
+    const validForm = this.checkValidation();
+    if(!validForm)
+      return;
     let userForm = this.addForm.value;
     this.apiService.createUser(userForm)
       .subscribe(data => {

@@ -20,7 +20,6 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.router.events.subscribe(e => {
       if (e instanceof NavigationEnd) {
-        debugger
         this.currentPage = e.url.replace('/','');
         this.currentPage = this.currentPage || 'login';
       }
