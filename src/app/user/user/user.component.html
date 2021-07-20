@@ -33,6 +33,31 @@
       </div>
     </div>
 
+    <label class="block-title">Informazioni anagrafiche:</label>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="dataNascita">Data di nascita:</label>
+        <input formcontrolname="dataNascita" placeholder="{{user.dataNascita | date:'dd/MM/yy'}}" readonly
+        name="dataNascita" id="dataNascita" class="form-control ng-untouched ng-pristine ng-valid">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="codiceFiscale">Codice Fiscale:</label>
+        <input formcontrolname="codiceFiscale" placeholder="{{user.codiceFiscale}}" readonly name="codiceFiscale"
+        id="codiceFiscale" class="form-control ng-untouched ng-pristine ng-valid">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="cartaIdentita">Carta di Identità:</label>
+        <input formcontrolname="cartaIdentita" placeholder="{{user.cartaIdentita}}" readonly name="cartaIdentita"
+        id="cartaIdentita" class="form-control ng-untouched ng-pristine ng-valid">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="dataScadenzaCartaIdentita">Data Scadenza Carta Identità:</label>
+        <input formcontrolname="dataScadenzaCartaIdentita"
+        placeholder="{{user.dataScadenzaCartaIdentita | date:'dd/MM/yy'}}" readonly name="dataScadenzaCartaIdentita"
+        id="dataScadenzaCartaIdentita" class="form-control ng-untouched ng-pristine ng-valid">
+      </div>
+    </div>
+
     <div class="form-group"><label for="collaboratore">Assegnato a:</label>
       <input formcontrolname="collaboratore" placeholder="{{user.collaboratore}}" readonly name="collaboratore"
         id="collaboratore" class="form-control ng-untouched ng-pristine ng-valid">
@@ -65,23 +90,7 @@
       <input formcontrolname="occupazione" placeholder="{{user.occupazione}}" readonly name="occupazione"
         id="occupazione" class="form-control ng-untouched ng-pristine ng-valid">
     </div>
-    <div class="form-group"><label for="dataNascita">Data di nascita:</label>
-      <input formcontrolname="dataNascita" placeholder="{{user.dataNascita | date:'dd/MM/yy'}}" readonly
-        name="dataNascita" id="dataNascita" class="form-control ng-untouched ng-pristine ng-valid">
-    </div>
-    <div class="form-group"><label for="codiceFiscale">Codice Fiscale:</label>
-      <input formcontrolname="codiceFiscale" placeholder="{{user.codiceFiscale}}" readonly name="codiceFiscale"
-        id="codiceFiscale" class="form-control ng-untouched ng-pristine ng-valid">
-    </div>
-    <div class="form-group"><label for="cartaIdentita">Carta di Identità:</label>
-      <input formcontrolname="cartaIdentita" placeholder="{{user.cartaIdentita}}" readonly name="cartaIdentita"
-        id="cartaIdentita" class="form-control ng-untouched ng-pristine ng-valid">
-    </div>
-    <div class="form-group"><label for="dataScadenzaCartaIdentita">Data Scadenza Carta Identità:</label>
-      <input formcontrolname="dataScadenzaCartaIdentita"
-        placeholder="{{user.dataScadenzaCartaIdentita | date:'dd/MM/yy'}}" readonly name="dataScadenzaCartaIdentita"
-        id="dataScadenzaCartaIdentita" class="form-control ng-untouched ng-pristine ng-valid">
-    </div>
+
     <div class="form-group"><label for="partitaIva">P.IVA:</label>
       <input formcontrolname="partitaIva" placeholder="{{user.partitaIva}}" readonly name="partitaIva" id="partitaIva"
         class="form-control ng-untouched ng-pristine ng-valid">
