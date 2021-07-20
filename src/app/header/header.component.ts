@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { LocalStorageService } from 'ngx-webstorage';
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import { faSignOutAlt, faAddressCard } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'header',
@@ -12,6 +12,7 @@ export class HeaderComponent implements OnInit {
 
   currentPage: string;
   faSignOutAlt = faSignOutAlt
+  faAddressCard = faAddressCard;
 
   constructor( private router: Router,
     private storage: LocalStorageService) { }
@@ -19,7 +20,9 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.router.events.subscribe(e => {
       if (e instanceof NavigationEnd) {
-        this.currentPage = e.url.replace('/','')
+        debugger
+        this.currentPage = e.url.replace('/','');
+        this.currentPage = this.currentPage || 'login';
       }
     });
   }

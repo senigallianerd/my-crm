@@ -32,10 +32,10 @@ export class ListUserComponent implements OnInit {
     order: [1, 'asc'],
     pageLength: 25,
     language: {
-      "lengthMenu": "Mostra _MENU_ records per pagina",
+      "lengthMenu": "Mostra _MENU_ record per pagina",
       "zeroRecords": "0 Risultati",
       "info": "Mostra pagina _PAGE_ di _PAGES_",
-      "infoEmpty": "No records disponibili",
+      "infoEmpty": "No record disponibili",
       "infoFiltered": "(filtered from _MAX_ total records)",
       "search": "Ricerca",
       "paginate": {
