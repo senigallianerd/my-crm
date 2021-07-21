@@ -21,4 +21,7 @@ export class User {
   iban: string;
   hobby:string;
   note: string;
+  comune: string;
+  provincia: string;
+  CAP: string;
 }
