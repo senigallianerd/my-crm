@@ -55,6 +55,7 @@ export class EditUserComponent implements OnInit {
       provincia: [''],
       CAP:  [''],
       indirizzoResidenza: [''],
+      civico: [''],
       occupazione: [''],
       dataNascita: [''],
       codiceFiscale: [''],

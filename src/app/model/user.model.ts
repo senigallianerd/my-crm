@@ -11,6 +11,7 @@ export class User {
   secondaEmail: string;
   PEC: string;
   indirizzoResidenza: string;
+  civico: string;
   occupazione: string;
   dataNascita:string;
   codiceFiscale: string;

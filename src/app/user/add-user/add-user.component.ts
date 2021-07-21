@@ -57,6 +57,7 @@ export class AddUserComponent implements OnInit {
       comune: [''],
       CAP: [''],
       indirizzoResidenza: [''],
+      civico: [''],
       occupazione: [''],
       codiceFiscale: [''],
       cartaIdentita: [''],
