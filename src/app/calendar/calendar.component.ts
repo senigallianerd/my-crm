@@ -34,7 +34,8 @@ export class CalendarComponent {
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
   viewDate: Date = new Date();
-
+  locale: string = 'it';
+  
   modalData: {
     action: string;
     event: CalendarEvent;

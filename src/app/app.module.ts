@@ -31,10 +31,13 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CalendarComponent } from './calendar/calendar.component';
 import { DataTablesModule } from 'angular-datatables';
 import { TagDirective } from './directives/tag.directive';
-import { DatePipe } from '@angular/common';
+import { DatePipe, registerLocaleData } from '@angular/common';
 import { InsuranceService } from "./insurance/insurance.service";
 import { UserService } from './user/user.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import localeIt from '@angular/common/locales/it';
+
+registerLocaleData(localeIt);
 
 @NgModule({
   declarations: [
