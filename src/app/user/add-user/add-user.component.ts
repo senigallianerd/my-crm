@@ -7,6 +7,7 @@ import { User } from "../../model/user.model";
 import { UserService } from '../user.service';
 import { Tag } from "../../model/tag.model"
 import { TypeContact } from "../../model/type.contact";
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-add-user',
@@ -21,6 +22,8 @@ export class AddUserComponent implements OnInit {
     private userService: UserService,
     private toaster: Toaster) { }
 
+  faChevronDown = faChevronDown;
+  faChevronUp = faChevronUp;
   addForm: FormGroup;
   users: User[];
   selectedUser;
@@ -36,6 +39,13 @@ export class AddUserComponent implements OnInit {
   comuni;
   selectedComune;
   selectedCAP;
+  blockName;
+  blockCity;
+  blockAnagrafica;
+  blockCompany;
+  blockContact;
+  blockOther;
+  blockInternal;
 
   ngOnInit() {
     this.initValues();
@@ -81,6 +91,23 @@ export class AddUserComponent implements OnInit {
     this.userService.initProvince().subscribe(values => {
       this.province = values;
     });    
+  }
+
+  toggleBlock(block){
+    if(block==='name')
+      this.blockName = !this.blockName
+    else if(block==='city')
+      this.blockCity = !this.blockCity;
+    else if(block==='anagrafica')
+      this.blockAnagrafica = !this.blockAnagrafica;
+    else if(block==='company')
+      this.blockCompany = !this.blockCompany;
+    else if(block==='contact')
+      this.blockContact = !this.blockContact;
+    else if(block==='other')
+      this.blockOther = !this.blockOther;
+    else
+      this.blockInternal = !this.blockInternal;
   }
 
   selectTipoContatto() { }

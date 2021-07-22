@@ -22,6 +22,21 @@
 
     <label class="block-title">Informazioni di residenza: <fa-icon (click)="toggleBlock('city')" class="toggle-block" [icon]="blockCity ? faChevronDown : faChevronUp"></fa-icon></label>
     <div class="form-row" *ngIf="!blockCity">
+      <div class="form-group col-md-4">
+        <label for="citta">Comune</label>
+        <input formcontrolname="indirizzoResidenza" placeholder="{{user.comune}}" readonly
+        name="indirizzoResidenza" id="indirizzoResidenza" class="form-control ng-untouched ng-pristine ng-valid">
+      </div>
+      <div class="form-group col-md-1">
+        <label for="provincia">Prov.</label>
+        <input formcontrolname="provincia" placeholder="{{user.provincia}}" readonly
+        name="provincia" id="provincia" class="form-control ng-untouched ng-pristine ng-valid">
+      </div>
+      <div class="form-group col-md-1">
+        <label for="CAP">CAP</label>
+        <input formcontrolname="CAP" placeholder="{{user.CAP}}" readonly
+        name="CAP" id="CAP" class="form-control ng-untouched ng-pristine ng-valid">
+      </div>            
       <div class="form-group col-md-5">
         <label for="indirizzoResidenza">Via:</label>
         <input formcontrolname="indirizzoResidenza" placeholder="{{user.indirizzoResidenza}}" readonly
@@ -31,11 +46,6 @@
         <label for="civico">Numero:</label>
         <input formcontrolname="civico" placeholder="{{user.civico}}" readonly
         name="civico" id="civico" class="form-control ng-untouched ng-pristine ng-valid">
-      </div>
-      <div class="form-group col-md-6">
-        <label for="citta">Comune</label>
-        <input formcontrolname="indirizzoResidenza" placeholder="{{user.comune}}" readonly
-        name="indirizzoResidenza" id="indirizzoResidenza" class="form-control ng-untouched ng-pristine ng-valid">
       </div>
     </div>
 

@@ -8,5 +8,30 @@
     text-align: center;
 }
 .user-container{
-    margin-bottom:20px;
+    margin-bottom:40px;
+}
+
+.form-row{
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.choose-doc{
+    padding-top:20px;
+    padding-bottom: 20px;
+}
+
+.toggle-block{
+    cursor: pointer;
+}
+
+.block-title{
+    padding-top:10px;
+    display: block;
+}
+
+.address-block{
+    width: 100%;
+    display: flex;
 }

@@ -6,6 +6,7 @@ import { User} from "../../model/user.model";
 import { ApiService } from "../../service/api.service";
 import { Toaster } from 'ngx-toast-notifications';
 import { UserService } from '../user.service';
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-edit-user',
@@ -14,6 +15,8 @@ import { UserService } from '../user.service';
 })
 export class EditUserComponent implements OnInit {
 
+  faChevronDown = faChevronDown;
+  faChevronUp = faChevronUp;
   users: User[];
   selectedUser;
   editForm: FormGroup;
@@ -25,6 +28,13 @@ export class EditUserComponent implements OnInit {
   selectedTipoContatto;
   tags:any = [];
   tipoContatti:any = [];
+  blockName;
+  blockCity;
+  blockAnagrafica;
+  blockCompany;
+  blockContact;
+  blockOther;
+  blockInternal;
 
   constructor(private formBuilder: FormBuilder,
     private router: Router,
@@ -72,6 +82,23 @@ export class EditUserComponent implements OnInit {
     .subscribe( data => {
       this.editForm.setValue(data);
     });
+  }
+
+  toggleBlock(block){
+    if(block==='name')
+      this.blockName = !this.blockName
+    else if(block==='city')
+      this.blockCity = !this.blockCity;
+    else if(block==='anagrafica')
+      this.blockAnagrafica = !this.blockAnagrafica;
+    else if(block==='company')
+      this.blockCompany = !this.blockCompany;
+    else if(block==='contact')
+      this.blockContact = !this.blockContact;
+    else if(block==='other')
+      this.blockOther = !this.blockOther;
+    else
+      this.blockInternal = !this.blockInternal;
   }
 
   initValues(){
