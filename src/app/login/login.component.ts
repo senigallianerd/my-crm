@@ -5,7 +5,7 @@ import {ApiService} from "../service/api.service";
 import { Toaster } from 'ngx-toast-notifications';
 import { LocalStorageService } from 'ngx-webstorage';
 import { LoginService } from './login.service';
-import { faFilm } from '@fortawesome/free-solid-svg-icons';
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +14,7 @@ import { faFilm } from '@fortawesome/free-solid-svg-icons';
 })
 export class LoginComponent implements OnInit {
 
+  faSignInAlt = faSignInAlt;
   loginForm: FormGroup;
   invalidLogin: boolean = false;
   constructor(private formBuilder: FormBuilder, 

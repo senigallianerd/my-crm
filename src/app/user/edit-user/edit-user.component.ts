@@ -102,10 +102,10 @@ export class EditUserComponent implements OnInit {
   }
 
   initValues(){
-    this.tags = this.userService.initTags().subscribe(values => {
+    this.userService.initTags().subscribe(values => {
       this.tags = values;
     });
-    this.tipoContatti = this.userService.initTipoContatti().subscribe(values => {
+    this.userService.initTipoContatti().subscribe(values => {
       this.tipoContatti = values;
     });
   }
