@@ -75,7 +75,8 @@ export class EditUserComponent implements OnInit {
       sdi: [''],
       iban: [''],
       hobby: [''],
-      note: ['']
+      note: [''],
+      datiAggiuntivi: ['']
     });
     const id = parseInt(this.route.snapshot.paramMap.get('id'))
     this.apiService.getUserById(id)

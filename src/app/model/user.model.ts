@@ -25,4 +25,6 @@ export class User {
   comune: string;
   provincia: string;
   CAP: string;
+  datiAggiuntivi: string;
+  vecchioCRM: string;
 }

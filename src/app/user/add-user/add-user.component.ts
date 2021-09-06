@@ -76,7 +76,9 @@ export class AddUserComponent implements OnInit {
       sdi: [''],
       iban: [''],
       hobby: [''],
-      note: ['']
+      note: [''],
+      datiAggiuntivi: [''],
+      vecchioCRM: ['']
     });
     this.getUsers();
   }
