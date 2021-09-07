@@ -46,6 +46,7 @@ export class UserComponent implements OnInit {
   blockContact;
   blockOther;
   blockInternal;
+  blockData = true;
 
 
   constructor(private router: Router,
@@ -78,6 +79,8 @@ export class UserComponent implements OnInit {
       this.blockContact = !this.blockContact;
     else if(block==='other')
       this.blockOther = !this.blockOther;
+    else if(block==='data')
+      this.blockData = !this.blockData;
     else
       this.blockInternal = !this.blockInternal;
   }

@@ -26,5 +26,5 @@ export class User {
   provincia: string;
   CAP: string;
   datiAggiuntivi: string;
-  vecchioCRM: string;
+  datiRaw: string;
 }

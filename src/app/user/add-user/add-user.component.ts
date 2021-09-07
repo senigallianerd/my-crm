@@ -46,6 +46,7 @@ export class AddUserComponent implements OnInit {
   blockContact;
   blockOther;
   blockInternal;
+  blockData = true;
 
   ngOnInit() {
     this.initValues();
@@ -78,7 +79,7 @@ export class AddUserComponent implements OnInit {
       hobby: [''],
       note: [''],
       datiAggiuntivi: [''],
-      vecchioCRM: ['']
+      datiRaw: ['']
     });
     this.getUsers();
   }
@@ -95,19 +96,21 @@ export class AddUserComponent implements OnInit {
     });    
   }
 
-  toggleBlock(block){
-    if(block==='name')
+  toggleBlock(block) {
+    if (block === 'name')
       this.blockName = !this.blockName
-    else if(block==='city')
+    else if (block === 'city')
       this.blockCity = !this.blockCity;
-    else if(block==='anagrafica')
+    else if (block === 'anagrafica')
       this.blockAnagrafica = !this.blockAnagrafica;
-    else if(block==='company')
+    else if (block === 'company')
       this.blockCompany = !this.blockCompany;
-    else if(block==='contact')
+    else if (block === 'contact')
       this.blockContact = !this.blockContact;
-    else if(block==='other')
+    else if (block === 'other')
       this.blockOther = !this.blockOther;
+    else if (block === 'data')
+      this.blockData = !this.blockData;
     else
       this.blockInternal = !this.blockInternal;
   }

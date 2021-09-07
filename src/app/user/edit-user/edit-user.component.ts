@@ -35,6 +35,7 @@ export class EditUserComponent implements OnInit {
   blockContact;
   blockOther;
   blockInternal;
+  blockData = true;
 
   constructor(private formBuilder: FormBuilder,
     private router: Router,
@@ -76,7 +77,8 @@ export class EditUserComponent implements OnInit {
       iban: [''],
       hobby: [''],
       note: [''],
-      datiAggiuntivi: ['']
+      datiAggiuntivi: [''],
+      datiRaw: ['']
     });
     const id = parseInt(this.route.snapshot.paramMap.get('id'))
     this.apiService.getUserById(id)
@@ -98,6 +100,8 @@ export class EditUserComponent implements OnInit {
       this.blockContact = !this.blockContact;
     else if(block==='other')
       this.blockOther = !this.blockOther;
+    else if(block==='data')
+      this.blockData = !this.blockData;
     else
       this.blockInternal = !this.blockInternal;
   }

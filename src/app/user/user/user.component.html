@@ -153,11 +153,20 @@
         <input formcontrolname="collaboratore" placeholder="{{user.tipoContatto}}" readonly name="tipoContatto"
         id="tipoContatto" class="form-control ng-untouched ng-pristine ng-valid">
       </div>
-      <div class="form-group col-md-12">
-        <label for="datiAggiuntivi">Dati Aggiuntivi:</label>
-        <input formcontrolname="datiAggiuntivi" placeholder="{{user.datiAggiuntivi}}" readonly name="datiAggiuntivi" id="datiAggiuntivi"
-        class="form-control ng-untouched ng-pristine ng-valid">
     </div>
+
+    <label class="block-title">Dati Aggiuntivi: <fa-icon (click)="toggleBlock('data')" class="toggle-block" [icon]="blockData ? faChevronDown : faChevronUp"></fa-icon></label>
+    <div class="form-row" *ngIf="!blockData">
+      <div class="form-group col-md-6">
+        <label for="datiAggiuntivi">Dati Aggiuntivi:</label>
+        <textarea rows="4" formcontrolname="datiAggiuntivi" placeholder="{{user.datiAggiuntivi}}" readonly name="datiAggiuntivi" id="datiAggiuntivi"
+        class="form-control ng-untouched ng-pristine ng-valid"></textarea>
+      </div>
+      <div class="form-group col-md-12">
+        <label for="datiRaw">Dati Raw:</label>
+        <textarea rows="4" formcontrolname="datiRaw" placeholder="{{user.datiRaw}}" readonly name="datiRaw" id="datiRaw"
+        class="form-control ng-untouched ng-pristine ng-valid"></textarea>
+      </div>
     </div>
    
   </form>

@@ -150,9 +150,17 @@
           <option *ngFor="let tipoContatto of tipoContatti" [ngValue]="tipoContatto">{{tipoContatto}}</option>
        </select>
       </div>
-      <div class="form-group col-md-12">
+    </div>
+
+    <label class="block-title">Dati Aggiuntivi: <fa-icon (click)="toggleBlock('data')" class="toggle-block" [icon]="blockData ? faChevronDown : faChevronUp"></fa-icon></label>
+    <div class="form-row" *ngIf="!blockData">
+      <div class="form-group col-md-6">
         <label for="datiAggiuntivi">Dati Aggiuntivi:</label>
-        <input type="text" formControlName="datiAggiuntivi" placeholder="datiAggiuntivi" name="datiAggiuntivi" class="form-control" id="datiAggiuntivi">
+        <textarea rows="4" formControlName="datiAggiuntivi" placeholder="datiAggiuntivi" name="datiAggiuntivi" class="form-control"  id="datiAggiuntivi"></textarea>
+      </div>
+      <div class="form-group col-md-12">
+        <label for="datiRaw">Dati Raw:</label>
+        <textarea rows="4" formControlName="datiRaw" placeholder="datiRaw" name="datiRaw" class="form-control"  id="datiRaw"></textarea>
       </div>
     </div>
 
