@@ -13,7 +13,7 @@
 }
 
 .user-container{
-    margin-bottom:30px;
+    margin-bottom:60px;
 }
 
 .form-control:disabled, .form-control[readonly] {
@@ -25,7 +25,7 @@
     margin-bottom:10px;
 }
 
-.upload-group{
+.upload-group, .note-group{
     background-color: #d3d3d3;
     padding: 15px;
     border-radius: 5px;
@@ -35,7 +35,7 @@
     width:auto;
 }
 
-.title-upload{
+.title-upload,.title-note{
     text-align: center;
     display:block;
     padding-bottom:10px;
@@ -64,4 +64,26 @@
 
 .toggle-block{
     cursor: pointer;
+}
+
+.input{
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    min-height: 38px;
+}
+
+.footer{
+    position: fixed;
+    bottom: 0;
+    background: grey;
+    color: white;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.add-note{
+    padding-top:10px;
+    padding-bottom: 10px;
 }

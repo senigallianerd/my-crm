@@ -11,6 +11,8 @@ import { DatePipe } from '@angular/common';
 import { InsuranceService } from '../../insurance/insurance.service';
 import { map } from 'rxjs/operators';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
+import { faEdit } from '@fortawesome/free-solid-svg-icons'
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'user',
@@ -21,6 +23,7 @@ import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 export class UserComponent implements OnInit {
   faChevronDown = faChevronDown;
   faChevronUp = faChevronUp;
+  faEdit = faEdit;
   file = new FormControl('');
   file_data: any = ''
   user: User = this.route.snapshot.data['user'];
@@ -31,6 +34,7 @@ export class UserComponent implements OnInit {
   insurances;
   selectedInsurance;
   fileList: any = [];
+  noteList: any = [];
   uploadData: Policy;
   uploading: boolean = false;
   sottotipoDoc;
@@ -47,7 +51,10 @@ export class UserComponent implements OnInit {
   blockOther;
   blockInternal;
   blockData = true;
-
+  frazionamentoSemestrale = false;
+  targa;
+  noteText;
+  noteTitle;
 
   constructor(private router: Router,
     private http: HttpClient,
@@ -59,8 +66,9 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.uploadData = new Policy(this.user.id, '', '', '', '');
+    this.uploadData = new Policy(this.user.id, '', '', '', '',false,'');
     this.getInsurances(this.user.id);
+    this.getNotes(this.user.id);
     this.getCompagnie();
     this.getTipoDocs();
     this.initDtOptions();
@@ -105,6 +113,12 @@ export class UserComponent implements OnInit {
   getInsurances(userId) {
     this.apiService.getInsuranceByUserId(userId).subscribe(data => {
       this.fileList = data;
+    })
+  }
+
+  getNotes(userId){
+    this.apiService.getNotesByUserId(userId).subscribe(data => {
+      this.noteList = data;
     })
   }
 
@@ -164,12 +178,14 @@ export class UserComponent implements OnInit {
         this.uploadData.fileName = res['fileName'];
         this.uploadData.tipoDoc = this.tipoDoc;
         this.uploadData.sottotipoDoc = this.sottotipoDoc;
+        this.uploadData.targa = this.targa;
+        this.uploadData.frazionamentoSemestrale = this.frazionamentoSemestrale;
         this.apiService.setUploadInfo(this.uploadData).subscribe(data => {
           if (data) {
             this.uploading = false;
             setTimeout(() => this.getInsurances(this.user.id), 5);
             this.toaster.open({
-              text: 'Upload completed',
+              text: 'Upload completato',
               position: 'top-right',
               duration: 3000,
               type: 'success'
@@ -178,7 +194,7 @@ export class UserComponent implements OnInit {
         })
       }, (err) => {
         this.toaster.open({
-          text: 'Upload error',
+          text: 'Errore Upload',
           position: 'top-right',
           duration: 3000,
           type: 'warning'
@@ -191,24 +207,64 @@ export class UserComponent implements OnInit {
   }
 
   deleteFile(file) {
-    this.apiService.deletePolicy(file.id).subscribe(data => {
-      this.getInsurances(this.user.id);
-      if (data) {
-        this.toaster.open({
-          text: 'File deleted',
-          position: 'top-right',
-          duration: 3000,
-          type: 'success'
-        });
-
+    Swal.fire({
+      title: 'Vuoi cancellare il documento?',
+      showDenyButton: true,
+      confirmButtonText: `Si`,
+      denyButtonText: `No`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.apiService.deletePolicy(file.id).subscribe(data => {
+          this.getInsurances(this.user.id);
+          if (data) {
+            this.toaster.open({
+              text: 'File cancellato',
+              position: 'top-right',
+              duration: 3000,
+              type: 'success'
+            });
+    
+          }
+          else
+            this.toaster.open({
+              text: 'Errore nella cancellazione',
+              position: 'top-right',
+              duration: 3000,
+              type: 'warning'
+            });
+        })
       }
-      else
-        this.toaster.open({
-          text: 'Delete file error',
-          position: 'top-right',
-          duration: 3000,
-          type: 'warning'
-        });
+    })
+  }
+
+  deleteNote(note) {
+    Swal.fire({
+      title: 'Vuoi cancellare la Nota?',
+      showDenyButton: true,
+      confirmButtonText: `Si`,
+      denyButtonText: `No`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.apiService.deleteNote(note.id).subscribe(data => {
+          this.getNotes(this.user.id);
+          if (data) {
+            this.toaster.open({
+              text: 'File cancellato',
+              position: 'top-right',
+              duration: 3000,
+              type: 'success'
+            });
+    
+          }
+          else
+            this.toaster.open({
+              text: 'Errore nella cancellazione',
+              position: 'top-right',
+              duration: 3000,
+              type: 'warning'
+            });
+        })
+      }
     })
   }
 
@@ -235,5 +291,40 @@ export class UserComponent implements OnInit {
 
   goHome() {
     this.router.navigate(['list-user']);
+  }
+
+  editUser() {
+    this.router.navigate(['edit-user/' + this.user.id]);
+  };
+
+  addNote() {
+    if(!this.noteText && !this.noteTitle){
+      this.toaster.open({
+        text: 'Errore su inserimento nota',
+        position: 'top-right',
+        duration: 3000,
+        type: 'warning'
+      });
+      return;
+    }
+    const noteObj = {'title':this.noteTitle, 'text':this.noteText,'date':new Date(),'userId':this.user.id}
+    this.apiService.addNote(noteObj).subscribe(data => {
+      if(data){
+        this.getNotes(this.user.id);
+        this.toaster.open({
+          text: 'Nota inserita',
+          position: 'top-right',
+          duration: 3000,
+          type: 'success'
+        });
+      }
+      else
+        this.toaster.open({
+          text: 'Errore su inserimento nota',
+          position: 'top-right',
+          duration: 3000,
+          type: 'warning'
+        });
+    })
   }
 }

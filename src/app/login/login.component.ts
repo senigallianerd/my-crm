@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
-import {ApiService} from "../service/api.service";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { ApiService } from "../service/api.service";
 import { Toaster } from 'ngx-toast-notifications';
 import { LocalStorageService } from 'ngx-webstorage';
 import { LoginService } from './login.service';
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,8 @@ export class LoginComponent implements OnInit {
   faSignInAlt = faSignInAlt;
   loginForm: FormGroup;
   invalidLogin: boolean = false;
+  isSmartphone: boolean = environment.isSmartphone;
+
   constructor(private formBuilder: FormBuilder, 
     private router: Router, 
     private apiService: ApiService,

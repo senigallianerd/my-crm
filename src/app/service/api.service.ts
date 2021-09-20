@@ -47,6 +47,10 @@ export class ApiService {
     return this.http.get<any>(this.apiURL + 'get-insurance.php?userId=' + userId);
   }
 
+  getNotesByUserId(userId: number) {
+    return this.http.get<any>(this.apiURL + 'get-notes.php?userId=' + userId);
+  }
+
   getUserByName(nome:string, cognome: string) {
     return this.http.get<any>(this.apiURL + 'get-user.php?nome=' + nome + '&cognome='+cognome);
   }
@@ -75,8 +79,16 @@ export class ApiService {
     return this.http.delete<any>(this.apiURL + 'delete-insurance.php?id=' + id);
   }
 
+  deleteNote(id: number) {
+    return this.http.delete<any>(this.apiURL + 'delete-note.php?id=' + id);
+  }
+
   setUploadInfo(info) {
     return this.http.post<any>(this.apiURL + 'set-upload-info.php', info);
+  }
+
+  addNote(note) {
+    return this.http.post<any>(this.apiURL + 'add-note.php', note);
   }
 
   getPolicy() {

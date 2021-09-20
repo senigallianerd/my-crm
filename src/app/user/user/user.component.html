@@ -92,28 +92,31 @@
         class="form-control ng-untouched ng-pristine ng-valid">
       </div>
     </div>
-
     <label class="block-title">Contatti: <fa-icon (click)="toggleBlock('contact')" class="toggle-block" [icon]="blockContact ? faChevronDown : faChevronUp"></fa-icon></label>
     <div class="form-row" *ngIf="!blockContact">
       <div class="form-group col-md-6">
         <label for="telCasa">Tel Casa:</label>
-        <input formcontrolname="telCasa" placeholder="{{user.telCasa}}" readonly name="telCasa" id="telCasa"
-        class="form-control ng-untouched ng-pristine ng-valid">
+          <div class="input">
+            <a href="{{'tel:' + user.telCasa}}">{{user.telCasa}}</a>
+          </div>
       </div>
       <div class="form-group col-md-6">
         <label for="telUfficio">Tel Ufficio:</label>
-        <input formcontrolname="telUfficio" placeholder="{{user.telUfficio}}" readonly name="telUfficio" id="telUfficio"
-        class="form-control ng-untouched ng-pristine ng-valid">
+        <div class="input">
+          <a href="{{'tel:' + user.telUfficio}}">{{user.telCasa}}</a>
+        </div>
       </div>
       <div class="form-group col-md-6">
           <label for="email">Email:</label>
-          <input formcontrolname="email" placeholder="{{user.email}}" readonly name="email" id="email"
-          class="form-control ng-untouched ng-pristine ng-valid">
+          <div class="input">
+            <a href="{{'mailto:' + user.email}}">{{user.email}}</a>
+          </div>
       </div>
       <div class="form-group col-md-6">
           <label for="secondaEmail">Seconda Email:</label>
-          <input formcontrolname="secondaEmail" placeholder="{{user.secondaEmail}}" readonly name="secondaEmail"
-          id="secondaEmail" class="form-control ng-untouched ng-pristine ng-valid">
+          <div class="input">
+            <a href="{{'mailto:' + user.secondaEmail}}">{{user.secondaEmail}}</a>
+          </div>
       </div>
       <div class="form-group col-md-12">
         <label for="PEC">PEC:</label>
@@ -207,14 +210,12 @@
 
   <div class="upload-group">
     <span class="title-upload"><b>Upload {{tipoDoc}}</b></span>
-    <div class="sottotipodoc-section" *ngIf="tipoDoc==='polizza' || tipoDoc==='preventivo' || tipoDoc==='documento'">
-      <label for="sottotipodoc">{{tipoDoc==='polizza'? 'Compagnia':'Tipo'}} : </label>
+    <div class="sottotipodoc-section" *ngIf="tipoDoc==='polizza' || tipoDoc==='preventivo' || tipoDoc==='documento' || tipoDoc==='SIC'">
+      <label for="sottotipodoc">{{(tipoDoc==='polizza' || tipoDoc==='SIC') ? 'Compagnia':'Tipo'}} : </label>
       <select class="custom-select small" [(ngModel)]="sottotipoDoc">
         <option *ngFor="let sottotipo of sottotipoDocs" [ngValue]="sottotipo">{{sottotipo}}</option>
       </select>
     </div>
-
-
     <span *ngIf="tipoDoc!=='libretto di circolazione'">
       Data di scadenza:
       <div class="form-group">
@@ -223,16 +224,71 @@
         <ngx-date-picker #dateInstanceSingle [options]="singleDatePickerOptions"></ngx-date-picker>
       </div>
     </span>
-
+    <span *ngIf="tipoDoc=='polizza'">
+      <div class="form-group">
+        Frazionamento semestrale: <input type="checkbox" [(ngModel)]="frazionamentoSemestrale">
+      </div>
+    </span>
+    <span *ngIf="tipoDoc=='SIC' || tipoDoc=='libretto di circolazione'">
+      <div class="form-group col-md-2">
+        <label for="targa">Targa:</label>
+        <input placeholder="targa" name="targa" [(ngModel)]="targa"
+        id="targa" class="form-control ng-untouched ng-pristine ng-valid">
+      </div>
+    </span>
     <input [formControl]="file" (change)="fileChange(index,$event)" type="file" placeholder="File">
-
     <button style="margin-top:20px" (click)="uploadFile()" mat-raised-button color="primary">
       Upload
     </button> (Max 50Mb)
     <div *ngIf="uploading" class="uploading">
       Upload in corso...
     </div>
-
+  </div>
+  <br><span class="add-note">Inserisci Note</span>
+  <div class="note-group">
+    <span class="title-note"><b>Inserisci Nota</b></span>
+    <div class="form-group col-md-6">
+      <label for="titolo">Titolo:</label>
+      <input placeholder="titolo" name="titolo" [(ngModel)]="noteTitle"
+      id="titolo" class="form-control ng-untouched ng-pristine ng-valid">
+    </div>
+    <div class="form-group col-md-12">
+      <label for="testo">Testo:</label>
+      <textarea rows="4" [(ngModel)]="noteText" placeholder="testo" name="testo" id="testo"
+      class="form-control ng-untouched ng-pristine ng-valid"></textarea>
+    </div>
+    <button style="margin-top:20px" (click)="addNote()" mat-raised-button color="primary">
+      Inserisci
+    </button> 
   </div>
 
+  <span class="note-list">
+    <span class="note-list-title" *ngIf="noteList.length">Note:</span>
+    <table *ngIf="noteList.length" class="row-border hover table">
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Titolo</th>
+          <th>Testo</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="item" *ngFor="let note of noteList">
+          <td>{{note.data | date:'dd/MM/yy'}}</td>
+          <td>{{note.titolo }}</td>
+          <td>{{note.testo }}</td>
+          <td class="buttons">
+            <button class="btn btn-danger" (click)="deleteNote(note)">Cancella</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </span>
+
+  <footer class="footer">
+    <div class="container">
+      <span (click)="editUser()">Modifica Utente </span><fa-icon [icon]="faEdit"></fa-icon>
+    </div>
+  </footer>
 </div>

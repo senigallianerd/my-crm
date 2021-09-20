@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   apiURL: 'http://localhost/api/',
-  policyURL: 'http://localhost/api/uploads/'
+  policyURL: 'http://localhost/api/uploads/',
+  isSmartphone: false
 };
 
 /*
