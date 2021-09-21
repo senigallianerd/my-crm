@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { ListUserComponent } from './user/list-user/list-user.component';
@@ -36,6 +36,7 @@ import { InsuranceService } from "./insurance/insurance.service";
 import { UserService } from './user/user.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import localeIt from '@angular/common/locales/it';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 registerLocaleData(localeIt);
 
@@ -70,8 +71,10 @@ registerLocaleData(localeIt);
     ToastNotificationsModule,
     FileUploadModule,
     NgxDatePickerModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgxSpinnerModule
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ApiService, 
     AuthGuard,
     UserResolver,

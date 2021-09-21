@@ -5,7 +5,8 @@ import { ApiService } from "../../service/api.service";
 import Swal from 'sweetalert2';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Subject } from 'rxjs';
-import { faUserPlus, faEdit, faUserTimes } from '@fortawesome/free-solid-svg-icons'
+import { faUserPlus, faEdit, faUserTimes } from '@fortawesome/free-solid-svg-icons';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-list-user',
@@ -29,7 +30,7 @@ export class ListUserComponent implements OnInit {
 
   users: User[];
   dtOptions: DataTables.Settings = {
-    order: [1, 'asc'],
+    //order: [1, 'asc'],
     pageLength: 25,
     language: {
       "lengthMenu": "Mostra _MENU_ record per pagina",
@@ -51,11 +52,13 @@ export class ListUserComponent implements OnInit {
 
   constructor(private router: Router,
     private apiService: ApiService,
+    private spinner: NgxSpinnerService,
     private storage: LocalStorageService) {
    
   }
 
   ngOnInit() {
+    this.spinner.show();
     this.initUsers(true);
   }
 
@@ -73,8 +76,11 @@ export class ListUserComponent implements OnInit {
     this.apiService.getUsers()
       .subscribe(data => {
         this.users = data;
-        if(init)
+        this.spinner.hide();
+        if(init){
           this.dtTrigger.next();
+        }
+
       });
   }
 

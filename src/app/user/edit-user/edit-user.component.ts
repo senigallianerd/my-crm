@@ -83,6 +83,9 @@ export class EditUserComponent implements OnInit {
     const id = parseInt(this.route.snapshot.paramMap.get('id'))
     this.apiService.getUserById(id)
     .subscribe( data => {
+      data.civico = '';
+      data.PEC = '';
+      data.datiRaw = '';
       this.editForm.setValue(data);
     });
   }

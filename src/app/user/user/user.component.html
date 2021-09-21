@@ -118,11 +118,17 @@
             <a href="{{'mailto:' + user.secondaEmail}}">{{user.secondaEmail}}</a>
           </div>
       </div>
-      <div class="form-group col-md-12">
+      <div class="form-group col-md-6">
         <label for="PEC">PEC:</label>
         <input formcontrolname="PEC" placeholder="{{user.PEC}}" readonly name="PEC" id="PEC"
         class="form-control ng-untouched ng-pristine ng-valid">
-    </div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="cellulare">Cellulare:</label>
+        <div class="input">
+          <a href="{{'tel:' + user.cellulare}}">{{user.cellulare}}</a>
+        </div>
+      </div>
     </div>
 
     <label class="block-title">Altre informazioni: <fa-icon (click)="toggleBlock('other')" class="toggle-block" [icon]="blockOther ? faChevronDown : faChevronUp"></fa-icon></label>
