@@ -75,7 +75,7 @@ export class ListUserComponent implements OnInit {
         columns: [{ data: 'id' }, { data: 'cognome' }, { data: 'nome' }],
         language: {
           "lengthMenu": "Mostra _MENU_ record per pagina",
-          "zeroRecords": "0 Risultati",
+          "zeroRecords": "",
           "info": "Mostra pagina _PAGE_ di _PAGES_",
           "infoEmpty": "No record disponibili",
           "infoFiltered": "(filtered from _MAX_ total records)",

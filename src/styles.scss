@@ -23,3 +23,9 @@
   .text-center{
     padding-top:20px;
   }
+
+  table{
+    .odd{
+      display:none !important;
+    }
+  }
