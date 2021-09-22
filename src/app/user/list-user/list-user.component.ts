@@ -47,22 +47,24 @@ export class ListUserComponent implements OnInit {
 
   constructor(private router: Router,
     private apiService: ApiService,
+    private spinner: NgxSpinnerService,
     private http: HttpClient) {  }
 
     ngOnInit(): void {
-      const that = this;
+      this.spinner.show();
       this.dtOptions = {
         pagingType: 'full_numbers',
         responsive: true,
         serverSide: true,
         processing: true,
         ajax: (dataTablesParameters: any, callback) => {
-          that.http
+          this.http
             .post<DataTablesResponse>(
-              that.apiURL + 'get-user-server.php',
+              this.apiURL + 'get-user-server.php',
               dataTablesParameters, {}
             ).subscribe(resp => {
-              that.users = resp.data;
+              this.users = resp.data;
+              this.spinner.hide();
               callback({
                 recordsTotal: resp.recordsTotal,
                 recordsFiltered: resp.recordsFiltered,
