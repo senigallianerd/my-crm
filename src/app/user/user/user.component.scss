@@ -28,7 +28,8 @@
 .upload-group, .note-group{
     background-color: #d3d3d3;
     padding: 15px;
-    border-radius: 5px;
+    border-radius: 13px;
+    border: 2px solid #5555;
 }
 
 .small{
@@ -73,7 +74,13 @@
     min-height: 38px;
 }
 
-.footer{
+.add-note{
+    padding-top:10px;
+    padding-bottom: 10px;
+}
+
+.edit-user-container{
+    cursor: pointer;
     position: fixed;
     bottom: 0;
     background: grey;
@@ -83,7 +90,8 @@
     padding: 10px;
 }
 
-.add-note{
-    padding-top:10px;
-    padding-bottom: 10px;
+.note{
+    &.table{
+        border: 1px solid #DEE2e6;
+    }
 }
