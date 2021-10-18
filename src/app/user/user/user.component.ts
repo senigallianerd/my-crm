@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { InsuranceService } from '../../insurance/insurance.service';
 import { map } from 'rxjs/operators';
-import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown, faChevronUp, faWindowClose } from '@fortawesome/free-solid-svg-icons'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import Swal from 'sweetalert2';
 
@@ -23,6 +23,7 @@ import Swal from 'sweetalert2';
 export class UserComponent implements OnInit {
   faChevronDown = faChevronDown;
   faChevronUp = faChevronUp;
+  faWindowClose = faWindowClose
   faEdit = faEdit;
   file = new FormControl('');
   file_data: any = ''
@@ -55,6 +56,7 @@ export class UserComponent implements OnInit {
   targa;
   noteText;
   noteTitle;
+  noteSection;
 
   constructor(private router: Router,
     private http: HttpClient,
@@ -297,6 +299,10 @@ export class UserComponent implements OnInit {
     this.router.navigate(['edit-user/' + this.user.id]);
   };
 
+  showHideNote(){
+    this.noteSection = !this.noteSection;
+  }
+
   addNote() {
     if(!this.noteText && !this.noteTitle){
       this.toaster.open({
@@ -317,6 +323,7 @@ export class UserComponent implements OnInit {
           duration: 3000,
           type: 'success'
         });
+        this.noteSection = this.noteText = this.noteTitle = '';
       }
       else
         this.toaster.open({

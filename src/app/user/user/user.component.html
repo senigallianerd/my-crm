@@ -275,9 +275,12 @@
     </table>
   </span>
   <br>
-  <span class="add-note">Inserisci Note</span>
-  <div class="note-group">
-    <span class="title-note"><b>Inserisci Nota</b></span>
+  <button class="add-note" (click)="showHideNote()">Inserisci Note</button>
+  <div class="note-group" *ngIf="noteSection">
+    <span class="title-note">
+      <b>Inserisci Nota</b>
+      <div class="close-modal" (click)="showHideNote()"><fa-icon [icon]="faWindowClose"></fa-icon></div>
+    </span>
     <div class="form-group col-md-6">
       <label for="titolo">Titolo:</label>
       <input placeholder="titolo" name="titolo" [(ngModel)]="noteTitle"

@@ -77,6 +77,8 @@
 .add-note{
     padding-top:10px;
     padding-bottom: 10px;
+    color:blue;
+    cursor: pointer;
 }
 
 .edit-user-container{
@@ -94,4 +96,17 @@
     &.table{
         border: 1px solid #DEE2e6;
     }
+}
+
+.note-group{
+    position: fixed;
+    width: 60%;
+    height: 60%;
+    left:25%;
+    top:25%;
+}
+
+.close-modal{
+    cursor:pointer;
+    float:right;
 }
