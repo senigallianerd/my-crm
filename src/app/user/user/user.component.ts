@@ -57,6 +57,7 @@ export class UserComponent implements OnInit {
   noteText;
   noteTitle;
   noteSection;
+  noteReadOnly = false;
 
   constructor(private router: Router,
     private http: HttpClient,
@@ -300,7 +301,17 @@ export class UserComponent implements OnInit {
   };
 
   showHideNote(){
+    this.noteReadOnly = false;
     this.noteSection = !this.noteSection;
+    this.noteText = '';
+    this.noteTitle = '';
+  }
+
+  showNote(note){
+    this.noteSection = true;
+    this.noteReadOnly = true;
+    this.noteText = note.testo;
+    this.noteTitle = note.titolo;
   }
 
   addNote() {

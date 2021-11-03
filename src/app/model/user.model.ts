@@ -9,6 +9,7 @@ export class User {
   telUfficio: string;
   email: string;
   secondaEmail: string;
+  fax: string;
   PEC: string;
   indirizzoResidenza: string;
   civico: string;

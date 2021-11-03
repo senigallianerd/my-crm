@@ -129,6 +129,12 @@
           <a href="{{'tel:' + user.cellulare}}">{{user.cellulare}}</a>
         </div>
       </div>
+      <div class="form-group col-md-6">
+        <label for="fax">Fax:</label>
+        <div class="input">
+          <a href="{{'tel:' + user.fax}}">{{user.fax}}</a>
+        </div>
+      </div>
     </div>
 
     <label class="block-title">Altre informazioni: <fa-icon (click)="toggleBlock('other')" class="toggle-block" [icon]="blockOther ? faChevronDown : faChevronUp"></fa-icon></label>
@@ -258,15 +264,13 @@
         <tr>
           <th>Data</th>
           <th>Titolo</th>
-          <th>Testo</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr class="item" *ngFor="let note of noteList">
+        <tr class="item" *ngFor="let note of noteList" (click)="showNote(note)">
           <td>{{note.data | date:'dd/MM/yy'}}</td>
           <td>{{note.titolo }}</td>
-          <td>{{note.testo }}</td>
           <td class="buttons">
             <button class="btn btn-danger" (click)="deleteNote(note)">Cancella</button>
           </td>
@@ -278,7 +282,7 @@
   <button class="add-note" (click)="showHideNote()">Inserisci Note</button>
   <div class="note-group" *ngIf="noteSection">
     <span class="title-note">
-      <b>Inserisci Nota</b>
+      <b>{{noteReadOnly ? 'Visualizza':'Inserisci'}} Nota</b>
       <div class="close-modal" (click)="showHideNote()"><fa-icon [icon]="faWindowClose"></fa-icon></div>
     </span>
     <div class="form-group col-md-6">
@@ -291,7 +295,7 @@
       <textarea rows="4" [(ngModel)]="noteText" placeholder="testo" name="testo" id="testo"
       class="form-control ng-untouched ng-pristine ng-valid"></textarea>
     </div>
-    <button style="margin-top:20px" (click)="addNote()" mat-raised-button color="primary">
+    <button style="margin-top:20px" *ngIf="!noteReadOnly"(click)="addNote()" mat-raised-button color="primary">
       Inserisci
     </button> 
   </div>

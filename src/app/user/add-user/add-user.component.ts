@@ -60,6 +60,7 @@ export class AddUserComponent implements OnInit {
       cellulare: [''],
       telCasa: [''],
       telUfficio: [''],
+      fax: [''],
       email: [''],
       secondaEmail: [''],
       PEC: [''],

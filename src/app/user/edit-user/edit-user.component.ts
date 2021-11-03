@@ -59,6 +59,7 @@ export class EditUserComponent implements OnInit {
       tipoContatto: [''],
       telCasa: [''],
       telUfficio: [''],
+      fax: [''],
       email: [''],
       secondaEmail: [''],
       PEC: [''],
