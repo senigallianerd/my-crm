@@ -287,12 +287,12 @@
     </span>
     <div class="form-group col-md-6">
       <label for="titolo">Titolo:</label>
-      <input placeholder="titolo" name="titolo" [(ngModel)]="noteTitle"
+      <input placeholder="titolo" [readonly]="noteReadOnly" name="titolo" [(ngModel)]="noteTitle"
       id="titolo" class="form-control ng-untouched ng-pristine ng-valid">
     </div>
     <div class="form-group col-md-12">
       <label for="testo">Testo:</label>
-      <textarea rows="4" [(ngModel)]="noteText" placeholder="testo" name="testo" id="testo"
+      <textarea [readonly]="noteReadOnly" rows="4" [(ngModel)]="noteText" placeholder="testo" name="testo" id="testo"
       class="form-control ng-untouched ng-pristine ng-valid"></textarea>
     </div>
     <button style="margin-top:20px" *ngIf="!noteReadOnly"(click)="addNote()" mat-raised-button color="primary">
