@@ -268,9 +268,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="item" *ngFor="let note of noteList" (click)="showNote(note)">
-          <td>{{note.data | date:'dd/MM/yy'}}</td>
-          <td>{{note.titolo }}</td>
+        <tr class="item" *ngFor="let note of noteList">
+          <td (click)="showNote(note)">{{note.data | date:'dd/MM/yy'}}</td>
+          <td (click)="showNote(note)">{{note.titolo }}</td>
           <td class="buttons">
             <button class="btn btn-danger" (click)="deleteNote(note)">Cancella</button>
           </td>

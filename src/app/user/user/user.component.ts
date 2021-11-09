@@ -178,6 +178,7 @@ export class UserComponent implements OnInit {
     this.uploading = true;
     this.http.post(environment.apiURL + 'upload.php', this.file_data)
       .subscribe(res => {
+        console.log('UPLOAD su cartella effettuato correttamente',res)
         this.uploadData.fileName = res['fileName'];
         this.uploadData.tipoDoc = this.tipoDoc;
         this.uploadData.sottotipoDoc = this.sottotipoDoc;
@@ -185,6 +186,7 @@ export class UserComponent implements OnInit {
         this.uploadData.frazionamentoSemestrale = this.frazionamentoSemestrale;
         this.apiService.setUploadInfo(this.uploadData).subscribe(data => {
           if (data) {
+            console.log('SET UPLOAD INFO completato')
             this.uploading = false;
             setTimeout(() => this.getInsurances(this.user.id), 5);
             this.toaster.open({
@@ -194,8 +196,17 @@ export class UserComponent implements OnInit {
               type: 'success'
             });
           }
+        },(err) => {
+          console.log('UPLOAD Error',err)
+          this.toaster.open({
+            text: 'Errore Upload',
+            position: 'top-right',
+            duration: 3000,
+            type: 'warning'
+          });
         })
       }, (err) => {
+        console.log('UPLOAD Error',err)
         this.toaster.open({
           text: 'Errore Upload',
           position: 'top-right',
