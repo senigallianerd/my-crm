@@ -58,6 +58,7 @@ export class UserComponent implements OnInit {
   noteTitle;
   noteSection;
   noteReadOnly = false;
+  noteDoc;
 
   constructor(private router: Router,
     private http: HttpClient,
@@ -69,7 +70,7 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.uploadData = new Policy(this.user.id, '', '', '', '',false,'');
+    this.uploadData = new Policy(this.user.id, '', '', '', '',false,'','');
     this.getInsurances(this.user.id);
     this.getNotes(this.user.id);
     this.getCompagnie();
@@ -184,13 +185,15 @@ export class UserComponent implements OnInit {
         this.uploadData.sottotipoDoc = this.sottotipoDoc;
         this.uploadData.targa = this.targa;
         this.uploadData.frazionamentoSemestrale = this.frazionamentoSemestrale;
+        this.uploadData.note = this.noteDoc;
+        debugger
         this.apiService.setUploadInfo(this.uploadData).subscribe(data => {
           if (data) {
             console.log('SET UPLOAD INFO completato')
             this.uploading = false;
             setTimeout(() => this.getInsurances(this.user.id), 5);
             this.toaster.open({
-              text: 'Upload completato',
+              text: 'Caricamento completato',
               position: 'top-right',
               duration: 3000,
               type: 'success'
@@ -199,7 +202,7 @@ export class UserComponent implements OnInit {
         },(err) => {
           console.log('UPLOAD Error',err)
           this.toaster.open({
-            text: 'Errore Upload',
+            text: 'Errore Caricamento',
             position: 'top-right',
             duration: 3000,
             type: 'warning'
@@ -208,7 +211,7 @@ export class UserComponent implements OnInit {
       }, (err) => {
         console.log('UPLOAD Error',err)
         this.toaster.open({
-          text: 'Errore Upload',
+          text: 'Errore Caricamento',
           position: 'top-right',
           duration: 3000,
           type: 'warning'

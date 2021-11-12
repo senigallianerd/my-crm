@@ -196,6 +196,7 @@
           <th (click)="orderBy('data')">Scadenza</th>
           <th (click)="orderBy('fileName')">Nome File</th>
           <th (click)="orderBy('sottotipoDoc')">Compagnia</th>
+          <th (click)="orderBy('note')">Note</th>
           <th></th>
         </tr>
       </thead>
@@ -205,6 +206,7 @@
           <td>{{file.data | date:'dd/MM/yy'}}</td>
           <td><span class="item-file" (click)="getFile(file.fileName)">{{file.fileName}}</span></td>
           <td>{{file.sottotipoDoc}}</td>
+          <td>{{file.note}}</td>
           <td class="buttons">
             <button class="btn btn-danger" (click)="deleteFile(file)">Cancella</button>
           </td>
@@ -221,7 +223,7 @@
   </div>
 
   <div class="upload-group">
-    <span class="title-upload"><b>Upload {{tipoDoc}}</b></span>
+    <span class="title-upload"><b>Carica e Salva {{tipoDoc}}</b></span>
     <div class="sottotipodoc-section" *ngIf="tipoDoc==='polizza' || tipoDoc==='preventivo' || tipoDoc==='documento' || tipoDoc==='SIC'">
       <label for="sottotipodoc">{{(tipoDoc==='polizza' || tipoDoc==='SIC') ? 'Compagnia':'Tipo'}} : </label>
       <select class="custom-select small" [(ngModel)]="sottotipoDoc">
@@ -248,12 +250,19 @@
         id="targa" class="form-control ng-untouched ng-pristine ng-valid">
       </div>
     </span>
+    <span>
+      <div class="form-group col-md-12">
+        <label for="note-doc">Note:</label>
+        <textarea rows="4" placeholder="testo" name="noteDoc" id="noteDoc" [(ngModel)]="noteDoc"
+        class="form-control ng-untouched ng-pristine ng-valid"></textarea>
+      </div>
+    </span>    
     <input [formControl]="file" (change)="fileChange(index,$event)" type="file" placeholder="File">
     <button style="margin-top:20px" (click)="uploadFile()" mat-raised-button color="primary">
-      Upload
+      Carica e Salva
     </button> (Max 50Mb)
     <div *ngIf="uploading" class="uploading">
-      Upload in corso...
+      Caricamento in corso...
     </div>
   </div>
   <br>
