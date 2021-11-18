@@ -98,14 +98,20 @@
     }
 }
 
-.note-group{
+.modal-window{
     position: fixed;
     width: 60%;
     height: 60%;
     left:25%;
     top:25%;
+    &.upload-group{
+        position: fixed;
+        width: 60%;
+        height: auto;
+        left: 26%;
+        top: 7%;
+    }
 }
-
 .close-modal{
     cursor:pointer;
     float:right;

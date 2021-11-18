@@ -222,8 +222,36 @@
     </select>
   </div>
 
-  <div class="upload-group">
-    <span class="title-upload"><b>Carica e Salva {{tipoDoc}}</b></span>
+  <button class="add-doc" (click)="showHideDoc()">Inserisci Documento</button> <br>
+
+  <div class="upload-group modal-window" *ngIf="docSection">
+    <span class="title-note">
+      <span class="title-note">
+        <b>Inserisci Documento</b>
+        <div class="close-modal" (click)="showHideDoc()"><fa-icon [icon]="faWindowClose"></fa-icon></div>
+      </span>
+    </span>
+    <span>
+      <div class="form-group col-md-2">
+        <label for="numero">Numero:</label>
+        <input placeholder="numero" name="numero" [(ngModel)]="numero"
+        id="numero" class="form-control ng-untouched ng-pristine ng-valid">
+      </div>
+    </span>
+    <span>
+      <div class="form-group col-md-2">
+        <label for="targa">Targa:</label>
+        <input placeholder="targa" name="targa" [(ngModel)]="targa"
+        id="targa" class="form-control ng-untouched ng-pristine ng-valid">
+      </div>
+    </span>
+    <span>
+      <div class="form-group col-md-2">
+        <label for="premioRata">Premio Rata:</label>
+        <input placeholder="premioRata" name="premioRata" [(ngModel)]="premioRata"
+        id="premioRata" class="form-control ng-untouched ng-pristine ng-valid">
+      </div>
+    </span>
     <div class="sottotipodoc-section" *ngIf="tipoDoc==='polizza' || tipoDoc==='preventivo' || tipoDoc==='documento' || tipoDoc==='SIC'">
       <label for="sottotipodoc">{{(tipoDoc==='polizza' || tipoDoc==='SIC') ? 'Compagnia':'Tipo'}} : </label>
       <select class="custom-select small" [(ngModel)]="sottotipoDoc">
@@ -238,16 +266,9 @@
         <ngx-date-picker #dateInstanceSingle [options]="singleDatePickerOptions"></ngx-date-picker>
       </div>
     </span>
-    <span *ngIf="tipoDoc=='polizza'">
+    <span>
       <div class="form-group">
         Frazionamento semestrale: <input type="checkbox" [(ngModel)]="frazionamentoSemestrale">
-      </div>
-    </span>
-    <span *ngIf="tipoDoc=='SIC' || tipoDoc=='libretto di circolazione'">
-      <div class="form-group col-md-2">
-        <label for="targa">Targa:</label>
-        <input placeholder="targa" name="targa" [(ngModel)]="targa"
-        id="targa" class="form-control ng-untouched ng-pristine ng-valid">
       </div>
     </span>
     <span>
@@ -289,7 +310,7 @@
   </span>
   <br>
   <button class="add-note" (click)="showHideNote()">Inserisci Note</button>
-  <div class="note-group" *ngIf="noteSection">
+  <div class="note-group modal-window" *ngIf="noteSection">
     <span class="title-note">
       <b>{{noteReadOnly ? 'Visualizza':'Inserisci'}} Nota</b>
       <div class="close-modal" (click)="showHideNote()"><fa-icon [icon]="faWindowClose"></fa-icon></div>

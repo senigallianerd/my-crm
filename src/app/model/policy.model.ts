@@ -1,6 +1,6 @@
 export class Policy {
 
-    constructor(userId, data, fileName, tipoDoc, sottotipoDoc, frazionamentoSemestrale,targa,note) { 
+    constructor(userId, data, fileName, tipoDoc, sottotipoDoc, frazionamentoSemestrale,targa,note,numero,premioRata) { 
         this.data = data,
         this.userId = userId,
         this.fileName = fileName;
@@ -9,6 +9,8 @@ export class Policy {
         this.frazionamentoSemestrale = frazionamentoSemestrale ? true : false;
         this.tipoDoc = targa;
         this.note = note;
+        this.numero = numero;
+        this.premioRata = premioRata
     }   
     data: Date;
     userId: string;
@@ -18,4 +20,6 @@ export class Policy {
     frazionamentoSemestrale: boolean;
     targa: string;
     note: string;
+    numero: string;
+    premioRata: string;
 }

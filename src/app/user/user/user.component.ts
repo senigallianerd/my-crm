@@ -57,8 +57,11 @@ export class UserComponent implements OnInit {
   noteText;
   noteTitle;
   noteSection;
+  docSection;
   noteReadOnly = false;
   noteDoc;
+  numero;
+  premioRata;
 
   constructor(private router: Router,
     private http: HttpClient,
@@ -186,6 +189,8 @@ export class UserComponent implements OnInit {
         this.uploadData.targa = this.targa;
         this.uploadData.frazionamentoSemestrale = this.frazionamentoSemestrale;
         this.uploadData.note = this.noteDoc;
+        this.uploadData.numero = this.numero;
+        this.uploadData.premioRata = this.premioRata;
         debugger
         this.apiService.setUploadInfo(this.uploadData).subscribe(data => {
           if (data) {
@@ -319,6 +324,10 @@ export class UserComponent implements OnInit {
     this.noteSection = !this.noteSection;
     this.noteText = '';
     this.noteTitle = '';
+  }
+
+  showHideDoc(){
+    this.docSection = !this.docSection;
   }
 
   showNote(note){
