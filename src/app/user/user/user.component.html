@@ -223,7 +223,65 @@
   </div>
 
   <div class="upload-group">
-    <span class="title-upload"><b>Carica e Salva {{tipoDoc}}</b></span>
+    <span class="title-upload"><b>Carica e Salva {{tipoDoc}}</b></span> 
+
+   <div class="doc-container">
+      <div *ngFor="let doc of selectedDoc.colonne_doc">
+        <label for="{{doc.id}}">{{doc.label}}</label>
+        <select *ngIf="doc.type==='select'" class="custom-select small" [(ngModel)]="doc.id">
+          <option *ngFor="let sottotipo of doc.values" [ngValue]="sottotipo">{{sottotipo}}</option>
+        </select>
+        <div class="form-group" *ngIf="doc.type==='date'">
+          <input class="form-control w-25 small" placeholder="Scegli Data" [ngxDatePicker]="dateInstanceSingle"
+            [value]="singleDate" (valueChange)="onChangeSingle($event)">
+          <ngx-date-picker #dateInstanceSingle [options]="singleDatePickerOptions"></ngx-date-picker>
+        </div>
+        <input *ngIf="doc.type==='checkbox'" type="checkbox" [(ngModel)]="doc.id">
+        <div class="form-group col-md-2" *ngIf="doc.type==='input'">
+          <input placeholder="{{doc.id}}" name="{{doc.id}}" [(ngModel)]="doc.id"
+          id="{{doc.id}}" class="form-control ng-untouched ng-pristine ng-valid">
+        </div>
+        <textarea *ngIf="doc.type==='textarea'" rows="4" placeholder="testo" name="{{doc.id}}" id="{{doc.id}}" [(ngModel)]="doc.id"
+        class="form-control ng-untouched ng-pristine ng-valid"></textarea>
+      </div>
+    </div>
+   
+    <!--
+
+    
+    <div class="sottotipodoc-section">
+      <label for="sottotipodoc">{{(tipoDoc==='polizza' || tipoDoc==='SIC') ? 'Compagnia':'Tipo'}} : </label>
+      <select class="custom-select small" [(ngModel)]="sottotipoDoc">
+        <option *ngFor="let sottotipo of sottotipoDocs" [ngValue]="sottotipo">{{sottotipo}}</option>
+      </select>
+    </div>
+    <span *ngIf="tipoDoc!=='libretto di circolazione'">
+      Data di scadenza:
+      <div class="form-group">
+        <input class="form-control w-25 small" placeholder="Scegli Data" [ngxDatePicker]="dateInstanceSingle"
+          [value]="singleDate" (valueChange)="onChangeSingle($event)">
+        <ngx-date-picker #dateInstanceSingle [options]="singleDatePickerOptions"></ngx-date-picker>
+      </div>
+    </span>
+    <span *ngIf="tipoDoc=='polizza'">
+      <div class="form-group">
+        Frazionamento semestrale: <input type="checkbox" [(ngModel)]="frazionamentoSemestrale">
+      </div>
+    </span>
+    <span *ngIf="tipoDoc=='SIC' || tipoDoc=='libretto di circolazione'">
+      <div class="form-group col-md-2">
+        <label for="targa">Targa:</label>
+        <input placeholder="targa" name="targa" [(ngModel)]="targa"
+        id="targa" class="form-control ng-untouched ng-pristine ng-valid">
+      </div>
+    </span>
+    <span>
+      <div class="form-group col-md-12">
+        <label for="note-doc">Note:</label>
+        <textarea rows="4" placeholder="testo" name="noteDoc" id="noteDoc" [(ngModel)]="noteDoc"
+        class="form-control ng-untouched ng-pristine ng-valid"></textarea>
+      </div>
+    </span>  
     <div class="sottotipodoc-section" *ngIf="tipoDoc==='polizza' || tipoDoc==='preventivo' || tipoDoc==='documento' || tipoDoc==='SIC'">
       <label for="sottotipodoc">{{(tipoDoc==='polizza' || tipoDoc==='SIC') ? 'Compagnia':'Tipo'}} : </label>
       <select class="custom-select small" [(ngModel)]="sottotipoDoc">
@@ -256,7 +314,12 @@
         <textarea rows="4" placeholder="testo" name="noteDoc" id="noteDoc" [(ngModel)]="noteDoc"
         class="form-control ng-untouched ng-pristine ng-valid"></textarea>
       </div>
-    </span>    
+    </span>   
+    
+  -->
+
+
+
     <input [formControl]="file" (change)="fileChange(index,$event)" type="file" placeholder="File">
     <button style="margin-top:20px" (click)="uploadFile()" mat-raised-button color="primary">
       Carica e Salva

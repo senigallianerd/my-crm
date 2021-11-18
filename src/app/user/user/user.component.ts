@@ -42,6 +42,8 @@ export class UserComponent implements OnInit {
   sottotipoDocs;
   tipoDocs;
   tipoDoc;
+  docList;
+  selectedDoc;
   previousSearch: string;
   dtOptions: DataTables.Settings = {};
   blockName;
@@ -98,12 +100,13 @@ export class UserComponent implements OnInit {
   }
 
   onSelectChange(type) {
-    if (type === 'documento')
+    /*if (type === 'documento')
       this.getListaDocs();
     else if (type === 'polizza')
       this.getCompagnie();
     else if (type === 'preventivo')
-      this.getListaPreventivi();
+      this.getListaPreventivi();*/
+      this.selectedDoc = this.docList.find(d => d.nome === type);
   }
 
   initDtOptions() {
@@ -138,10 +141,12 @@ export class UserComponent implements OnInit {
   }
 
   getTipoDocs() {
-    this.apiService.getTipoDocs().pipe(
-      map(data => data.map(({ nome }) => nome))).subscribe(data => {
-        this.tipoDocs = data;
+    this.apiService.getTipoDocs().subscribe(data => {
+        data.forEach( (item,i) => data[i]['colonne_doc'] = JSON.parse(item['colonne_doc']));
+        this.tipoDocs = data.map(d => d.nome);
         this.tipoDoc = this.tipoDocs[0];
+        this.docList = data;
+        this.selectedDoc = data[0];
       })
   }
 
@@ -177,6 +182,7 @@ export class UserComponent implements OnInit {
 
   uploadFile() {
     this.uploading = true;
+    debugger
     this.http.post(environment.apiURL + 'upload.php', this.file_data)
       .subscribe(res => {
         console.log('UPLOAD su cartella effettuato correttamente',res)
