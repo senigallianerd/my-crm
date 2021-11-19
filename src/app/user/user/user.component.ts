@@ -243,7 +243,6 @@ export class UserComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.apiService.deletePolicy(file.id).subscribe(data => {
-          setTimeout(()=>this.getInsurances(this.user.id),200)
           if (data) {
             this.toaster.open({
               text: 'File cancellato',
@@ -315,6 +314,7 @@ export class UserComponent implements OnInit {
 
   onChangeSingle(event) {
     this.uploadData.data = new Date(event);
+    this.singleDate = new Date(event);
   }
 
   goHome() {
@@ -335,8 +335,8 @@ export class UserComponent implements OnInit {
   showHideDoc(file?,showEdit?){
     this.editDoc = showEdit;
     this.docSection = !this.docSection;
-    this.tipoDoc = file['tipoDoc'];
     if(file){
+      this.tipoDoc = file['tipoDoc'];
       this.onSelectChange(this.tipoDoc);
       setTimeout(()=>{
         this.sottotipoDoc = file['sottotipoDoc'];
@@ -366,6 +366,8 @@ export class UserComponent implements OnInit {
     this.noteDoc = '';
     this.singleDate = '';
     this.fileName = '';
+    this.sottotipoDoc = '';
+    this.onSelectChange(this.tipoDoc);
   }
 
 

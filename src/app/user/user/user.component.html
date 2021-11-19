@@ -32,12 +32,12 @@
         <input formcontrolname="provincia" placeholder="{{user.provincia}}" readonly
         name="provincia" id="provincia" class="form-control ng-untouched ng-pristine ng-valid">
       </div>
-      <div class="form-group col-md-1">
+      <div class="form-group col-md-2">
         <label for="CAP">CAP</label>
         <input formcontrolname="CAP" placeholder="{{user.CAP}}" readonly
         name="CAP" id="CAP" class="form-control ng-untouched ng-pristine ng-valid">
       </div>            
-      <div class="form-group col-md-5">
+      <div class="form-group col-md-4">
         <label for="indirizzoResidenza">Via:</label>
         <input formcontrolname="indirizzoResidenza" placeholder="{{user.indirizzoResidenza}}" readonly
         name="indirizzoResidenza" id="indirizzoResidenza" class="form-control ng-untouched ng-pristine ng-valid">
@@ -190,23 +190,22 @@
     <span class="file-list-title" *ngIf="fileList.length">Documenti:</span>
 
     <table *ngIf="fileList.length" class="row-border hover table">
-      <thead>
+      <thead class="border-table">
         <tr>
           <th (click)="orderBy('tipoDoc')">Tipo</th>
           <th (click)="orderBy('data')">Scadenza</th>
-          <th (click)="orderBy('fileName')">Nome File</th>
-          <th (click)="orderBy('sottotipoDoc')">Compagnia</th>
           <th (click)="orderBy('note')">Note</th>
+          <th (click)="orderBy('sottotipoDoc')">Compagnia</th>
+
           <th></th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="border-table">
         <tr class="item" *ngFor="let file of fileList">
           <td (click)="showHideDoc(file,true)">{{file.tipoDoc}}</td>
           <td (click)="showHideDoc(file,true)">{{file.data | date:'dd/MM/yy'}}</td>
-          <td (click)="showHideDoc(file,true)"><span class="item-file" (click)="getFile(file.fileName)">{{file.fileName}}</span></td>
-          <td (click)="showHideDoc(file,true)">{{file.sottotipoDoc}}</td>
           <td (click)="showHideDoc(file,true)">{{file.note}}</td>
+          <td (click)="showHideDoc(file,true)">{{file.sottotipoDoc}}</td>
           <td class="buttons">
             <button class="btn btn-danger" (click)="deleteFile(file)">Cancella</button>
           </td>
