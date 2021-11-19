@@ -71,6 +71,10 @@ export class ApiService {
     return this.http.post<any>(this.apiURL + 'update-insurance.php', insurance);
   }
 
+  updateUploadInfo(doc) {
+    return this.http.post<any>(this.apiURL + 'update-upload-info.php', doc);
+  }
+
   deleteUser(id: number) {
     return this.http.delete<any>(this.apiURL + 'delete-user.php?id=' + id);
   }

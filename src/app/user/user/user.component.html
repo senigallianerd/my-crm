@@ -202,11 +202,11 @@
       </thead>
       <tbody>
         <tr class="item" *ngFor="let file of fileList">
-          <td>{{file.tipoDoc}}</td>
-          <td>{{file.data | date:'dd/MM/yy'}}</td>
-          <td><span class="item-file" (click)="getFile(file.fileName)">{{file.fileName}}</span></td>
-          <td>{{file.sottotipoDoc}}</td>
-          <td>{{file.note}}</td>
+          <td (click)="showHideDoc(file,true)">{{file.tipoDoc}}</td>
+          <td (click)="showHideDoc(file,true)">{{file.data | date:'dd/MM/yy'}}</td>
+          <td (click)="showHideDoc(file,true)"><span class="item-file" (click)="getFile(file.fileName)">{{file.fileName}}</span></td>
+          <td (click)="showHideDoc(file,true)">{{file.sottotipoDoc}}</td>
+          <td (click)="showHideDoc(file,true)">{{file.note}}</td>
           <td class="buttons">
             <button class="btn btn-danger" (click)="deleteFile(file)">Cancella</button>
           </td>
@@ -222,12 +222,12 @@
     </select>
   </div>
 
-  <button class="add-doc" (click)="showHideDoc()">Inserisci Documento</button> <br>
+  <button class="add-btn" (click)="showHideDoc()">Inserisci {{tipoDoc}}</button> <br>
 
   <div class="upload-group modal-window" *ngIf="docSection">
     <span class="title-note">
       <span class="title-note">
-        <b>Inserisci Documento</b>
+        <b>{{tipoDoc}}</b>
         <div class="close-modal" (click)="showHideDoc()"><fa-icon [icon]="faWindowClose"></fa-icon></div>
       </span>
     </span>
@@ -277,11 +277,24 @@
         <textarea rows="4" placeholder="testo" name="noteDoc" id="noteDoc" [(ngModel)]="noteDoc"
         class="form-control ng-untouched ng-pristine ng-valid"></textarea>
       </div>
-    </span>    
-    <input [formControl]="file" (change)="fileChange(index,$event)" type="file" placeholder="File">
-    <button style="margin-top:20px" (click)="uploadFile()" mat-raised-button color="primary">
-      Carica e Salva
-    </button> (Max 50Mb)
+    </span>   
+    <span>
+      <div class="form-group col-md-12">
+        <label for="note-doc">File:</label>
+        <span class="item-file" (click)="getFile(fileName)">{{fileName}}</span>
+      </div>
+    </span> 
+    <div class="btn-doc-container" *ngIf="editDoc">
+      <button style="margin-top:20px" class="btn btn-warning" (click)="editDocument()" mat-raised-button color="primary">
+        Modifica
+      </button> 
+    </div>     
+    <div class="btn-doc-container" *ngIf="!docReadOnly">
+      <input [formControl]="file" (change)="fileChange(index,$event)" type="file" placeholder="File">
+      <button style="margin-top:20px" (click)="uploadFile()" mat-raised-button color="primary">
+        Carica e Salva
+      </button> (Max 50Mb)
+    </div>
     <div *ngIf="uploading" class="uploading">
       Caricamento in corso...
     </div>
@@ -309,7 +322,8 @@
     </table>
   </span>
   <br>
-  <button class="add-note" (click)="showHideNote()">Inserisci Note</button>
+  <button class="add-btn" (click)="showHideNote()">Inserisci Note</button>
+  <!-- modale NOTE -->
   <div class="note-group modal-window" *ngIf="noteSection">
     <span class="title-note">
       <b>{{noteReadOnly ? 'Visualizza':'Inserisci'}} Nota</b>
@@ -329,6 +343,7 @@
       Inserisci
     </button> 
   </div>
+
 
   <footer class="footer">
     <div class="edit-user-container">

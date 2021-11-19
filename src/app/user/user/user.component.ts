@@ -40,6 +40,7 @@ export class UserComponent implements OnInit {
   uploading: boolean = false;
   sottotipoDoc;
   sottotipoDocs;
+  fileName;
   tipoDocs;
   tipoDoc;
   previousSearch: string;
@@ -58,10 +59,15 @@ export class UserComponent implements OnInit {
   noteTitle;
   noteSection;
   docSection;
+  docModalSection;
   noteReadOnly = false;
   noteDoc;
   numero;
   premioRata;
+  currentDoc;
+  docReadOnly = true;
+  editDoc = false;
+  docId;
 
   constructor(private router: Router,
     private http: HttpClient,
@@ -80,6 +86,7 @@ export class UserComponent implements OnInit {
     this.getTipoDocs();
     this.initDtOptions();
   }
+
 
   toggleBlock(block){
     if(block==='name')
@@ -191,7 +198,6 @@ export class UserComponent implements OnInit {
         this.uploadData.note = this.noteDoc;
         this.uploadData.numero = this.numero;
         this.uploadData.premioRata = this.premioRata;
-        debugger
         this.apiService.setUploadInfo(this.uploadData).subscribe(data => {
           if (data) {
             console.log('SET UPLOAD INFO completato')
@@ -237,7 +243,7 @@ export class UserComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.apiService.deletePolicy(file.id).subscribe(data => {
-          this.getInsurances(this.user.id);
+          setTimeout(()=>this.getInsurances(this.user.id),200)
           if (data) {
             this.toaster.open({
               text: 'File cancellato',
@@ -245,7 +251,7 @@ export class UserComponent implements OnInit {
               duration: 3000,
               type: 'success'
             });
-    
+            setTimeout(()=> this.getInsurances(this.user.id),200)
           }
           else
             this.toaster.open({
@@ -326,9 +332,42 @@ export class UserComponent implements OnInit {
     this.noteTitle = '';
   }
 
-  showHideDoc(){
+  showHideDoc(file?,showEdit?){
+    this.editDoc = showEdit;
     this.docSection = !this.docSection;
+    this.tipoDoc = file['tipoDoc'];
+    if(file){
+      this.onSelectChange(this.tipoDoc);
+      setTimeout(()=>{
+        this.sottotipoDoc = file['sottotipoDoc'];
+      },200)
+      this.docReadOnly = true;
+      this.numero = file['numero'];
+      this.targa = file['targa'];
+      this.premioRata = file['premioRata'];
+      this.frazionamentoSemestrale = file['frazionamentoSemestrale'];
+      this.noteDoc = file['note'];
+      this.singleDate = new Date(file['data']);
+      this.fileName = file['fileName'];
+      this.docId = file['id'];
+    }
+    else{
+      this.docReadOnly = false;
+      this.resetDocField();
+    }
   }
+
+  resetDocField(){
+    this.docId = '';
+    this.numero = '';
+    this.targa = '';
+    this.premioRata = '';
+    this.frazionamentoSemestrale = false;
+    this.noteDoc = '';
+    this.singleDate = '';
+    this.fileName = '';
+  }
+
 
   showNote(note){
     this.noteSection = true;
@@ -336,6 +375,38 @@ export class UserComponent implements OnInit {
     this.noteText = note.testo;
     this.noteTitle = note.titolo;
   }
+
+  editDocument(){
+    const editDoc = {};
+    editDoc['id'] = this.docId;
+    editDoc['numero'] = this.numero;
+    editDoc['targa'] = this.targa;
+    editDoc['premioRata'] = this.premioRata;
+    editDoc['frazionamentoSemestrale'] = this.frazionamentoSemestrale;
+    editDoc['noteDoc'] = this.noteDoc;
+    editDoc['singleDate'] = this.singleDate;
+    editDoc['fileName'] = this.fileName;
+    editDoc['sottotipoDoc'] = this.sottotipoDoc;
+    this.apiService.updateUploadInfo(editDoc).subscribe(data => {
+      if(data){
+        this.toaster.open({
+          text: 'Documento aggiornato',
+          position: 'top-right',
+          duration: 3000,
+          type: 'success'
+        });
+        this.getInsurances(this.user.id);
+      }
+      else
+        this.toaster.open({
+          text: 'Errore su modifica documento',
+          position: 'top-right',
+          duration: 3000,
+          type: 'warning'
+        });
+    })
+  }
+  
 
   addNote() {
     if(!this.noteText && !this.noteTitle){
