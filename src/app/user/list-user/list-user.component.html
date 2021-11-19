@@ -10,7 +10,6 @@
   <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover table">
     <thead>
       <tr>
-        <th class="hidden">Id</th>
         <th>Cognome</th>
         <th>Nome</th>
         <th>Note</th>
@@ -21,7 +20,6 @@
       </thead>
     <tbody>
       <tr class="item" *ngFor="let user of users" >
-        <td class="hidden">{{user.id}}</td>
         <td (click)="userDetail(user.id)">{{user.cognome}}</td>
         <td (click)="userDetail(user.id)">{{user.nome}}</td>
         <td class="link" [tagDirective]="user.note"></td>

@@ -73,7 +73,7 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.uploadData = new Policy(this.user.id, '', '', '', '',false,'','');
+    this.uploadData = new Policy(this.user.id, '', '', '', '',false,'','','','');
     this.getInsurances(this.user.id);
     this.getNotes(this.user.id);
     this.getCompagnie();
