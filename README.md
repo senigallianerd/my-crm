@@ -31,3 +31,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## Build for production
 ng build --prod --base-href './'
 
+## Build for sta
+ng build -c=sta --base-href './'
