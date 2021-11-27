@@ -47,6 +47,7 @@ export class EditUserComponent implements OnInit {
   ngOnInit() {
     this.initValues();
     this.user = this.route.snapshot.data['user'];
+    debugger
     this.dataNascita = this.user && this.user.dataNascita ? new Date(this.user.dataNascita) : '';
     this.dataScadenzaCartaIdentita = this.user && this.user.dataScadenzaCartaIdentita ? new Date(this.user.dataScadenzaCartaIdentita) : '';
     this.editForm = this.formBuilder.group({
@@ -84,9 +85,9 @@ export class EditUserComponent implements OnInit {
     const id = parseInt(this.route.snapshot.paramMap.get('id'))
     this.apiService.getUserById(id)
     .subscribe( data => {
-      data.civico = '';
+      /*data.civico = '';
       data.PEC = '';
-      data.datiRaw = '';
+      data.datiRaw = '';*/
       this.editForm.setValue(data);
     });
   }

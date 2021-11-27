@@ -85,6 +85,7 @@ export class UserComponent implements OnInit {
     this.getCompagnie();
     this.getTipoDocs();
     this.initDtOptions();
+    debugger
   }
 
 
@@ -325,27 +326,49 @@ export class UserComponent implements OnInit {
     this.router.navigate(['edit-user/' + this.user.id]);
   };
 
+  disableScroll(){
+    debugger
+    $('body').css('overflow-y','hidden')
+  }
+
+  enableScroll(){
+    $('body').css('overflow-y','auto')
+  }
+
   showHideNote(){
     this.noteReadOnly = false;
     this.noteSection = !this.noteSection;
     this.noteText = '';
     this.noteTitle = '';
+    if(this.noteSection)
+      this.disableScroll();
+    else
+      this.enableScroll();
+  }
+
+  toBoolean(v){ 
+    return v==="false" || v==="null" || v==="NaN" || v==="undefined" || v==="0" ? false : !!v; 
   }
 
   showHideDoc(file?,showEdit?){
     this.editDoc = showEdit;
     this.docSection = !this.docSection;
+    if(this.docSection)
+      this.disableScroll();
+    else
+      this.enableScroll();
     if(file){
       this.tipoDoc = file['tipoDoc'];
       this.onSelectChange(this.tipoDoc);
       setTimeout(()=>{
         this.sottotipoDoc = file['sottotipoDoc'];
       },200)
+      debugger
       this.docReadOnly = true;
       this.numero = file['numero'];
       this.targa = file['targa'];
       this.premioRata = file['premioRata'];
-      this.frazionamentoSemestrale = file['frazionamentoSemestrale'];
+      this.frazionamentoSemestrale = this.toBoolean(file.frazionamentoSemestrale);
       this.noteDoc = file['note'];
       this.singleDate = new Date(file['data']);
       this.fileName = file['fileName'];
