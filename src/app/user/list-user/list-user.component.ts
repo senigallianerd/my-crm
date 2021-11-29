@@ -52,11 +52,13 @@ export class ListUserComponent implements OnInit {
 
     ngOnInit(): void {
       this.spinner.show();
+      debugger
       this.dtOptions = {
         pagingType: 'full_numbers',
         responsive: true,
         serverSide: true,
         processing: true,
+        pageLength: 50,
         ajax: (dataTablesParameters: any, callback) => {
           this.http
             .post<DataTablesResponse>(
@@ -74,7 +76,7 @@ export class ListUserComponent implements OnInit {
         },
         columns: [{ data: 'id' }, { data: 'cognome' }, { data: 'nome' }],
         language: {
-          "lengthMenu": "Mostra _MENU_ record per pagina",
+          "lengthMenu": "",
           "zeroRecords": "",
           "info": "Mostra pagina _PAGE_ di _PAGES_",
           "infoEmpty": "No record disponibili",

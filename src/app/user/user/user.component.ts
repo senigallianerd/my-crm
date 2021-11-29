@@ -36,6 +36,7 @@ export class UserComponent implements OnInit {
   selectedInsurance;
   fileList: any = [];
   noteList: any = [];
+  docList: any = [];
   uploadData: Policy;
   uploading: boolean = false;
   sottotipoDoc;
@@ -68,6 +69,9 @@ export class UserComponent implements OnInit {
   docReadOnly = true;
   editDoc = false;
   docId;
+  searchDocSelect = [{id:'targa',label:'Targa'},{id:'numero',label:'Numero Polizza'}];
+  docFieldSelected;
+  docFieldInput;
 
   constructor(private router: Router,
     private http: HttpClient,
@@ -85,7 +89,14 @@ export class UserComponent implements OnInit {
     this.getCompagnie();
     this.getTipoDocs();
     this.initDtOptions();
-    debugger
+  }
+
+  searchDoc(){
+    this.fileList = this.fileList.filter(f => f[this.docFieldSelected] === this.docFieldInput);
+  }
+
+  resetDoc(){
+    this.getInsurances(this.user.id);
   }
 
 
@@ -345,6 +356,7 @@ export class UserComponent implements OnInit {
     else
       this.enableScroll();
   }
+
 
   toBoolean(v){ 
     return v==="false" || v==="null" || v==="NaN" || v==="undefined" || v==="0" ? false : !!v; 

@@ -3,8 +3,11 @@
     <div class="row">
       <div class="absolute-center is-responsive"  [ngClass]="{'is-smartphone' : isSmartphone}">
         <div class="col-sm-12 col-md-10 col-md-offset-1 full-width">
-          <h5 class="card-title">Assicurazioni Silli
-          <fa-icon class="icon-login" [icon]="faSignInAlt"></fa-icon></h5>
+          <div class="header-ctn">
+            <img class="logo" src="../../assets/img/logo.png">
+            <span class="card-title">Assicurazioni Silli</span>
+            <fa-icon class="icon-login" [icon]="faSignInAlt"></fa-icon>
+          </div>
           <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-signin">
             <div class="form-label-group">
               <input type="text" id="username" class="form-control" formControlName="username" id="username"

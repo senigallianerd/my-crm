@@ -22,8 +22,16 @@
 
 .blue{
   color:#012780;
+  margin-bottom: 0px;
+  margin-left:10px;
+  margin-right: 10px;
 }
 
 .is-smartphone{
   margin-left:unset  !important;
+}
+
+.logo{
+  height: 44px;
+  cursor: pointer;
 }

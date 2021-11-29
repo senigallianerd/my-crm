@@ -60,6 +60,10 @@
     display: block;
 }
 
+.margin-5 {
+    margin-right: 5px;
+}
+
 .form-row{
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -115,11 +119,13 @@
     &.upload-group{
         position: fixed;
         width: 60%;
-        height: auto;
+        height: 80%;
         left: 26%;
         top: 7%;
+        overflow: auto;
     }
 }
+
 .close-modal{
     cursor:pointer;
     float:right;
@@ -127,4 +133,8 @@
 
 .item{
     cursor: pointer;
+}
+
+.btn-doc-container{
+    margin-bottom: 5px;
 }

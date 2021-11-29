@@ -3,7 +3,8 @@
 
   <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
 
-    <label class="block-title">Nome: <fa-icon (click)="toggleBlock('name')" class="toggle-block" [icon]="blockName ? faChevronDown : faChevronUp"></fa-icon></label>
+    <label class="block-title">Nome: <fa-icon (click)="toggleBlock('name')" class="toggle-block"
+        [icon]="blockName ? faChevronDown : faChevronUp"></fa-icon></label>
     <div class="form-row" *ngIf="!blockName">
       <div class="form-group col-md-6">
         <label for="nome">Nome: *</label>
@@ -11,43 +12,48 @@
       </div>
       <div class="form-group col-md-6">
         <label for="cognome">Cognome/Rag.Soc.: *</label>
-        <input type="text" formControlName="cognome" placeholder="cognome" name="cognome" class="form-control" id="cognome">
+        <input type="text" formControlName="cognome" placeholder="cognome" name="cognome" class="form-control"
+          id="cognome">
       </div>
     </div>
 
-    <label class="block-title">Informazioni di residenza: <fa-icon (click)="toggleBlock('city')" class="toggle-block" [icon]="blockCity ? faChevronDown : faChevronUp"></fa-icon></label>
+    <label class="block-title">Informazioni di residenza: <fa-icon (click)="toggleBlock('city')" class="toggle-block"
+        [icon]="blockCity ? faChevronDown : faChevronUp"></fa-icon></label>
     <div class="form-row" *ngIf="!blockCity">
       <div class="form-group col-md-1">
         <label for="provincia">Prov.:</label>
-        <select class="custom-select" (change)="selectProvincia()" formControlName="provincia"  [(ngModel)]="selectedProvincia">
+        <select class="custom-select" (change)="selectProvincia()" formControlName="provincia"
+          [(ngModel)]="selectedProvincia">
           <option *ngFor="let provincia of province" [ngValue]="provincia">{{provincia}}</option>
-       </select>
+        </select>
       </div>
       <div class="form-group col-md-4" *ngIf="selectedProvincia">
         <label for="comune">Comune:</label>
-        <select class="custom-select" (change)="selectComune()" formControlName="comune"  [(ngModel)]="selectedComune">
+        <select class="custom-select" (change)="selectComune()" formControlName="comune" [(ngModel)]="selectedComune">
           <option *ngFor="let comune of comuni" [ngValue]="comune">{{comune}}</option>
-       </select>
+        </select>
       </div>
       <div class="form-group col-md-2" *ngIf="selectedComune">
         <label for="CAP">CAP:</label>
-        <input type="text" formControlName="CAP" placeholder="CAP" name="CAP" [(ngModel)]="selectedCAP" class="form-control" id="CAP">
-      </div>            
+        <input type="text" formControlName="CAP" placeholder="CAP" name="CAP" [(ngModel)]="selectedCAP"
+          class="form-control" id="CAP">
+      </div>
       <div class="address-block">
         <div class="form-group col-md-5">
           <label for="indirizzoResidenza">Via:</label>
-          <input type="text" formControlName="indirizzoResidenza" placeholder="indirizzoResidenza" name="indirizzoResidenza"
-            class="form-control" id="indirizzoResidenza">
+          <input type="text" formControlName="indirizzoResidenza" placeholder="indirizzoResidenza"
+            name="indirizzoResidenza" class="form-control" id="indirizzoResidenza">
         </div>
         <div class="form-group col-md-3">
           <label for="civico">numero:</label>
-          <input type="text" formControlName="civico" placeholder="civico" name="civico"
-            class="form-control" id="civico">
+          <input type="text" formControlName="civico" placeholder="civico" name="civico" class="form-control"
+            id="civico">
         </div>
       </div>
     </div>
 
-    <label class="block-title">Informazioni anagrafiche:<fa-icon (click)="toggleBlock('anagrafica')" class="toggle-block" [icon]="blockAnagrafica ? faChevronDown : faChevronUp"></fa-icon></label>
+    <label class="block-title">Informazioni generali:<fa-icon (click)="toggleBlock('anagrafica')"
+        class="toggle-block" [icon]="blockAnagrafica ? faChevronDown : faChevronUp"></fa-icon></label>
     <div class="form-row" *ngIf="!blockAnagrafica">
       <div class="form-group col-md-6">
         <label for="dataNascita">Data Nascita:</label>
@@ -68,15 +74,12 @@
       </div>
       <div class="form-group col-md-6">
         <label for="dataScadenzaCartaIdentita">Data Scadenza Carta D'Itentità:</label>
-        <input type="text" formControlName="dataScadenzaCartaIdentita" placeholder="dataScadenzaCartaIdentita" name="dataScadenzaCartaIdentita"
-          class="form-control w-25" id="dataScadenzaCartaIdentita" [ngxDatePicker]="dataScadenzaCartaInstance" [value]="dataScadenzaCartaIdentita"
+        <input type="text" formControlName="dataScadenzaCartaIdentita" placeholder="dataScadenzaCartaIdentita"
+          name="dataScadenzaCartaIdentita" class="form-control w-25" id="dataScadenzaCartaIdentita"
+          [ngxDatePicker]="dataScadenzaCartaInstance" [value]="dataScadenzaCartaIdentita"
           (valueChange)="onChangeDataScadenzaIdentita($event)">
         <ngx-date-picker #dataScadenzaCartaInstance [options]="singleDatePickerOptions"></ngx-date-picker>
       </div>
-    </div>
-
-    <label class="block-title">Informazioni aziendali: <fa-icon (click)="toggleBlock('company')" class="toggle-block" [icon]="blockCompany ? faChevronDown : faChevronUp"></fa-icon></label>
-    <div class="form-row" *ngIf="!blockCompany">
       <div class="form-group col-md-6">
         <label for="partitaIva">Partita Iva:</label>
         <input type="text" formControlName="partitaIva" placeholder="partitaIva" name="partitaIva" class="form-control"
@@ -92,15 +95,21 @@
       </div>
     </div>
 
-    <label class="block-title">Contatti: <fa-icon (click)="toggleBlock('contact')" class="toggle-block" [icon]="blockContact ? faChevronDown : faChevronUp"></fa-icon></label>
+    <label class="block-title">Contatti: <fa-icon (click)="toggleBlock('contact')" class="toggle-block"
+        [icon]="blockContact ? faChevronDown : faChevronUp"></fa-icon></label>
     <div class="form-row" *ngIf="!blockContact">
       <div class="form-group col-md-6">
-        <label for="telCasa">Tel Casa:</label>
+        <label for="cellulare">Cellulare:</label>
+        <input type="text" formControlName="cellulare" placeholder="cellulare" name="cellulare" class="form-control"
+          id="cellulare">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="telCasa">Telefono 1:</label>
         <input type="text" formControlName="telCasa" placeholder="telCasa" name="telCasa" class="form-control"
           id="telCasa">
       </div>
       <div class="form-group col-md-6">
-        <label for="telUfficio">Tel Ufficio:</label>
+        <label for="telUfficio">Telefono 2:</label>
         <input type="text" formControlName="telUfficio" placeholder="telUfficio" name="telUfficio" class="form-control"
           id="telUfficio">
       </div>
@@ -109,63 +118,65 @@
         <input type="text" formControlName="email" placeholder="email" name="email" class="form-control" id="email">
       </div>
       <div class="form-group col-md-6">
-        <label for="secondaEmail">Seconda Email:</label>
+        <label for="secondaEmail">Email privata:</label>
         <input type="text" formControlName="secondaEmail" placeholder="secondaEmail" name="secondaEmail"
           class="form-control" id="secondaEmail">
       </div>
       <div class="form-group col-md-12">
         <label for="PEC">PEC:</label>
         <input type="text" formControlName="PEC" placeholder="PEC" name="PEC" class="form-control" id="PEC">
-    </div>
-    <div class="form-group col-md-6">
-      <label for="fax">Fax:</label>
-      <input type="text" formControlName="fax" placeholder="fax" name="fax" class="form-control"
-        id="fax">
-    </div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="fax">Fax:</label>
+        <input type="text" formControlName="fax" placeholder="fax" name="fax" class="form-control" id="fax">
+      </div>
     </div>
 
-    <label class="block-title">Altre informazioni: <fa-icon (click)="toggleBlock('other')" class="toggle-block" [icon]="blockOther ? faChevronDown : faChevronUp"></fa-icon></label>
+    <label class="block-title">Altre informazioni: <fa-icon (click)="toggleBlock('other')" class="toggle-block"
+        [icon]="blockOther ? faChevronDown : faChevronUp"></fa-icon></label>
     <div class="form-row" *ngIf="!blockOther">
       <div class="form-group col-md-6">
         <label for="occupazione">Occupazione:</label>
-        <input type="text" formControlName="occupazione" placeholder="occupazione" name="occupazione" class="form-control"
-          id="occupazione">
+        <input type="text" formControlName="occupazione" placeholder="occupazione" name="occupazione"
+          class="form-control" id="occupazione">
       </div>
       <div class="form-group col-md-6">
         <label for="hobby">Hobby:</label>
-        <textarea rows="4" class="form-control" formControlName="hobby" placeholder="hobby" name="hobby" id="hobby"></textarea>
+        <textarea rows="4" class="form-control" formControlName="hobby" placeholder="hobby" name="hobby"
+          id="hobby"></textarea>
       </div>
       <div class="form-group col-md-12">
         <label for="note">Note:</label>
-        <textarea rows="4" class="form-control" formControlName="note" placeholder="note" name="note" id="note"></textarea>
+        <textarea rows="4" class="form-control" formControlName="note" placeholder="note" name="note"
+          id="note"></textarea>
       </div>
     </div>
 
-    <label class="block-title">Gestione interna: <fa-icon (click)="toggleBlock('internal')" class="toggle-block" [icon]="blockInternal ? faChevronDown : faChevronUp"></fa-icon></label>
+    <label class="block-title">Gestione interna: <fa-icon (click)="toggleBlock('internal')" class="toggle-block"
+        [icon]="blockInternal ? faChevronDown : faChevronUp"></fa-icon></label>
     <div class="form-row" *ngIf="!blockInternal">
       <div class="form-group col-md-6">
         <label for="collaboratore">Assegnato a:</label>
-        <select class="custom-select" (change)="selectTag()" formControlName="collaboratore"  [(ngModel)]="selectedTag">
+        <select class="custom-select" (change)="selectTag()" formControlName="collaboratore" [(ngModel)]="selectedTag">
           <option *ngFor="let tag of tags" [ngValue]="tag">{{tag}}</option>
-       </select>
+        </select>
       </div>
       <div class="form-group col-md-6">
         <label for="tipoContatto">Tipo Contatto:</label>
-        <select class="custom-select" (change)="selectTipoContatto()" formControlName="tipoContatto"  [(ngModel)]="selectedTipoContatto">
+        <select class="custom-select" (change)="selectTipoContatto()" formControlName="tipoContatto"
+          [(ngModel)]="selectedTipoContatto">
           <option *ngFor="let tipoContatto of tipoContatti" [ngValue]="tipoContatto">{{tipoContatto}}</option>
-       </select>
+        </select>
       </div>
     </div>
 
-    <label class="block-title">Dati Aggiuntivi: <fa-icon (click)="toggleBlock('data')" class="toggle-block" [icon]="blockData ? faChevronDown : faChevronUp"></fa-icon></label>
+    <label class="block-title">Dati Aggiuntivi: <fa-icon (click)="toggleBlock('data')" class="toggle-block"
+        [icon]="blockData ? faChevronDown : faChevronUp"></fa-icon></label>
     <div class="form-row" *ngIf="!blockData">
       <div class="form-group col-md-6">
         <label for="datiAggiuntivi">Dati Aggiuntivi:</label>
-        <textarea rows="4" formControlName="datiAggiuntivi" placeholder="datiAggiuntivi" name="datiAggiuntivi" class="form-control"  id="datiAggiuntivi"></textarea>
-      </div>
-      <div class="form-group col-md-12">
-        <label for="datiRaw">Dati Raw:</label>
-        <textarea rows="4" formControlName="datiRaw" placeholder="datiRaw" name="datiRaw" class="form-control"  id="datiRaw"></textarea>
+        <textarea rows="4" formControlName="datiAggiuntivi" placeholder="datiAggiuntivi" name="datiAggiuntivi"
+          class="form-control" id="datiAggiuntivi"></textarea>
       </div>
     </div>
 

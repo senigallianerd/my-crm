@@ -21,6 +21,7 @@ div.well{
 .card-title{
   text-align: center;
   font-size:25px;
+  margin-bottom:0px !important;
 }
 
 .absolute-center {
@@ -59,4 +60,16 @@ div.well{
     &.is-smartphone{
       width:80%
     }  
+}
+
+.header-ctn{
+  margin-bottom:10px;
+  margin-bottom: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.logo{
+  height: 44px;
 }

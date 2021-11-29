@@ -43,7 +43,7 @@
       </div>
     </div>
 
-    <label class="block-title">Informazioni anagrafiche:<fa-icon (click)="toggleBlock('anagrafica')" class="toggle-block" [icon]="blockAnagrafica ? faChevronDown : faChevronUp"></fa-icon></label>
+    <label class="block-title">Informazioni generali:<fa-icon (click)="toggleBlock('anagrafica')" class="toggle-block" [icon]="blockAnagrafica ? faChevronDown : faChevronUp"></fa-icon></label>
     <div class="form-row" *ngIf="!blockAnagrafica">
       <div class="form-group col-md-6">
         <label for="dataNascita">Data Nascita:</label>
@@ -69,10 +69,6 @@
             (valueChange)="onChangeDataScadenzaIdentita($event)">
         <ngx-date-picker #dataScadenzaCartaIstance [options]="singleDatePickerOptions"></ngx-date-picker>
       </div>
-    </div>
-
-    <label class="block-title">Informazioni aziendali: <fa-icon (click)="toggleBlock('company')" class="toggle-block" [icon]="blockCompany ? faChevronDown : faChevronUp"></fa-icon></label>
-    <div class="form-row" *ngIf="!blockCompany">
       <div class="form-group col-md-6">
         <label for="partitaIva">Partita Iva:</label>
         <input type="text" formControlName="partitaIva" placeholder="partitaIva" name="partitaIva" class="form-control" id="partitaIva">
@@ -90,11 +86,15 @@
     <label class="block-title">Contatti: <fa-icon (click)="toggleBlock('contact')" class="toggle-block" [icon]="blockContact ? faChevronDown : faChevronUp"></fa-icon></label>
     <div class="form-row" *ngIf="!blockContact">
       <div class="form-group col-md-6">
-        <label for="telCasa">Tel Casa:</label>
+        <label for="cellulare">Cellulare:</label>
+        <input type="text" formControlName="cellulare" placeholder="cellulare" name="cellulare" class="form-control" id="cellulare">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="telCasa">Telefono 1:</label>
         <input type="text" formControlName="telCasa" placeholder="telCasa" name="telCasa" class="form-control" id="telCasa">
       </div>
       <div class="form-group col-md-6">
-        <label for="telUfficio">Tel Ufficio:</label>
+        <label for="telUfficio">Telefono 2:</label>
         <input type="text" formControlName="telUfficio" placeholder="telUfficio" name="telUfficio" class="form-control" id="telUfficio">
       </div>
       <div class="form-group col-md-6">
@@ -108,14 +108,6 @@
       <div class="form-group col-md-6">
         <label for="PEC">PEC:</label>
         <input type="text" formControlName="PEC" placeholder="PEC" name="PEC" class="form-control" id="PEC">
-      </div>
-      <div class="form-group col-md-6">
-        <label for="cellulare">Cellulare:</label>
-        <input type="text" formControlName="cellulare" placeholder="cellulare" name="cellulare" class="form-control" id="cellulare">
-      </div>
-      <div class="form-group col-md-6">
-        <label for="fax">Fax:</label>
-        <input type="text" formControlName="fax" placeholder="fax" name="fax" class="form-control" id="fax">
       </div>
     </div>
 
@@ -156,10 +148,6 @@
       <div class="form-group col-md-6">
         <label for="datiAggiuntivi">Dati Aggiuntivi:</label>
         <textarea rows="4" formControlName="datiAggiuntivi" placeholder="datiAggiuntivi" name="datiAggiuntivi" class="form-control"  id="datiAggiuntivi"></textarea>
-      </div>
-      <div class="form-group col-md-12">
-        <label for="datiRaw">Dati Raw:</label>
-        <textarea rows="4" formControlName="datiRaw" placeholder="datiRaw" name="datiRaw" class="form-control"  id="datiRaw"></textarea>
       </div>
     </div>
 
