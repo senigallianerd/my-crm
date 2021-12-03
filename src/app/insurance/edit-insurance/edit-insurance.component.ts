@@ -16,7 +16,7 @@ export class EditInsuranceComponent implements OnInit {
   insurances = [];
   selectedInsurance;
   editForm: FormGroup;
-  singleDatePickerOptions;
+  singleDatePickerOptions = { displayFormat:'dd/MM/yyyy' }
   singleDate;
   insurance;
   rami;

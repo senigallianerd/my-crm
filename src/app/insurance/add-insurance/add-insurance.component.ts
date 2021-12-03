@@ -19,7 +19,7 @@ export class AddInsuranceComponent implements OnInit {
 
   addForm: FormGroup;
   selectedInsurance;
-  singleDatePickerOptions;
+  singleDatePickerOptions = { displayFormat:'dd/MM/yyyy' }
   singleDate;
 
   ngOnInit() {

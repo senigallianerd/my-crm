@@ -58,7 +58,7 @@
       <div class="form-group col-md-6">
         <label for="dataNascita">Data Nascita:</label>
         <input type="text" formControlName="dataNascita" placeholder="dataNascita" name="dataNascita"
-          class="form-control w-25" id="dataNascita" [ngxDatePicker]="dataNascitaInstance" [value]="dataNascita"
+          class="form-control" id="dataNascita" [ngxDatePicker]="dataNascitaInstance" [value]="dataNascita"
           (valueChange)="onChangeDataNascita($event)">
         <ngx-date-picker #dataNascitaInstance [options]="singleDatePickerOptions"></ngx-date-picker>
       </div>
@@ -75,7 +75,7 @@
       <div class="form-group col-md-6">
         <label for="dataScadenzaCartaIdentita">Data Scadenza Carta D'Itentità:</label>
         <input type="text" formControlName="dataScadenzaCartaIdentita" placeholder="dataScadenzaCartaIdentita"
-          name="dataScadenzaCartaIdentita" class="form-control w-25" id="dataScadenzaCartaIdentita"
+          name="dataScadenzaCartaIdentita" class="form-control" id="dataScadenzaCartaIdentita"
           [ngxDatePicker]="dataScadenzaCartaInstance" [value]="dataScadenzaCartaIdentita"
           (valueChange)="onChangeDataScadenzaIdentita($event)">
         <ngx-date-picker #dataScadenzaCartaInstance [options]="singleDatePickerOptions"></ngx-date-picker>

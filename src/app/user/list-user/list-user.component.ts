@@ -127,10 +127,11 @@ export class ListUserComponent implements OnInit {
 
   storeSearch() {
     try {
-      this.userService.previousSearch = $('#DataTables_Table_0_filter input')[0]['value'];
+      this.userService.previousSearch = $('.user-container input')[0]['value'];
+
     }
     catch (e) {
-      this.userService.previousSearch = '';
+      console.log('Error retrieve data search')
     }
   }
 

@@ -20,7 +20,7 @@ export class EditUserComponent implements OnInit {
   users: User[];
   selectedUser;
   editForm: FormGroup;
-  singleDatePickerOptions;
+  singleDatePickerOptions = { displayFormat:'dd/MM/yyyy' }
   dataNascita;
   dataScadenzaCartaIdentita;
   user: User;

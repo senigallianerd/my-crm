@@ -27,7 +27,7 @@ export class AddUserComponent implements OnInit {
   addForm: FormGroup;
   users: User[];
   selectedUser;
-  singleDatePickerOptions;
+  singleDatePickerOptions = { displayFormat:'dd/MM/yyyy' };
   dataNascita;
   dataScadenzaCartaIdentita;
   tags: Tag[] = [];
