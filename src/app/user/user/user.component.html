@@ -190,6 +190,7 @@
           <th (click)="orderBy('data','file')">Scadenza</th>
           <th (click)="orderBy('note','file')">Note</th>
           <th (click)="orderBy('sottotipoDoc','file')">Compagnia</th>
+          <th>File</th>
           <th></th>
         </tr>
       </thead>
@@ -199,6 +200,7 @@
           <td (click)="showHideDoc(file,true)">{{file.data | date:'dd/MM/yyyy'}}</td>
           <td (click)="showHideDoc(file,true)">{{file.note}}</td>
           <td (click)="showHideDoc(file,true)">{{file.sottotipoDoc}}</td>
+          <td class="item-file" (click)="getFile(file.fileName)">{{file.fileName}}</td>
           <td class="buttons">
             <button class="btn btn-danger" (click)="deleteFile(file)">Cancella</button>
           </td>
@@ -220,6 +222,7 @@
           <th (click)="orderBy('data','docs')">Scadenza</th>
           <th (click)="orderBy('note','docs')">Note</th>
           <th (click)="orderBy('sottotipoDoc','docs')">Compagnia</th>
+          <th>File</th>
           <th></th>
         </tr>
       </thead>
@@ -229,6 +232,7 @@
           <td (click)="showHideDoc(doc,true)">{{doc.data | date:'dd/MM/yyyy'}}</td>
           <td (click)="showHideDoc(doc,true)">{{doc.note}}</td>
           <td (click)="showHideDoc(doc,true)">{{doc.sottotipoDoc}}</td>
+          <td class="item-file" (click)="getFile(doc.fileName)">{{doc.fileName}}</td>
           <td class="buttons">
             <button class="btn btn-danger" (click)="deleteFile(doc)">Cancella</button>
           </td>
