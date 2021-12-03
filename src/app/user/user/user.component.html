@@ -181,36 +181,21 @@
   </form>
 
   <span class="file-list">
-    <span class="file-list-title" *ngIf="fileList.length">Documenti:</span>
-
-    <!--<div class="form-row">
-      <div class="form-group col-md-6">
-        Ricerca <input type="text" class="form-control" [(ngModel)]="docFieldInput">
-      </div>
-      <div class="form-group col-md-6">
-        Campo<br>
-        <select [(ngModel)]="docFieldSelected" class="custom-select small">
-          <option *ngFor="let field of searchDocSelect" [ngValue]="field.id">{{field.label}}</option>
-        </select>
-      </div>
-      <button class="btn btn-success margin-5" (click)="searchDoc()">Cerca</button>
-      <button class="btn btn-warning" (click)="resetDoc()">Reset</button>
-    </div>-->
+    <span class="file-list-title" *ngIf="fileList.length">Polizze:</span>
 
     <table *ngIf="fileList.length" class="row-border hover table">
       <thead class="border-table">
         <tr>
-          <th (click)="orderBy('tipoDoc')">Tipo</th>
-          <th (click)="orderBy('data')">Scadenza</th>
-          <th (click)="orderBy('note')">Note</th>
-          <th (click)="orderBy('sottotipoDoc')">Compagnia</th>
-
+          <th (click)="orderBy('numero','file')">Numero</th>
+          <th (click)="orderBy('data','file')">Scadenza</th>
+          <th (click)="orderBy('note','file')">Note</th>
+          <th (click)="orderBy('sottotipoDoc','file')">Compagnia</th>
           <th></th>
         </tr>
       </thead>
       <tbody class="border-table">
         <tr class="item" *ngFor="let file of fileList">
-          <td (click)="showHideDoc(file,true)">{{file.tipoDoc}}</td>
+          <td (click)="showHideDoc(file,true)">{{file.numero}}</td>
           <td (click)="showHideDoc(file,true)">{{file.data | date:'dd/MM/yyyy'}}</td>
           <td (click)="showHideDoc(file,true)">{{file.note}}</td>
           <td (click)="showHideDoc(file,true)">{{file.sottotipoDoc}}</td>
@@ -221,7 +206,37 @@
       </tbody>
     </table>
     <div *ngIf="!fileList.length" class="row-border hover table">
-      Non ci sono risultati
+      Non ci sono polizze
+    </div>
+  </span>
+
+  <span class="doc-list">
+    <span class="doc-list-title" *ngIf="docList.length">Documenti:</span>
+
+    <table *ngIf="docList.length" class="row-border hover table">
+      <thead class="border-table">
+        <tr>
+          <th (click)="orderBy('tipoDoc','docs')">Tipo</th>
+          <th (click)="orderBy('data','docs')">Scadenza</th>
+          <th (click)="orderBy('note','docs')">Note</th>
+          <th (click)="orderBy('sottotipoDoc','docs')">Compagnia</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody class="border-table">
+        <tr class="item" *ngFor="let doc of docList">
+          <td (click)="showHideDoc(doc,true)">{{doc.tipoDoc}}</td>
+          <td (click)="showHideDoc(doc,true)">{{doc.data | date:'dd/MM/yyyy'}}</td>
+          <td (click)="showHideDoc(doc,true)">{{doc.note}}</td>
+          <td (click)="showHideDoc(doc,true)">{{doc.sottotipoDoc}}</td>
+          <td class="buttons">
+            <button class="btn btn-danger" (click)="deleteFile(doc)">Cancella</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="!docList.length" class="row-border hover table">
+      Non ci sono documenti
     </div>
   </span>
 
@@ -234,6 +249,7 @@
 
   <button class="add-btn" (click)="showHideDoc()">Inserisci {{tipoDoc}}</button> <br>
 
+  <div (click)="showHideDoc()" class="outer-elem" *ngIf="docSection"></div>
   <div class="upload-group modal-window" *ngIf="docSection">
     <span class="title-note">
       <span class="title-note">
@@ -313,6 +329,7 @@
       <div *ngIf="uploading" class="uploading">
         Caricamento in corso...
       </div>
+
     </div>
   </div>
   <br>
@@ -340,6 +357,7 @@
   <br>
   <button class="add-btn" (click)="showHideNote()">Inserisci Note</button>
   <!-- modale NOTE -->
+  <div (click)="showHideNote()" class="outer-elem" *ngIf="noteSection"></div>
   <div class="note-group modal-window" *ngIf="noteSection">
     <span class="title-note">
       <b>{{noteReadOnly ? 'Visualizza':'Inserisci'}} Nota</b>

@@ -36,6 +36,9 @@ export class EditUserComponent implements OnInit {
   blockOther;
   blockInternal;
   blockData = true;
+  formChanged = false;
+  selectedProvincia;
+  province;
 
   constructor(private formBuilder: FormBuilder,
     private router: Router,
@@ -82,6 +85,13 @@ export class EditUserComponent implements OnInit {
       datiAggiuntivi: [''],
       datiRaw: ['']
     });
+    this.editForm.valueChanges.subscribe(values => {
+      if(values.id)
+        this.formChanged = true;
+      else
+        this.formChanged = false;
+    })
+
     const id = parseInt(this.route.snapshot.paramMap.get('id'))
     this.apiService.getUserById(id)
     .subscribe( data => {
@@ -118,6 +128,9 @@ export class EditUserComponent implements OnInit {
     this.userService.initTipoContatti().subscribe(values => {
       this.tipoContatti = values;
     });
+    this.userService.initProvince().subscribe(values => {
+      this.province = values;
+    });   
   }
 
   selectTipoContatto(){
@@ -149,6 +162,11 @@ export class EditUserComponent implements OnInit {
 
   goHome(){
     this.router.navigate(['list-user']);
+  }
+
+  selectProvincia(){
+    const prov = this.selectedProvincia;
+    this.editForm.value['dataNascita']=prov;
   }
 
   onSubmit() {

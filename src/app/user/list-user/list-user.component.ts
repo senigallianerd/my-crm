@@ -9,6 +9,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { DataTableDirective } from 'angular-datatables';
 import { environment } from '../../../environments/environment';
+import { UserService } from '../user.service';
 
 class DataTablesResponse {
   data: any[];
@@ -48,6 +49,7 @@ export class ListUserComponent implements OnInit {
   constructor(private router: Router,
     private apiService: ApiService,
     private spinner: NgxSpinnerService,
+    private userService: UserService,
     private http: HttpClient) {  }
 
     ngOnInit(): void {
@@ -59,6 +61,7 @@ export class ListUserComponent implements OnInit {
         serverSide: true,
         processing: true,
         pageLength: 50,
+        search: {search: this.userService.previousSearch},
         ajax: (dataTablesParameters: any, callback) => {
           this.http
             .post<DataTablesResponse>(
@@ -122,15 +125,27 @@ export class ListUserComponent implements OnInit {
     })
   };
 
+  storeSearch() {
+    try {
+      this.userService.previousSearch = $('#DataTables_Table_0_filter input')[0]['value'];
+    }
+    catch (e) {
+      this.userService.previousSearch = '';
+    }
+  }
+
   editUser(user: User) {
+    this.storeSearch();
     this.router.navigate(['edit-user/' + user.id]);
   };
 
   addUser() {
+    this.storeSearch();
     this.router.navigate(['add-user']);
   };
 
   userDetail(id) {
+    this.storeSearch();
     this.router.navigate(['user/' + id]);
   }
 

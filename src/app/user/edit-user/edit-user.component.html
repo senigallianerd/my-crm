@@ -1,5 +1,6 @@
 <div class="col-md-6 user-container">
   <h2 class="text-center">Modifica Cliente</h2>
+
   <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
     <div class="hidden">
       <input type="text" type="hidden" formControlName="id" placeholder="id" name="id" class="form-control" id="id">
@@ -21,13 +22,16 @@
     <div class="form-row" *ngIf="!blockCity">
       <div class="form-group col-md-1">
         <label for="provincia">Prov.:</label>
-        <input type="text" formControlName="provincia" placeholder="provincia" name="provincia" class="form-control" id="provincia">
+        <select class="custom-select" formControlName="provincia"
+          [(ngModel)]="selectedProvincia">
+          <option *ngFor="let provincia of province" [ngValue]="provincia">{{provincia}}</option>
+        </select>
       </div>
       <div class="form-group col-md-5">
         <label for="comune">Comune:</label>
         <input type="text" formControlName="comune" placeholder="comune" name="comune" class="form-control" id="comune">
       </div>
-      <div class="form-group col-md-2" *ngIf="selectedComune">
+      <div class="form-group col-md-2">
         <label for="CAP">CAP:</label>
         <input type="text" formControlName="CAP" placeholder="CAP" name="CAP" class="form-control" id="CAP">
       </div>            
@@ -47,7 +51,7 @@
     <div class="form-row" *ngIf="!blockAnagrafica">
       <div class="form-group col-md-6">
         <label for="dataNascita">Data Nascita:</label>
-        <input type="text"  placeholder="dataNascita" name="dataNascita" class="form-control w-25" id="dataNascita"  
+        <input type="text"  placeholder="dataNascita" name="dataNascita" class="form-control" id="dataNascita"  
             [ngxDatePicker]="dataNascitaIstance" 
             [value]="dataNascita"
             (valueChange)="onChangeDataNascita($event)">
@@ -151,7 +155,7 @@
       </div>
     </div>
 
-    <div class="footer">
+    <div class="footer" *ngIf="formChanged">
       <button class="btn btn-success">Aggiorna Cliente</button>
     </div>
 

@@ -45,6 +45,7 @@ export class UserComponent implements OnInit {
   tipoDocs;
   tipoDoc;
   previousSearch: string;
+  descOrder: boolean = false;
   dtOptions: DataTables.Settings = {};
   blockName;
   blockCity;
@@ -138,7 +139,8 @@ export class UserComponent implements OnInit {
 
   getInsurances(userId) {
     this.apiService.getInsuranceByUserId(userId).subscribe(data => {
-      this.fileList = data;
+      this.fileList = data.filter(f => f.tipoDoc==='polizza');
+      this.docList = data.filter(f => f.tipoDoc!=='polizza');
     })
   }
 
@@ -148,14 +150,24 @@ export class UserComponent implements OnInit {
     })
   }
 
-  orderBy(value) {
-    const desc = this.previousSearch === value;
-    this.fileList = this.fileList.sort(function (a, b) {
-      if(desc)
-        return b[value].localeCompare(a[value])
-      else
-       return a[value].localeCompare(b[value])
-    });
+  orderBy(value,type) {
+    this.descOrder = this.previousSearch === value ? !this.descOrder : this.descOrder;
+    if(type==='file'){
+      this.fileList = this.fileList.sort((a, b) => {
+        if(this.descOrder)
+          return b[value].localeCompare(a[value])
+        else
+         return a[value].localeCompare(b[value])
+      });
+    }
+    else{
+      this.docList = this.docList.sort((a, b) => {
+        if(this.descOrder)
+          return b[value].localeCompare(a[value])
+        else
+         return a[value].localeCompare(b[value])
+      });
+    }
     this.previousSearch = value;
   }
 

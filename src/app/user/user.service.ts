@@ -9,6 +9,8 @@ export class UserService {
     constructor(private apiService: ApiService) {
     }
 
+    public previousSearch: string;
+
     initTags() {
         return this.apiService.getCollaboratore().pipe(
             map(data => data.map(({ nome }) => nome))
