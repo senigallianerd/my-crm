@@ -318,17 +318,17 @@
           <span class="item-file" (click)="getFile(fileName)">{{fileName}}</span>
         </div>
       </span>
+      <div class="btn-doc-container">
+        <input [formControl]="file" (change)="fileChange(index,$event)" type="file" placeholder="File">
+        <button style="margin-top:20px" (click)="uploadFile(editDoc)" mat-raised-button color="primary">
+          {{editDoc ? 'Sostituisci il file' : 'Carica e Salva'}}
+        </button> (Max 50Mb)
+      </div>
       <div class="btn-doc-container" *ngIf="editDoc">
         <button style="margin-top:20px" class="btn btn-warning" (click)="editDocument()" mat-raised-button
           color="primary">
           Modifica
         </button>
-      </div>
-      <div class="btn-doc-container" *ngIf="!docReadOnly">
-        <input [formControl]="file" (change)="fileChange(index,$event)" type="file" placeholder="File">
-        <button style="margin-top:20px" (click)="uploadFile()" mat-raised-button color="primary">
-          Carica e Salva
-        </button> (Max 50Mb)
       </div>
       <div *ngIf="uploading" class="uploading">
         Caricamento in corso...
@@ -364,24 +364,30 @@
   <div (click)="showHideNote()" class="outer-elem" *ngIf="noteSection"></div>
   <div class="note-group modal-window" *ngIf="noteSection">
     <span class="title-note">
-      <b>{{noteReadOnly ? 'Visualizza':'Inserisci'}} Nota</b>
+      <b>{{noteEdit ? 'Modifica':'Inserisci'}} Nota</b>
       <div class="close-modal" (click)="showHideNote()">
         <fa-icon [icon]="faWindowClose"></fa-icon>
       </div>
     </span>
     <div class="form-group col-md-6">
       <label for="titolo">Titolo:</label>
-      <input placeholder="titolo" [readonly]="noteReadOnly" name="titolo" [(ngModel)]="noteTitle" id="titolo"
+      <input placeholder="titolo" name="titolo" [(ngModel)]="noteTitle" id="titolo"
         class="form-control ng-untouched ng-pristine ng-valid">
     </div>
     <div class="form-group col-md-12">
       <label for="testo">Testo:</label>
-      <textarea [readonly]="noteReadOnly" rows="4" [(ngModel)]="noteText" placeholder="testo" name="testo" id="testo"
+      <textarea rows="4" [(ngModel)]="noteText" placeholder="testo" name="testo" id="testo"
         class="form-control ng-untouched ng-pristine ng-valid"></textarea>
     </div>
-    <button style="margin-top:20px" *ngIf="!noteReadOnly" (click)="addNote()" mat-raised-button color="primary">
+    <button style="margin-top:20px" *ngIf="!noteEdit" (click)="addNote()" mat-raised-button color="primary">
       Inserisci
     </button>
+    <div class="btn-doc-container" *ngIf="noteEdit">
+      <button style="margin-top:20px" class="btn btn-warning" (click)="editNote()" mat-raised-button
+        color="primary">
+        Modifica
+      </button>
+    </div>
   </div>
 
   <footer class="footer">

@@ -57,12 +57,13 @@ export class UserComponent implements OnInit {
   blockData = true;
   frazionamentoSemestrale = false;
   targa;
+  noteId;
   noteText;
   noteTitle;
   noteSection;
   docSection;
   docModalSection;
-  noteReadOnly = false;
+  noteEdit = false;
   noteDoc;
   numero;
   premioRata;
@@ -84,7 +85,7 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.uploadData = new Policy(this.user.id, '', '', '', '',false,'','','','');
+    this.uploadData = new Policy(this.user.id, '', '', '', '',false,'','','','','');
     this.getInsurances(this.user.id);
     this.getNotes(this.user.id);
     this.getCompagnie();
@@ -209,7 +210,7 @@ export class UserComponent implements OnInit {
     console.log(file);
   }
 
-  uploadFile() {
+  uploadFile(editDoc?) {
     this.uploading = true;
     this.http.post(environment.apiURL + 'upload.php', this.file_data)
       .subscribe(res => {
@@ -222,27 +223,55 @@ export class UserComponent implements OnInit {
         this.uploadData.note = this.noteDoc;
         this.uploadData.numero = this.numero;
         this.uploadData.premioRata = this.premioRata;
-        this.apiService.setUploadInfo(this.uploadData).subscribe(data => {
-          if (data) {
-            console.log('SET UPLOAD INFO completato')
-            this.uploading = false;
-            setTimeout(() => this.getInsurances(this.user.id), 5);
+        this.uploadData.docId = this.docId;
+        if(editDoc){
+          this.apiService.editUploadInfo(this.uploadData).subscribe(data => {
+            if (data) {
+              console.log('File sostituito')
+              this.uploading = false;
+              this.fileName = this.uploadData.fileName;
+              this.toaster.open({
+                text: 'File sostituito',
+                position: 'top-right',
+                duration: 3000,
+                type: 'success'
+              });
+              this.getInsurances(this.user.id);
+            }
+          },(err) => {
+            console.log('UPLOAD Error',err)
             this.toaster.open({
-              text: 'Caricamento completato',
+              text: 'Errore Caricamento',
               position: 'top-right',
               duration: 3000,
-              type: 'success'
+              type: 'warning'
             });
-          }
-        },(err) => {
-          console.log('UPLOAD Error',err)
-          this.toaster.open({
-            text: 'Errore Caricamento',
-            position: 'top-right',
-            duration: 3000,
-            type: 'warning'
-          });
-        })
+          })
+        }
+        else{
+          this.apiService.setUploadInfo(this.uploadData).subscribe(data => {
+            if (data) {
+              console.log('SET UPLOAD INFO completato')
+              this.uploading = false;
+              setTimeout(() => this.getInsurances(this.user.id), 5);
+              this.toaster.open({
+                text: 'Caricamento completato',
+                position: 'top-right',
+                duration: 3000,
+                type: 'success'
+              });
+            }
+          },(err) => {
+            console.log('UPLOAD Error',err)
+            this.toaster.open({
+              text: 'Errore Caricamento',
+              position: 'top-right',
+              duration: 3000,
+              type: 'warning'
+            });
+          })
+        }
+
       }, (err) => {
         console.log('UPLOAD Error',err)
         this.toaster.open({
@@ -350,7 +379,6 @@ export class UserComponent implements OnInit {
   };
 
   disableScroll(){
-    debugger
     $('body').css('overflow-y','hidden')
   }
 
@@ -359,7 +387,7 @@ export class UserComponent implements OnInit {
   }
 
   showHideNote(){
-    this.noteReadOnly = false;
+    this.noteEdit = false;
     this.noteSection = !this.noteSection;
     this.noteText = '';
     this.noteTitle = '';
@@ -387,7 +415,6 @@ export class UserComponent implements OnInit {
       setTimeout(()=>{
         this.sottotipoDoc = file['sottotipoDoc'];
       },200)
-      debugger
       this.docReadOnly = true;
       this.numero = file['numero'];
       this.targa = file['targa'];
@@ -420,9 +447,31 @@ export class UserComponent implements OnInit {
 
   showNote(note){
     this.noteSection = true;
-    this.noteReadOnly = true;
+    this.noteEdit = true;
     this.noteText = note.testo;
     this.noteTitle = note.titolo;
+    this.noteId = note.id
+  }
+
+  editNote(){
+    this.apiService.editNote({noteId:this.noteId,noteText:this.noteText,noteTitle:this.noteTitle}).subscribe(data => {
+      if(data){
+        this.toaster.open({
+          text: 'Nota aggiornato',
+          position: 'top-right',
+          duration: 3000,
+          type: 'success'
+        });
+        this.getNotes(this.user.id);
+      }
+      else
+        this.toaster.open({
+          text: 'Errore su modifica note',
+          position: 'top-right',
+          duration: 3000,
+          type: 'warning'
+        });
+    })
   }
 
   editDocument(){

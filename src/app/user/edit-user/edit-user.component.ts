@@ -50,7 +50,6 @@ export class EditUserComponent implements OnInit {
   ngOnInit() {
     this.initValues();
     this.user = this.route.snapshot.data['user'];
-    debugger
     this.dataNascita = this.user && this.user.dataNascita ? new Date(this.user.dataNascita) : '';
     this.dataScadenzaCartaIdentita = this.user && this.user.dataScadenzaCartaIdentita ? new Date(this.user.dataScadenzaCartaIdentita) : '';
     this.editForm = this.formBuilder.group({

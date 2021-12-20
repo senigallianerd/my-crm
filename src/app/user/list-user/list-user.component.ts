@@ -54,7 +54,6 @@ export class ListUserComponent implements OnInit {
 
     ngOnInit(): void {
       this.spinner.show();
-      debugger
       this.dtOptions = {
         pagingType: 'full_numbers',
         responsive: true,

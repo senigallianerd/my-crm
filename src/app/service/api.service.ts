@@ -95,6 +95,10 @@ export class ApiService {
     return this.http.post<any>(this.apiURL + 'add-note.php', note);
   }
 
+  editNote(note) {
+    return this.http.post<any>(this.apiURL + 'update-note.php', note);
+  }
+
   getPolicy() {
     return this.http.get<Policy[]>(this.apiURL + 'get-policy.php');
   }
@@ -131,5 +135,8 @@ export class ApiService {
     return this.http.get<Policy[]>(this.apiURL + 'delete-policy.php?policyId=' + policyId);
   }
 
+  editUploadInfo(info) {
+    return this.http.post<any>(this.apiURL + 'edit-upload-info.php', info);
+  }
 
 }
