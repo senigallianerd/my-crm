@@ -302,7 +302,10 @@
       </span>
       <span>
         <div class="form-group">
-          Frazionamento semestrale: <input type="checkbox" [(ngModel)]="frazionamentoSemestrale">
+          Frazionamento: 
+          <select class="custom-select small" [(ngModel)]="frazionamentoDoc">
+            <option *ngFor="let frazionamento of frazionamenti" [ngValue]="frazionamento">{{frazionamento}}</option>
+          </select>
         </div>
       </span>
       <span>

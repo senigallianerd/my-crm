@@ -1,12 +1,12 @@
 export class Policy {
 
-    constructor(userId, data, fileName, tipoDoc, sottotipoDoc, frazionamentoSemestrale,targa,note,numero,premioRata,docId) { 
+    constructor(userId, data, fileName, tipoDoc, sottotipoDoc, frazionamento,targa,note,numero,premioRata,docId) { 
         this.data = data,
         this.userId = userId,
         this.fileName = fileName;
         this.sottotipoDoc = sottotipoDoc;
         this.tipoDoc = tipoDoc;
-        this.frazionamentoSemestrale = frazionamentoSemestrale ? true : false;
+        this.frazionamento = frazionamento ? true : false;
         this.tipoDoc = targa;
         this.note = note;
         this.numero = numero;
@@ -18,7 +18,7 @@ export class Policy {
     fileName: string;
     sottotipoDoc: string;
     tipoDoc: string;
-    frazionamentoSemestrale: boolean;
+    frazionamento: string;
     targa: string;
     note: string;
     numero: string;

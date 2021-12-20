@@ -55,7 +55,8 @@ export class UserComponent implements OnInit {
   blockOther;
   blockInternal;
   blockData = true;
-  frazionamentoSemestrale = false;
+  frazionamentoDoc;
+  frazionamenti = ['Annuale','Semestrale','Trimestrale','Quadrimestrale','Mensile'];
   targa;
   noteId;
   noteText;
@@ -219,7 +220,7 @@ export class UserComponent implements OnInit {
         this.uploadData.tipoDoc = this.tipoDoc;
         this.uploadData.sottotipoDoc = this.sottotipoDoc;
         this.uploadData.targa = this.targa;
-        this.uploadData.frazionamentoSemestrale = this.frazionamentoSemestrale;
+        this.uploadData.frazionamento = this.frazionamentoDoc;
         this.uploadData.note = this.noteDoc;
         this.uploadData.numero = this.numero;
         this.uploadData.premioRata = this.premioRata;
@@ -419,7 +420,7 @@ export class UserComponent implements OnInit {
       this.numero = file['numero'];
       this.targa = file['targa'];
       this.premioRata = file['premioRata'];
-      this.frazionamentoSemestrale = this.toBoolean(file.frazionamentoSemestrale);
+      this.frazionamentoDoc = file.frazionamento;
       this.noteDoc = file['note'];
       this.singleDate = new Date(file['data']);
       this.fileName = file['fileName'];
@@ -436,7 +437,7 @@ export class UserComponent implements OnInit {
     this.numero = '';
     this.targa = '';
     this.premioRata = '';
-    this.frazionamentoSemestrale = false;
+    this.frazionamentoDoc = false;
     this.noteDoc = '';
     this.singleDate = '';
     this.fileName = '';
@@ -480,7 +481,7 @@ export class UserComponent implements OnInit {
     editDoc['numero'] = this.numero;
     editDoc['targa'] = this.targa;
     editDoc['premioRata'] = this.premioRata;
-    editDoc['frazionamentoSemestrale'] = this.frazionamentoSemestrale;
+    editDoc['frazionamento'] = this.frazionamentoDoc;
     editDoc['noteDoc'] = this.noteDoc;
     editDoc['singleDate'] = this.singleDate;
     editDoc['fileName'] = this.fileName;
