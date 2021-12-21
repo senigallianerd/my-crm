@@ -33,6 +33,7 @@ export class AddUserComponent implements OnInit {
   tags: Tag[] = [];
   tipoContatti: TypeContact[];
   selectedTag;
+  selectedTag1;
   selectedTipoContatto;
   province;
   selectedProvincia;
@@ -56,6 +57,7 @@ export class AddUserComponent implements OnInit {
       cognome: ['', Validators.required],
       azienda: [''],
       collaboratore: [''],
+      collaboratore1: [''],
       tipoContatto: [''],
       cellulare: [''],
       telCasa: [''],
@@ -119,6 +121,8 @@ export class AddUserComponent implements OnInit {
   selectTipoContatto() { }
 
   selectTag() { }
+
+  selectTag1() { }
 
   selectProvincia() {
     const prov = this.selectedProvincia;

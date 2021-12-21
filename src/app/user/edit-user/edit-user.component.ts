@@ -25,6 +25,7 @@ export class EditUserComponent implements OnInit {
   dataScadenzaCartaIdentita;
   user: User;
   selectedTag;
+  selectedTag1;
   selectedTipoContatto;
   tags:any = [];
   tipoContatti:any = [];
@@ -58,6 +59,7 @@ export class EditUserComponent implements OnInit {
       cognome: ['', Validators.required],
       azienda: [''],
       collaboratore: [''],
+      collaboratore1: [''],
       cellulare: [''],
       tipoContatto: [''],
       telCasa: [''],
@@ -138,6 +140,10 @@ export class EditUserComponent implements OnInit {
 
   selectTag(){
     this.editForm.value.collaboratore = this.selectedTag;
+  }
+
+  selectTag1(){
+    this.editForm.value.collaboratore1 = this.selectedTag1;
   }
 
   onChangeDataNascita(event){

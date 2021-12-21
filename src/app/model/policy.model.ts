@@ -6,7 +6,7 @@ export class Policy {
         this.fileName = fileName;
         this.sottotipoDoc = sottotipoDoc;
         this.tipoDoc = tipoDoc;
-        this.frazionamento = frazionamento ? true : false;
+        this.frazionamento = frazionamento;
         this.tipoDoc = targa;
         this.note = note;
         this.numero = numero;

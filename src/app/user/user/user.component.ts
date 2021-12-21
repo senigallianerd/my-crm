@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, EventEmitter } from '@angular/core';
+import { Component, OnInit, Inject, EventEmitter, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { User } from "../../model/user.model";
 import { Policy } from "../../model/policy.model";
@@ -85,6 +85,15 @@ export class UserComponent implements OnInit {
     private toaster: Toaster) {
   }
 
+  @HostListener('click', ['$event']) 
+  onClick(e) {
+      if(e.target.tagName==='A' && e.target.className === 'link'){
+        this.findUser(e.target.text)
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }
+
   ngOnInit() {
     this.uploadData = new Policy(this.user.id, '', '', '', '',false,'','','','','');
     this.getInsurances(this.user.id);
@@ -92,6 +101,17 @@ export class UserComponent implements OnInit {
     this.getCompagnie();
     this.getTipoDocs();
     this.initDtOptions();
+    this.user.note = this.user.note.replace(/(?:\r\n|\r|\n)/g, '<br>');
+  }
+
+  findUser(user) {
+    const nome = user.match(/[A-Z][a-z]+/g)[0];
+    const cognome = user.match(/[A-Z][a-z]+/g)[1];
+    this.apiService.getUserByName(nome, cognome)
+      .subscribe(data => {
+        this.router.navigate(['user/' + data[0]['id']]);
+        setTimeout(()=>location.reload(),100);
+      });
   }
 
   searchDoc(){

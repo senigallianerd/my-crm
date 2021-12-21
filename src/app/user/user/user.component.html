@@ -148,8 +148,7 @@
       </div>
       <div class="form-group col-md-12">
         <label for="note">Collegamenti:</label>
-        <textarea rows="4" formcontrolname="note" placeholder="{{user.note}}" readonly name="note" id="note"
-          class="form-control ng-untouched ng-pristine ng-valid"></textarea>
+        <div style="height:auto" id="note" class="form-control" [tagDirective]="user.note"></div>
       </div>
     </div>
 
@@ -161,6 +160,11 @@
         <input formcontrolname="collaboratore" placeholder="{{user.collaboratore}}" readonly name="collaboratore"
           id="collaboratore" class="form-control ng-untouched ng-pristine ng-valid">
       </div>
+      <div class="form-group col-md-6">
+        <label for="collaboratore1">Assegnato a:</label>
+        <input formcontrolname="collaboratore1" placeholder="{{user.collaboratore1}}" readonly name="collaboratore"
+          id="collaboratore1" class="form-control ng-untouched ng-pristine ng-valid">
+      </div>      
       <div class="form-group col-md-6">
         <label for="tipoContatto">Tipo Contatto:</label>
         <input formcontrolname="collaboratore" placeholder="{{user.tipoContatto}}" readonly name="tipoContatto"

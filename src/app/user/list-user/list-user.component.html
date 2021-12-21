@@ -23,7 +23,7 @@
         <td (click)="userDetail(user.id)">{{user.cognome}}</td>
         <td (click)="userDetail(user.id)">{{user.nome}}</td>
         <td class="link" [tagDirective]="user.note"></td>
-        <td (click)="userDetail(user.id)">{{user.collaboratore}}</td>
+        <td (click)="userDetail(user.id)">{{user.collaboratore}} {{user.collaboratore1}}</td>
         <td class="buttons">
           <button class="btn btn-success" (click)="editUser(user)"><fa-icon [icon]="faEdit"></fa-icon></button>
         </td>
