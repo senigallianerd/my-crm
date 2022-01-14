@@ -199,7 +199,7 @@ export class AddUserComponent implements OnInit {
       }
     }
     if(this.addForm.value.partitaIva){
-      const validatePIVA = this.userService.validateEmail(this.addForm.value.partitaIva);
+      const validatePIVA = this.userService.validatePartitaIva(this.addForm.value.partitaIva);
       if(!validatePIVA){
         this.toaster.open({
           text: "Errore nel formato della partita IVA",
@@ -211,7 +211,7 @@ export class AddUserComponent implements OnInit {
       }
     }
     if(this.addForm.value.codiceFiscale){
-      const validateCodiceFiscale = this.userService.validateEmail(this.addForm.value.codiceFiscale);
+      const validateCodiceFiscale = this.userService.validateCodiceFiscale(this.addForm.value.codiceFiscale);
       if(!validateCodiceFiscale){
         this.toaster.open({
           text: "Errore nel formato del codice fiscale",

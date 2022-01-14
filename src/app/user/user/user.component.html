@@ -11,12 +11,12 @@
     <div class="form-row" *ngIf="!blockName">
       <div class="form-group col-md-6">
         <label for="nome">Nome:</label>
-        <input placeholder="{{user.nome}}" readonly name="nome" id="nome"
+        <input value="{{user.nome}}" readonly name="nome" id="nome"
           class="form-control ng-pristine ng-valid ng-touched">
       </div>
       <div class="form-group col-md-6">
         <label for="cognome">Cognome/Rag.Soc.:</label>
-        <input formcontrolname="cognome" placeholder="{{user.cognome}}" readonly name="cognome" id="cognome"
+        <input formcontrolname="cognome" value="{{user.cognome}}" readonly name="cognome" id="cognome"
           class="form-control ng-untouched ng-pristine ng-valid">
       </div>
     </div>
@@ -26,27 +26,27 @@
     <div class="form-row" *ngIf="!blockCity">
       <div class="form-group col-md-4">
         <label for="citta">Comune</label>
-        <input formcontrolname="indirizzoResidenza" placeholder="{{user.comune}}" readonly name="indirizzoResidenza"
+        <input formcontrolname="indirizzoResidenza" value="{{user.comune}}" readonly name="indirizzoResidenza"
           id="indirizzoResidenza" class="form-control ng-untouched ng-pristine ng-valid">
       </div>
       <div class="form-group col-md-1">
         <label for="provincia">Prov.</label>
-        <input formcontrolname="provincia" placeholder="{{user.provincia}}" readonly name="provincia" id="provincia"
+        <input formcontrolname="provincia" value="{{user.provincia}}" readonly name="provincia" id="provincia"
           class="form-control ng-untouched ng-pristine ng-valid">
       </div>
       <div class="form-group col-md-2">
         <label for="CAP">CAP</label>
-        <input formcontrolname="CAP" placeholder="{{user.CAP}}" readonly name="CAP" id="CAP"
+        <input formcontrolname="CAP" value="{{user.CAP}}" readonly name="CAP" id="CAP"
           class="form-control ng-untouched ng-pristine ng-valid">
       </div>
       <div class="form-group col-md-4">
         <label for="indirizzoResidenza">Via:</label>
-        <input formcontrolname="indirizzoResidenza" placeholder="{{user.indirizzoResidenza}}" readonly
+        <input formcontrolname="indirizzoResidenza" value="{{user.indirizzoResidenza}}" readonly
           name="indirizzoResidenza" id="indirizzoResidenza" class="form-control ng-untouched ng-pristine ng-valid">
       </div>
       <div class="form-group col-md-1">
         <label for="civico">Numero:</label>
-        <input formcontrolname="civico" placeholder="{{user.civico}}" readonly name="civico" id="civico"
+        <input formcontrolname="civico" value="{{user.civico}}" readonly name="civico" id="civico"
           class="form-control ng-untouched ng-pristine ng-valid">
       </div>
     </div>
@@ -61,33 +61,33 @@
       </div>
       <div class="form-group col-md-6">
         <label for="codiceFiscale">Codice Fiscale:</label>
-        <input formcontrolname="codiceFiscale" placeholder="{{user.codiceFiscale}}" readonly name="codiceFiscale"
+        <input formcontrolname="codiceFiscale" value="{{user.codiceFiscale}}" readonly name="codiceFiscale"
           id="codiceFiscale" class="form-control ng-untouched ng-pristine ng-valid">
       </div>
       <div class="form-group col-md-6">
         <label for="cartaIdentita">Carta di Identità:</label>
-        <input formcontrolname="cartaIdentita" placeholder="{{user.cartaIdentita}}" readonly name="cartaIdentita"
+        <input formcontrolname="cartaIdentita" value="{{user.cartaIdentita}}" readonly name="cartaIdentita"
           id="cartaIdentita" class="form-control ng-untouched ng-pristine ng-valid">
       </div>
       <div class="form-group col-md-6">
         <label for="dataScadenzaCartaIdentita">Data Scadenza Carta Identità:</label>
         <input formcontrolname="dataScadenzaCartaIdentita"
-          placeholder="{{user.dataScadenzaCartaIdentita | date:'dd/MM/yyyy'}}" readonly name="dataScadenzaCartaIdentita"
+          value="{{user.dataScadenzaCartaIdentita | date:'dd/MM/yyyy'}}" readonly name="dataScadenzaCartaIdentita"
           id="dataScadenzaCartaIdentita" class="form-control ng-untouched ng-pristine ng-valid">
       </div>
       <div class="form-group col-md-6">
         <label for="partitaIva">P.IVA:</label>
-        <input formcontrolname="partitaIva" placeholder="{{user.partitaIva}}" readonly name="partitaIva" id="partitaIva"
+        <input formcontrolname="partitaIva" value="{{user.partitaIva}}" readonly name="partitaIva" id="partitaIva"
           class="form-control ng-untouched ng-pristine ng-valid">
       </div>
       <div class="form-group col-md-6">
         <label for="sdi">SDI:</label>
-        <input formcontrolname="sdi" placeholder="{{user.sdi}}" readonly name="sdi" id="sdi"
+        <input formcontrolname="sdi" value="{{user.sdi}}" readonly name="sdi" id="sdi"
           class="form-control ng-untouched ng-pristine ng-valid">
       </div>
       <div class="form-group col-md-12">
         <label for="iban">IBAN:</label>
-        <input formcontrolname="iban" placeholder="{{user.iban}}" readonly name="iban" id="iban"
+        <input formcontrolname="iban" value="{{user.iban}}" readonly name="iban" id="iban"
           class="form-control ng-untouched ng-pristine ng-valid">
       </div>
     </div>
@@ -120,14 +120,14 @@
         </div>
       </div>
       <div class="form-group col-md-6">
-        <label for="secondaEmail">Email privata:</label>
+        <label for="secondaEmail">Email 2:</label>
         <div class="input">
           <a href="{{'mailto:' + user.secondaEmail}}">{{user.secondaEmail}}</a>
         </div>
       </div>
       <div class="form-group col-md-6">
         <label for="PEC">PEC:</label>
-        <input formcontrolname="PEC" placeholder="{{user.PEC}}" readonly name="PEC" id="PEC"
+        <input formcontrolname="PEC" value="{{user.PEC}}" readonly name="PEC" id="PEC"
           class="form-control ng-untouched ng-pristine ng-valid">
       </div>
 
@@ -138,12 +138,12 @@
     <div class="form-row" *ngIf="!blockOther">
       <div class="form-group col-md-6">
         <label for="occupazione">Occupazione:</label>
-        <input formcontrolname="occupazione" placeholder="{{user.occupazione}}" readonly name="occupazione"
+        <input formcontrolname="occupazione" value="{{user.occupazione}}" readonly name="occupazione"
           id="occupazione" class="form-control ng-untouched ng-pristine ng-valid">
       </div>
       <div class="form-group col-md-6">
         <label for="hobby">Hobby:</label>
-        <textarea rows="4" formcontrolname="hobby" placeholder="{{user.hobby}}" readonly name="hobby" id="hobby"
+        <textarea rows="4" formcontrolname="hobby" value="{{user.hobby}}" readonly name="hobby" id="hobby"
           class="form-control ng-untouched ng-pristine ng-valid"></textarea>
       </div>
       <div class="form-group col-md-12">
@@ -157,17 +157,17 @@
     <div class="form-row" *ngIf="!blockInternal">
       <div class="form-group col-md-6">
         <label for="collaboratore">Assegnato a:</label>
-        <input formcontrolname="collaboratore" placeholder="{{user.collaboratore}}" readonly name="collaboratore"
+        <input formcontrolname="collaboratore" value="{{user.collaboratore}}" readonly name="collaboratore"
           id="collaboratore" class="form-control ng-untouched ng-pristine ng-valid">
       </div>
       <div class="form-group col-md-6">
         <label for="collaboratore1">Assegnato a:</label>
-        <input formcontrolname="collaboratore1" placeholder="{{user.collaboratore1}}" readonly name="collaboratore"
+        <input formcontrolname="collaboratore1" value="{{user.collaboratore1}}" readonly name="collaboratore"
           id="collaboratore1" class="form-control ng-untouched ng-pristine ng-valid">
       </div>      
       <div class="form-group col-md-6">
         <label for="tipoContatto">Tipo Contatto:</label>
-        <input formcontrolname="collaboratore" placeholder="{{user.tipoContatto}}" readonly name="tipoContatto"
+        <input formcontrolname="collaboratore" value="{{user.tipoContatto}}" readonly name="tipoContatto"
           id="tipoContatto" class="form-control ng-untouched ng-pristine ng-valid">
       </div>
     </div>
@@ -177,7 +177,7 @@
     <div class="form-row" *ngIf="!blockData">
       <div class="form-group col-md-6">
         <label for="datiAggiuntivi">Dati Aggiuntivi:</label>
-        <textarea rows="4" formcontrolname="datiAggiuntivi" placeholder="{{user.datiAggiuntivi}}" readonly
+        <textarea rows="4" formcontrolname="datiAggiuntivi" value="{{user.datiAggiuntivi}}" readonly
           name="datiAggiuntivi" id="datiAggiuntivi" class="form-control ng-untouched ng-pristine ng-valid"></textarea>
       </div>
     </div>
@@ -194,6 +194,7 @@
           <th (click)="orderBy('data','file')">Scadenza</th>
           <th (click)="orderBy('note','file')">Note</th>
           <th (click)="orderBy('sottotipoDoc','file')">Compagnia</th>
+          <th (click)="orderBy('targa','file')">Targa</th>
           <th>File</th>
           <th></th>
         </tr>
@@ -204,6 +205,7 @@
           <td (click)="showHideDoc(file,true)">{{file.data | date:'dd/MM/yyyy'}}</td>
           <td (click)="showHideDoc(file,true)">{{file.note}}</td>
           <td (click)="showHideDoc(file,true)">{{file.sottotipoDoc}}</td>
+          <td (click)="showHideDoc(file,true)">{{file.targa}}</td>
           <td class="item-file" (click)="getFile(file.fileName)">{{file.fileName}}</td>
           <td class="buttons">
             <button class="btn btn-danger" (click)="deleteFile(file)">Cancella</button>
@@ -269,7 +271,7 @@
     </span>
     <div class="modal-container">
       <span>
-        <div class="form-group col-md-2">
+        <div class="form-group col-md-4">
           <label for="numero">Numero:</label>
           <input placeholder="numero" name="numero" [(ngModel)]="numero" id="numero"
             class="form-control ng-untouched ng-pristine ng-valid">

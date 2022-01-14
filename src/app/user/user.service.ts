@@ -48,7 +48,7 @@ export class UserService {
 
     validateCodiceFiscale(code){
         var pattern = /^[a-zA-Z]{6}[0-9]{2}[a-zA-Z][0-9]{2}[a-zA-Z][0-9]{3}[a-zA-Z]$/;
-        if (code.value.search(pattern) == -1)
+        if (code.search(pattern) == -1)
             return false
         else
             return true;
