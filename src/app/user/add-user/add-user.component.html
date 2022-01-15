@@ -24,12 +24,14 @@
         <label for="provincia">Prov.:</label>
         <select class="custom-select" (change)="selectProvincia()" formControlName="provincia"
           [(ngModel)]="selectedProvincia">
+          <option id="prov-default-value" value="XX">PROV</option>
           <option *ngFor="let provincia of province" [ngValue]="provincia">{{provincia}}</option>
         </select>
       </div>
       <div class="form-group col-md-4" *ngIf="selectedProvincia">
         <label for="comune">Comune:</label>
         <select class="custom-select" (change)="selectComune()" formControlName="comune" [(ngModel)]="selectedComune">
+          <option id="comune-default-value" value="XX">Comune</option>
           <option *ngFor="let comune of comuni" [ngValue]="comune">{{comune}}</option>
         </select>
       </div>

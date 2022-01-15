@@ -96,6 +96,8 @@ export class AddUserComponent implements OnInit {
     });
     this.userService.initProvince().subscribe(values => {
       this.province = values;
+      setTimeout(()=>$('#prov-default-value').attr('selected','true'),200);
+
     });    
   }
 
@@ -128,6 +130,7 @@ export class AddUserComponent implements OnInit {
     const prov = this.selectedProvincia;
     this.userService.initComuni(prov).subscribe(values => {
       this.comuni = values;
+      setTimeout(()=>$('#comune-default-value').attr('selected','true'),200);
     }); 
    }
 
