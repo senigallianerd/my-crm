@@ -173,7 +173,6 @@ export class UserComponent implements OnInit {
   }
 
   orderBy(value,type) {
-    debugger
     this.descOrder = this.previousSearch === value ? !this.descOrder : this.descOrder;
     if(type==='file'){
       this.fileList = this.fileList.sort((a, b) => {

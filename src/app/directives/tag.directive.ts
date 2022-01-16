@@ -14,7 +14,7 @@ export class TagDirective{
 
     ngOnInit() {
         this.tagDirective = this.tagDirective || '';
-        let keyword = '@([a-zA-Z0-9_]+)';
+        let keyword = "@([a-z'A-Z0-9_]+)";
         let regex = new RegExp(`(${keyword})`, "ig");
         this.elementRef.nativeElement.innerHTML = this.tagDirective.replace(regex, '<a class="link" link="$1">$1</a>');
     }
