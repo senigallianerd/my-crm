@@ -30,7 +30,7 @@ export class UserComponent implements OnInit {
   user: User = this.route.snapshot.data['user'];
   index;
   model;
-  singleDatePickerOptions;
+  singleDatePickerOptions = { displayFormat:'dd/MM/yyyy' };
   singleDate;
   insurances;
   selectedInsurance;
