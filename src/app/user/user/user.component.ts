@@ -391,6 +391,13 @@ export class UserComponent implements OnInit {
     this.singleDate = new Date(event);
   }
 
+  onFocusOutEvent(event) {
+    if(event.target?.value === ''){
+      this.uploadData.data = null;
+      this.singleDate = null;
+    }
+  }
+
   goHome() {
     this.router.navigate(['list-user']);
   }
@@ -424,6 +431,7 @@ export class UserComponent implements OnInit {
   }
 
   showHideDoc(file?,showEdit?){
+    debugger;
     this.editDoc = showEdit;
     this.docSection = !this.docSection;
     if(this.docSection)
@@ -442,7 +450,7 @@ export class UserComponent implements OnInit {
       this.premioRata = file['premioRata'];
       this.frazionamentoDoc = file.frazionamento;
       this.noteDoc = file['note'];
-      this.singleDate = new Date(file['data']);
+      this.singleDate = file['data'] ? new Date(file['data']) : null;
       this.fileName = file['fileName'];
       this.docId = file['id'];
     }
@@ -496,6 +504,7 @@ export class UserComponent implements OnInit {
   }
 
   editDocument(){
+    debugger;
     const editDoc = {};
     editDoc['id'] = this.docId;
     editDoc['numero'] = this.numero;

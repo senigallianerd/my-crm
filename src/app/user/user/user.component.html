@@ -302,7 +302,7 @@
         Data di scadenza:
         <div class="form-group">
           <input class="form-control w-25 small" placeholder="Scegli Data" [ngxDatePicker]="dateInstanceSingle"
-            [value]="singleDate" (valueChange)="onChangeSingle($event)">
+            [value]="singleDate" (focusout)="onFocusOutEvent($event)" (valueChange)="onChangeSingle($event)">
           <ngx-date-picker #dateInstanceSingle [options]="singleDatePickerOptions"></ngx-date-picker>
         </div>
       </span>

@@ -13,7 +13,7 @@ export class Policy {
         this.premioRata = premioRata;
         this.docId = docId
     }   
-    data: Date;
+    data: Date | string;
     userId: string;
     fileName: string;
     sottotipoDoc: string;
