@@ -99,13 +99,20 @@ export class ListUserComponent implements OnInit {
     }
 
   findUser(user) {
-    const nome = user.match(/[A-Z][a-z]+/g)[0];
-    const cognome = user.match(/[a-z'A-Z0-9]+/g)[1];   
-    this.apiService.getUserByName(nome, cognome)
+    const userValues = user.replace('@','').split('_');
+    let nome,cognome;
+    try{
+      nome = userValues[0];
+      cognome = userValues[1];
+      this.apiService.getUserByName(nome, cognome)
       .subscribe(data => {
         this.users = data;
         this.back = true;
       });
+    }
+    catch(e){
+      console.log('Errore nel reperire il nome e cognome')
+    }
   }
 
   deleteUser(user: User) {
