@@ -13,6 +13,7 @@ import { map } from 'rxjs/operators';
 import { faChevronDown, faChevronUp, faWindowClose } from '@fortawesome/free-solid-svg-icons'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import Swal from 'sweetalert2';
+import * as moment from 'moment';
 
 @Component({
   selector: 'user',
@@ -512,7 +513,7 @@ export class UserComponent implements OnInit {
     editDoc['premioRata'] = this.premioRata;
     editDoc['frazionamento'] = this.frazionamentoDoc;
     editDoc['noteDoc'] = this.noteDoc;
-    editDoc['singleDate'] = this.singleDate;
+    editDoc['singleDate'] = moment(document.getElementById('dataScadenzaDoc')['value'],'DD/MM/YYYY');
     editDoc['fileName'] = this.fileName;
     editDoc['sottotipoDoc'] = this.sottotipoDoc;
     this.apiService.updateUploadInfo(editDoc).subscribe(data => {

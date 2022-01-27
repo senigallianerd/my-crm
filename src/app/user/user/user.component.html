@@ -301,7 +301,7 @@
       <span *ngIf="tipoDoc!=='libretto di circolazione'">
         Data di scadenza:
         <div class="form-group">
-          <input class="form-control w-25 small" placeholder="Scegli Data" [ngxDatePicker]="dateInstanceSingle"
+          <input class="form-control w-25 small" id="dataScadenzaDoc" placeholder="Scegli Data" [ngxDatePicker]="dateInstanceSingle"
             [value]="singleDate" (focusout)="onFocusOutEvent($event)" (valueChange)="onChangeSingle($event)">
           <ngx-date-picker #dateInstanceSingle [options]="singleDatePickerOptions"></ngx-date-picker>
         </div>

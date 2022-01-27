@@ -7,6 +7,7 @@ import { ApiService } from "../../service/api.service";
 import { Toaster } from 'ngx-toast-notifications';
 import { UserService } from '../user.service';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-edit-user',
@@ -86,21 +87,27 @@ export class EditUserComponent implements OnInit {
       datiAggiuntivi: [''],
       datiRaw: ['']
     });
+    debugger
+    try{
+      this.editForm.setValue(this.route.snapshot.data['user']);
+    }
+    catch(e){ };
+
+    this.selectProvincia();
     this.editForm.valueChanges.subscribe(values => {
       if(values.id)
         this.formChanged = true;
       else
         this.formChanged = false;
     })
+  }
 
-    const id = parseInt(this.route.snapshot.paramMap.get('id'))
-    this.apiService.getUserById(id)
-    .subscribe( data => {
-      /*data.civico = '';
-      data.PEC = '';
-      data.datiRaw = '';*/
-      this.editForm.setValue(data);
-    });
+  onFocusOutEventScadenza(){
+    this.formChanged = true;
+  }
+
+  onFocusOutEventNascita(){
+    this.formChanged = true;
   }
 
   toggleBlock(block){
@@ -147,11 +154,11 @@ export class EditUserComponent implements OnInit {
   }
 
   onChangeDataNascita(event){
-    this.editForm.value.dataNascita = new Date(event)
+    //this.editForm.value.dataNascita = new Date(event)
   }
 
   onChangeDataScadenzaIdentita(event){
-    this.editForm.value.dataScadenzaCartaIdentita = new Date(event)
+    //this.editForm.value.dataScadenzaCartaIdentita = new Date(event)
   }
 
   onSelectedChange(event){
@@ -170,11 +177,17 @@ export class EditUserComponent implements OnInit {
   }
 
   selectProvincia(){
-    const prov = this.selectedProvincia;
-    this.editForm.value['dataNascita']=prov;
+    this.selectedProvincia = this.user.provincia;
+  }
+
+  insertDate(){
+    this.editForm.value.dataNascita = moment(document.getElementById('dataNascita')['value'],'DD/MM/YYYY');
+    this.editForm.value.dataScadenzaCartaIdentita = moment(document.getElementById('dataScadenzaCartaIdentita')['value'],'DD/MM/YYYY');
   }
 
   onSubmit() {
+    debugger
+    this.insertDate();
     const dataToSend = this.editForm.value;
     this.apiService.updateUser(dataToSend)
       .pipe(first())

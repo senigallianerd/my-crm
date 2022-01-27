@@ -8,6 +8,7 @@ import { UserService } from '../user.service';
 import { Tag } from "../../model/tag.model"
 import { TypeContact } from "../../model/type.contact";
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-add-user',
@@ -157,11 +158,11 @@ export class AddUserComponent implements OnInit {
   }
 
   onChangeDataNascita(event) {
-    this.addForm.value.dataNascita = new Date(event)
+    //this.addForm.value.dataNascita = new Date(event)
   }
 
   onChangeDataScadenzaIdentita(event) {
-    this.addForm.value.dataScadenzaCartaIdentita = new Date(event)
+    //this.addForm.value.dataScadenzaCartaIdentita = new Date(event)
   }
 
   checkValidation(): boolean{
@@ -228,6 +229,11 @@ export class AddUserComponent implements OnInit {
     return true;
   }
 
+  insertDate(){
+    this.addForm.value.dataNascita = moment(document.getElementById('dataNascita')['value'],'DD/MM/YYYY');
+    this.addForm.value.dataScadenzaCartaIdentita = moment(document.getElementById('dataScadenzaCartaIdentita')['value'],'DD/MM/YYYY');
+  }
+
   onSubmit() {
     if (this.addForm.invalid) {
       this.toaster.open({
@@ -241,6 +247,8 @@ export class AddUserComponent implements OnInit {
     const validForm = this.checkValidation();
     if(!validForm)
       return;
+
+    this.insertDate();
     let userForm = this.addForm.value;
     this.apiService.createUser(userForm)
       .subscribe(data => {

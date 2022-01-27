@@ -52,6 +52,7 @@
       <div class="form-group col-md-6">
         <label for="dataNascita">Data Nascita:</label>
         <input type="text"  placeholder="dataNascita" name="dataNascita" class="form-control" id="dataNascita"  
+            (focusout)="onFocusOutEventNascita($event)"
             [ngxDatePicker]="dataNascitaIstance" 
             [value]="dataNascita"
             (valueChange)="onChangeDataNascita($event)">
@@ -68,6 +69,7 @@
       <div class="form-group col-md-6">
         <label for="dataScadenzaCartaIdentita">Data Scadenza Carta D'Itentità:</label>
         <input type="text"  placeholder="dataScadenzaCartaIdentita" name="dataScadenzaCartaIdentita" class="form-control" id="dataScadenzaCartaIdentita"  
+            (focusout)="onFocusOutEventScadenza($event)"
             [ngxDatePicker]="dataScadenzaCartaIstance" 
             [value]="dataScadenzaCartaIdentita"
             (valueChange)="onChangeDataScadenzaIdentita($event)">
