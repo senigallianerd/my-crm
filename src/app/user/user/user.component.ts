@@ -246,6 +246,7 @@ export class UserComponent implements OnInit {
         this.uploadData.numero = this.numero;
         this.uploadData.premioRata = this.premioRata;
         this.uploadData.docId = this.docId;
+        this.uploadData.data = moment(document.getElementById('dataScadenzaDoc')['value'],'DD/MM/YYYY').toString();
         if(editDoc){
           this.apiService.editUploadInfo(this.uploadData).subscribe(data => {
             if (data) {

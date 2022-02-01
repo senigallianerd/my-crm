@@ -44,7 +44,7 @@ export class CalendarComponent {
   constructor(private apiService: ApiService,
               private route: ActivatedRoute) {}
 
-              calendar = this.route.snapshot.data['calendar'];
+  calendar = this.route.snapshot.data['calendar'];
 
   events: CalendarEvent[];
 
@@ -72,8 +72,10 @@ export class CalendarComponent {
   getEvents(){
     let eventsArray = [];
     this.calendar.forEach(e => {
+      const currentYear = new Date().getFullYear();
+      let date = new Date(e['data']).setFullYear(currentYear);
       eventsArray.push({
-        start: new Date(e['data']),
+        start: date,
         title: e['cognome'],
         color: colors.red,
         actions: this.actions,
