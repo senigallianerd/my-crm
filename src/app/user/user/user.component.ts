@@ -106,13 +106,21 @@ export class UserComponent implements OnInit {
   }
 
   findUser(user) {
-    const nome = user.match(/[A-Z][a-z]+/g)[0];
-    const cognome = user.match(/[A-Z][a-z]+/g)[1];
-    this.apiService.getUserByName(nome, cognome)
+    const userValues = user.replace('@','').split('_');
+    let nome,cognome;
+    try{
+      nome = userValues[0];
+      cognome = userValues[1];
+      this.apiService.getUserByName(nome, cognome)
       .subscribe(data => {
         this.router.navigate(['user/' + data[0]['id']]);
         setTimeout(()=>location.reload(),100);
       });
+    }
+    catch(e){
+      console.log('Error getting name,surname')
+    }
+
   }
 
   searchDoc(){
