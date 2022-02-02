@@ -108,19 +108,31 @@ export class UserComponent implements OnInit {
   findUser(user) {
     const userValues = user.replace('@','').split('_');
     let nome,cognome;
-    try{
-      nome = userValues[0];
-      cognome = userValues[1];
+      try{
+        nome = userValues[0];
+        cognome = userValues[1];
+      }
+      catch(e){
+        nome = '';
+        cognome = '';
+        console.log('Errore nel parsing nome,cognome');
+      }
       this.apiService.getUserByName(nome, cognome)
       .subscribe(data => {
-        this.router.navigate(['user/' + data[0]['id']]);
-        setTimeout(()=>location.reload(),100);
+        //this.router.navigate(['user/' + data[0]['id']]);
+        console.log('find USER', data[0]['id']);        
+        setTimeout(()=>{
+         const urlArray = location.href.split('user/');
+         try{
+          const userID = data[0]['id'];
+          location.href = urlArray[0]+'user/'+userID;
+          location.reload();
+         }
+         catch(e){
+           console.log('Errore nel reperire ID utente');
+         }
       });
-    }
-    catch(e){
-      console.log('Error getting name,surname')
-    }
-
+    })
   }
 
   searchDoc(){
