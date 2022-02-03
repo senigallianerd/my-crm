@@ -106,20 +106,9 @@ export class UserComponent implements OnInit {
   }
 
   findUser(user) {
-    const userValues = user.replace('@','').split('_');
-    let nome,cognome;
-      try{
-        nome = userValues[0];
-        cognome = userValues[1];
-      }
-      catch(e){
-        nome = '';
-        cognome = '';
-        console.log('Errore nel parsing nome,cognome');
-      }
-      this.apiService.getUserByName(nome, cognome)
+      const inputValue = user.replace('@','').replace(/_/g,' ');
+      this.apiService.getUserByName(inputValue)
       .subscribe(data => {
-        //this.router.navigate(['user/' + data[0]['id']]);
         console.log('find USER', data[0]['id']);        
         setTimeout(()=>{
          const urlArray = location.href.split('user/');
@@ -455,7 +444,6 @@ export class UserComponent implements OnInit {
   }
 
   showHideDoc(file?,showEdit?){
-    debugger;
     this.editDoc = showEdit;
     this.docSection = !this.docSection;
     if(this.docSection)
@@ -528,7 +516,6 @@ export class UserComponent implements OnInit {
   }
 
   editDocument(){
-    debugger;
     const editDoc = {};
     editDoc['id'] = this.docId;
     editDoc['numero'] = this.numero;

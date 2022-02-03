@@ -51,8 +51,8 @@ export class ApiService {
     return this.http.get<any>(this.apiURL + 'get-notes.php?userId=' + userId);
   }
 
-  getUserByName(nome:string, cognome: string) {
-    return this.http.get<any>(this.apiURL + 'get-user.php?nome=' + nome + '&cognome='+cognome);
+  getUserByName(inputValue: string) {
+    return this.http.get<any>(this.apiURL + 'get-user.php?inputValue=' + inputValue );
   }
 
   createUser(user: User) {

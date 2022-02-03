@@ -87,7 +87,6 @@ export class EditUserComponent implements OnInit {
       datiAggiuntivi: [''],
       datiRaw: ['']
     });
-    debugger
     try{
       this.editForm.setValue(this.route.snapshot.data['user']);
     }
@@ -186,7 +185,6 @@ export class EditUserComponent implements OnInit {
   }
 
   onSubmit() {
-    debugger
     this.insertDate();
     const dataToSend = this.editForm.value;
     this.apiService.updateUser(dataToSend)
