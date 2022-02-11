@@ -305,7 +305,7 @@ export class UserComponent implements OnInit {
             });
           })
         }
-
+        this.showHideDoc();
       }, (err) => {
         console.log('UPLOAD Error',err)
         this.toaster.open({
@@ -504,6 +504,7 @@ export class UserComponent implements OnInit {
           type: 'success'
         });
         this.getNotes(this.user.id);
+        this.showHideNote();
       }
       else
         this.toaster.open({
@@ -535,6 +536,7 @@ export class UserComponent implements OnInit {
           type: 'success'
         });
         this.getInsurances(this.user.id);
+        this.showHideDoc();
       }
       else
         this.toaster.open({
@@ -568,6 +570,7 @@ export class UserComponent implements OnInit {
           type: 'success'
         });
         this.noteSection = this.noteText = this.noteTitle = '';
+        this.showHideNote();
       }
       else
         this.toaster.open({

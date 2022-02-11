@@ -199,6 +199,7 @@ export class EditUserComponent implements OnInit {
               duration: 3000,
               type: 'success'
             });
+            this.router.navigate(['user/' + this.user.id]);
           }
           else{
             alert("Error")

@@ -260,6 +260,7 @@ export class AddUserComponent implements OnInit {
             duration: 3000,
             type: 'success'
           });
+          this.router.navigate(['list-user']);
         }
       });
   }
