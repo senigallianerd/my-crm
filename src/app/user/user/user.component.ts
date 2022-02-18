@@ -39,6 +39,7 @@ export class UserComponent implements OnInit {
   fileList: any = [];
   noteList: any = [];
   docList: any = [];
+  sinistroList: any = [];
   uploadData: Policy;
   uploading: boolean = false;
   sottotipoDoc;
@@ -176,7 +177,8 @@ export class UserComponent implements OnInit {
     this.apiService.getInsuranceByUserId(userId).subscribe(data => {
       if(data){
         this.fileList = data.filter(f => f.tipoDoc==='polizza');
-        this.docList = data.filter(f => f.tipoDoc!=='polizza');
+        this.docList = data.filter(f => f.tipoDoc!=='polizza' && f.tipoDoc!=='sinistro');
+        this.sinistroList = data.filter(f => f.tipoDoc=='sinistro');
       }
     })
   }

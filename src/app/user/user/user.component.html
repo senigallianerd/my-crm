@@ -218,6 +218,39 @@
     </div>
   </span>
 
+  <span class="file-list">
+    <span class="file-list-title" *ngIf="sinistroList.length">Sinistri:</span>
+
+    <table *ngIf="sinistroList.length" class="row-border hover table">
+      <thead class="border-table">
+        <tr>
+          <th (click)="orderBy('numero','file')">Numero</th>
+          <th (click)="orderBy('data','file')">Data</th>
+          <th (click)="orderBy('tipo','file')">Tipo</th>
+          <th (click)="orderBy('targa','file')">Targa</th>
+          <th (click)="orderBy('file','file')">File</th>
+          <th>File</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody class="border-table">
+        <tr class="item" *ngFor="let sinistro of sinistroList">
+          <td (click)="showHideDoc(sinistro,true)">{{sinistro.numero}}</td>
+          <td (click)="showHideDoc(sinistro,true)">{{sinistro.data | date:'dd/MM/yyyy'}}</td>
+          <td (click)="showHideDoc(sinistro,true)">{{sinistro.sottotipoDoc}}</td>
+          <td (click)="showHideDoc(sinistro,true)">{{sinistro.targa}}</td>
+          <td class="item-file" (click)="getFile(sinistro.fileName)">{{sinistro.fileName}}</td>
+          <td class="buttons">
+            <button class="btn btn-danger" (click)="deleteFile(sinistro)">Cancella</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="!sinistroList.length" class="row-border hover table">
+      Non ci sono sinistri
+    </div>
+  </span>
+
   <span class="doc-list">
     <span class="doc-list-title" *ngIf="docList.length">Documenti:</span>
 
