@@ -327,6 +327,23 @@
             class="form-control ng-untouched ng-pristine ng-valid w-50">
         </div>
       </span>
+      <div class="sottotipodoc-section form-group col-md-12">
+        <span *ngIf="tipoDoc!=='libretto di circolazione'">
+          <label>{{tipoDoc === 'sinistro' ? 'Data' : 'Data di scadenza'}}:</label>
+          <div class="form-group">
+            <input class="form-control w-75 small" id="dataScadenzaDoc" placeholder="Scegli Data" [ngxDatePicker]="dateInstanceSingle"
+              [value]="singleDate" (focusout)="onFocusOutEvent($event)" (valueChange)="onChangeSingle($event)">
+            <ngx-date-picker #dateInstanceSingle [options]="singleDatePickerOptions"></ngx-date-picker>
+          </div>
+        </span>
+        </div>
+      <div class="sottotipodoc-section form-group col-md-12"
+        *ngIf="tipoDoc==='polizza' || tipoDoc==='preventivo' || tipoDoc==='documento' || tipoDoc==='SIC' || tipoDoc==='sinistro'">
+        <label for="sottotipodoc">{{(tipoDoc==='polizza' || tipoDoc==='SIC') ? 'Compagnia':'Tipo'}} : </label><br>
+        <select class="custom-select small" [(ngModel)]="sottotipoDoc">
+          <option *ngFor="let sottotipo of sottotipoDocs" [ngValue]="sottotipo">{{sottotipo}}</option>
+        </select>
+      </div>
       <span *ngIf="tipoDoc==='sinistro'">
         <div class="form-group col-md-12">
           <label for="dataLiquidazione">Data liquidazione: </label>
@@ -336,24 +353,7 @@
             <ngx-date-picker #dateInstanceLiquidazioneSingle [options]="singleDatePickerOptions"></ngx-date-picker>
           </div>
         </div>
-      </span>      
-      <div class="sottotipodoc-section form-group col-md-12"
-        *ngIf="tipoDoc==='polizza' || tipoDoc==='preventivo' || tipoDoc==='documento' || tipoDoc==='SIC' || tipoDoc==='sinistro'">
-        <label for="sottotipodoc">{{(tipoDoc==='polizza' || tipoDoc==='SIC') ? 'Compagnia':'Tipo'}} : </label><br>
-        <select class="custom-select small" [(ngModel)]="sottotipoDoc">
-          <option *ngFor="let sottotipo of sottotipoDocs" [ngValue]="sottotipo">{{sottotipo}}</option>
-        </select>
-      </div>
-      <div class="sottotipodoc-section form-group col-md-12">
-      <span *ngIf="tipoDoc!=='libretto di circolazione'">
-        <label>{{tipoDoc === 'sinistro' ? 'Data' : 'Data di scadenza'}}:</label>
-        <div class="form-group">
-          <input class="form-control w-75 small" id="dataScadenzaDoc" placeholder="Scegli Data" [ngxDatePicker]="dateInstanceSingle"
-            [value]="singleDate" (focusout)="onFocusOutEvent($event)" (valueChange)="onChangeSingle($event)">
-          <ngx-date-picker #dateInstanceSingle [options]="singleDatePickerOptions"></ngx-date-picker>
-        </div>
-      </span>
-      </div>
+      </span>   
       <span *ngIf="tipoDoc!=='sinistro'">
         <div class="form-group col-md-12">
           <label>Frazionamento:</label><br>
@@ -362,14 +362,14 @@
           </select>
         </div>
       </span>
-      <span>
-        <div class="form-group col-md-12">
-          <label for="note-doc">Note:</label>
-          <textarea rows="6" placeholder="testo" name="noteDoc" id="noteDoc" [(ngModel)]="noteDoc"
-            class="form-control ng-untouched ng-pristine ng-valid"></textarea>
-        </div>
-      </span>
     </div>
+    <span>
+      <div class="form-group col-md-12">
+        <label for="note-doc">Note:</label>
+        <textarea rows="6" placeholder="testo" name="noteDoc" id="noteDoc" [(ngModel)]="noteDoc"
+          class="form-control ng-untouched ng-pristine ng-valid"></textarea>
+      </div>
+    </span>
       <span>
         <div class="form-group col-md-12">
           <label for="note-doc">File:</label>
