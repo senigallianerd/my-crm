@@ -304,6 +304,7 @@
         </div>
       </span>
     </span>
+    <hr>
     <div class="modal-container">
       <div class="grid-container">
       <span>
@@ -382,8 +383,9 @@
           {{editDoc ? 'Sostituisci il file' : 'Carica e Salva'}}
         </button> (Max 50Mb)
       </div>
+      <hr *ngIf="editDoc">
       <div class="btn-doc-container" *ngIf="editDoc">
-        <button style="margin-top:20px" class="btn btn-warning" (click)="editDocument()" mat-raised-button
+        <button class="btn btn-warning" (click)="editDocument()" mat-raised-button
           color="primary">
           Modifica
         </button>
@@ -391,7 +393,6 @@
       <div *ngIf="uploading" class="uploading">
         Caricamento in corso...
       </div>
-
     </div>
 
   </div>
