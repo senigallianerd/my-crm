@@ -33,6 +33,7 @@ export class UserComponent implements OnInit {
   model;
   singleDatePickerOptions = { displayFormat:'dd/MM/yyyy' };
   singleDate;
+  singleDateLiquidazione;
   insurances;
   selectedInsurance;
   fileList: any = [];
@@ -96,7 +97,7 @@ export class UserComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.uploadData = new Policy(this.user.id, '', '', '', '',false,'','','','','');
+    this.uploadData = new Policy(this.user.id, '', '', '', '',false,'','','','','','');
     this.getInsurances(this.user.id);
     this.getNotes(this.user.id);
     this.getCompagnie();
@@ -159,6 +160,8 @@ export class UserComponent implements OnInit {
       this.getCompagnie();
     else if (type === 'preventivo')
       this.getListaPreventivi();
+    else if (type === 'sinistro')
+      this.getSinistri();
   }
 
   initDtOptions() {
@@ -220,6 +223,13 @@ export class UserComponent implements OnInit {
     })
   }
 
+  getSinistri() {
+    this.insuranceService.getSinistri().subscribe(data => {
+      this.sottotipoDocs = data;
+      this.sottotipoDoc = data[0];
+    })
+  }
+
   getListaPreventivi() {
     this.insuranceService.getListaPreventivi().subscribe(data => {
       this.sottotipoDocs = data;
@@ -258,6 +268,7 @@ export class UserComponent implements OnInit {
         this.uploadData.premioRata = this.premioRata;
         this.uploadData.docId = this.docId;
         this.uploadData.data = document.getElementById('dataScadenzaDoc') && document.getElementById('dataScadenzaDoc')['value'] ? moment(document.getElementById('dataScadenzaDoc')['value'],'DD/MM/YYYY').toString() : '';
+        this.uploadData.data2 = document.getElementById('dataLiquidazione') && document.getElementById('dataLiquidazione')['value'] ? moment(document.getElementById('dataLiquidazione')['value'],'DD/MM/YYYY').toString() : '';
         if(editDoc){
           this.apiService.editUploadInfo(this.uploadData).subscribe(data => {
             if (data) {
@@ -404,6 +415,18 @@ export class UserComponent implements OnInit {
     this.singleDate = new Date(event);
   }
 
+  onChangeSingleLiquidazione(event) {
+    this.uploadData.data2 = new Date(event);
+    this.singleDateLiquidazione = new Date(event);
+  }
+
+  onFocusOutEventLiquidazione(event) {
+    if(event.target?.value === ''){
+      this.uploadData.data2 = null;
+      this.singleDateLiquidazione = null;
+    }
+  }
+
   onFocusOutEvent(event) {
     if(event.target?.value === ''){
       this.uploadData.data = null;
@@ -463,6 +486,7 @@ export class UserComponent implements OnInit {
       this.frazionamentoDoc = file.frazionamento;
       this.noteDoc = file['note'];
       this.singleDate = file['data'] ? new Date(file['data']) : null;
+      this.singleDateLiquidazione = file['data2'] ? new Date(file['data2']) : null;
       this.fileName = file['fileName'];
       this.docId = file['id'];
     }
@@ -516,6 +540,10 @@ export class UserComponent implements OnInit {
     })
   }
 
+  limitString(value){
+    return value.length > 100 ? value.substring(0,100) + '...' : value;
+  }
+
   editDocument(){
     const editDoc = {};
     editDoc['id'] = this.docId;
@@ -524,7 +552,8 @@ export class UserComponent implements OnInit {
     editDoc['premioRata'] = this.premioRata;
     editDoc['frazionamento'] = this.frazionamentoDoc;
     editDoc['noteDoc'] = this.noteDoc;
-    editDoc['singleDate'] = moment(document.getElementById('dataScadenzaDoc')['value'],'DD/MM/YYYY');
+    editDoc['singleDate'] = moment(document.getElementById('dataScadenzaDoc') && document.getElementById('dataScadenzaDoc')['value'],'DD/MM/YYYY');
+    editDoc['data2'] = moment(document.getElementById('dataLiquidazione') && document.getElementById('dataLiquidazione')['value'],'DD/MM/YYYY');
     editDoc['fileName'] = this.fileName;
     editDoc['sottotipoDoc'] = this.sottotipoDoc;
     this.apiService.updateUploadInfo(editDoc).subscribe(data => {

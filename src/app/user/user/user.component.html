@@ -203,7 +203,7 @@
         <tr class="item" *ngFor="let file of fileList">
           <td (click)="showHideDoc(file,true)">{{file.numero}}</td>
           <td (click)="showHideDoc(file,true)">{{file.data | date:'dd/MM/yyyy'}}</td>
-          <td (click)="showHideDoc(file,true)">{{file.note}}</td>
+          <td (click)="showHideDoc(file,true)">{{limitString(file.note)}}</td>
           <td (click)="showHideDoc(file,true)">{{file.sottotipoDoc}}</td>
           <td (click)="showHideDoc(file,true)">{{file.targa}}</td>
           <td class="item-file" (click)="getFile(file.fileName)">{{file.fileName}}</td>
@@ -237,7 +237,7 @@
         <tr class="item" *ngFor="let doc of docList">
           <td (click)="showHideDoc(doc,true)">{{doc.tipoDoc}}</td>
           <td (click)="showHideDoc(doc,true)">{{doc.data | date:'dd/MM/yyyy'}}</td>
-          <td (click)="showHideDoc(doc,true)">{{doc.note}}</td>
+          <td (click)="showHideDoc(doc,true)">{{limitString(doc.note)}}</td>
           <td (click)="showHideDoc(doc,true)">{{doc.sottotipoDoc}}</td>
           <td (click)="showHideDoc(doc,true)">{{doc.targa}}</td>
           <td class="item-file" (click)="getFile(doc.fileName)">{{doc.fileName}}</td>
@@ -272,45 +272,58 @@
       </span>
     </span>
     <div class="modal-container">
+      <div class="grid-container">
       <span>
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-12">
           <label for="numero">Numero:</label>
           <input placeholder="numero" name="numero" [(ngModel)]="numero" id="numero"
             class="form-control ng-untouched ng-pristine ng-valid">
         </div>
       </span>
       <span>
-        <div class="form-group col-md-2">
+        <div class="form-group col-md-12">
           <label for="targa">Targa:</label>
           <input placeholder="targa" name="targa" [(ngModel)]="targa" id="targa"
-            class="form-control ng-untouched ng-pristine ng-valid">
+            class="form-control ng-untouched ng-pristine ng-valid w-50">
         </div>
       </span>
       <span>
-        <div class="form-group col-md-2">
-          <label for="premioRata">Premio Rata:</label>
+        <div class="form-group col-md-12">
+          <label for="premioRata">{{tipoDoc === 'sinistro' ? 'Importo liquidazione:' : 'Premio Rata:'}}</label>
           <input placeholder="premioRata" name="premioRata" [(ngModel)]="premioRata" id="premioRata"
-            class="form-control ng-untouched ng-pristine ng-valid">
+            class="form-control ng-untouched ng-pristine ng-valid w-50">
         </div>
       </span>
-      <div class="sottotipodoc-section"
-        *ngIf="tipoDoc==='polizza' || tipoDoc==='preventivo' || tipoDoc==='documento' || tipoDoc==='SIC'">
-        <label for="sottotipodoc">{{(tipoDoc==='polizza' || tipoDoc==='SIC') ? 'Compagnia':'Tipo'}} : </label>
+      <span *ngIf="tipoDoc==='sinistro'">
+        <div class="form-group col-md-12">
+          <label for="dataLiquidazione">Data liquidazione: </label>
+          <div class="form-group">
+            <input class="form-control w-75 small" id="dataLiquidazione" placeholder="Scegli Data" [ngxDatePicker]="dateInstanceLiquidazioneSingle"
+              [value]="singleDateLiquidazione" (focusout)="onFocusOutEventLiquidazione($event)" (valueChange)="onChangeSingleLiquidazione($event)">
+            <ngx-date-picker #dateInstanceLiquidazioneSingle [options]="singleDatePickerOptions"></ngx-date-picker>
+          </div>
+        </div>
+      </span>      
+      <div class="sottotipodoc-section form-group col-md-12"
+        *ngIf="tipoDoc==='polizza' || tipoDoc==='preventivo' || tipoDoc==='documento' || tipoDoc==='SIC' || tipoDoc==='sinistro'">
+        <label for="sottotipodoc">{{(tipoDoc==='polizza' || tipoDoc==='SIC') ? 'Compagnia':'Tipo'}} : </label><br>
         <select class="custom-select small" [(ngModel)]="sottotipoDoc">
           <option *ngFor="let sottotipo of sottotipoDocs" [ngValue]="sottotipo">{{sottotipo}}</option>
         </select>
       </div>
+      <div class="sottotipodoc-section form-group col-md-12">
       <span *ngIf="tipoDoc!=='libretto di circolazione'">
-        Data di scadenza:
+        <label>{{tipoDoc === 'sinistro' ? 'Data' : 'Data di scadenza'}}:</label>
         <div class="form-group">
-          <input class="form-control w-25 small" id="dataScadenzaDoc" placeholder="Scegli Data" [ngxDatePicker]="dateInstanceSingle"
+          <input class="form-control w-75 small" id="dataScadenzaDoc" placeholder="Scegli Data" [ngxDatePicker]="dateInstanceSingle"
             [value]="singleDate" (focusout)="onFocusOutEvent($event)" (valueChange)="onChangeSingle($event)">
           <ngx-date-picker #dateInstanceSingle [options]="singleDatePickerOptions"></ngx-date-picker>
         </div>
       </span>
-      <span>
-        <div class="form-group">
-          Frazionamento: 
+      </div>
+      <span *ngIf="tipoDoc!=='sinistro'">
+        <div class="form-group col-md-12">
+          <label>Frazionamento:</label><br>
           <select class="custom-select small" [(ngModel)]="frazionamentoDoc">
             <option *ngFor="let frazionamento of frazionamenti" [ngValue]="frazionamento">{{frazionamento}}</option>
           </select>
@@ -319,10 +332,11 @@
       <span>
         <div class="form-group col-md-12">
           <label for="note-doc">Note:</label>
-          <textarea rows="4" placeholder="testo" name="noteDoc" id="noteDoc" [(ngModel)]="noteDoc"
+          <textarea rows="6" placeholder="testo" name="noteDoc" id="noteDoc" [(ngModel)]="noteDoc"
             class="form-control ng-untouched ng-pristine ng-valid"></textarea>
         </div>
       </span>
+    </div>
       <span>
         <div class="form-group col-md-12">
           <label for="note-doc">File:</label>
@@ -346,6 +360,7 @@
       </div>
 
     </div>
+
   </div>
   <br>
   <span class="note-list">

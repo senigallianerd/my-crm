@@ -107,6 +107,10 @@ export class ApiService {
     return this.http.get<any>(this.apiURL + 'get-compagnie.php');
   }
 
+  getSinistri() {
+    return this.http.get<any>(this.apiURL + 'get-sinistri.php');
+  }
+
   getListaPreventivi() {
     return this.http.get<any>(this.apiURL + 'get-lista-preventivi.php');
   }

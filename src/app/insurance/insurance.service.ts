@@ -21,6 +21,12 @@ export class InsuranceService {
         );
     }
 
+    getSinistri() {
+        return this.apiService.getSinistri().pipe(
+            map(data => data.map(({ nome }) => nome)),
+        );
+    }
+
     getListaPreventivi() {
         return this.apiService.getListaPreventivi().pipe(
             map(data => data.map(({ nome }) => nome)),

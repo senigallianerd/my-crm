@@ -130,8 +130,8 @@
     top:25%;
     &.upload-group{
         position: fixed;
-        width: 60%;
-        height: 80%;
+        width: 50%;
+        height: auto;
         left: 26%;
         top: 7%;
         overflow: auto;
@@ -150,3 +150,12 @@
 .btn-doc-container{
     margin-bottom: 5px;
 }
+
+@media screen and (min-width: 750px) {
+    .grid-container{
+        display: grid;
+        grid-gap: 1px;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
