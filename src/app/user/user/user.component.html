@@ -295,106 +295,117 @@
   <button class="add-btn" (click)="showHideDoc()">Inserisci {{tipoDoc}}</button> <br>
 
   <div (click)="showHideDoc()" class="outer-elem" *ngIf="docSection"></div>
-  <div class="upload-group modal-window" *ngIf="docSection">
-    <span class="title-note">
-      <span class="title-note">
-        <b>{{tipoDoc}}</b>
-        <div class="close-modal" (click)="showHideDoc()">
-          <fa-icon [icon]="faWindowClose"></fa-icon>
-        </div>
-      </span>
-    </span>
-    <div class="modal-container">
-      <div class="grid-container">
-      <span>
-        <div class="form-group col-md-12">
-          <label for="numero">Numero:</label>
-          <input placeholder="numero" name="numero" [(ngModel)]="numero" id="numero"
-            class="form-control ng-untouched ng-pristine ng-valid">
-        </div>
-      </span>
-      <span>
-        <div class="form-group col-md-12">
-          <label for="targa">Targa:</label>
-          <input placeholder="targa" name="targa" [(ngModel)]="targa" id="targa"
-            class="form-control ng-untouched ng-pristine ng-valid w-50">
-        </div>
-      </span>
-      <span>
-        <div class="form-group col-md-12">
-          <label for="premioRata">{{tipoDoc === 'sinistro' ? 'Importo liquidazione:' : 'Premio Rata:'}}</label>
-          <input placeholder="premioRata" name="premioRata" [(ngModel)]="premioRata" id="premioRata"
-            class="form-control ng-untouched ng-pristine ng-valid w-50">
-        </div>
-      </span>
-      <div class="sottotipodoc-section form-group col-md-12">
-        <span *ngIf="tipoDoc!=='libretto di circolazione'">
-          <label>{{tipoDoc === 'sinistro' ? 'Data' : 'Data di scadenza'}}:</label>
-          <div class="form-group">
-            <input class="form-control w-75 small" id="dataScadenzaDoc" placeholder="Scegli Data" [ngxDatePicker]="dateInstanceSingle"
-              [value]="singleDate" (focusout)="onFocusOutEvent($event)" (valueChange)="onChangeSingle($event)">
-            <ngx-date-picker #dateInstanceSingle [options]="singleDatePickerOptions"></ngx-date-picker>
-          </div>
-        </span>
-        </div>
-      <div class="sottotipodoc-section form-group col-md-12"
-        *ngIf="tipoDoc==='polizza' || tipoDoc==='preventivo' || tipoDoc==='documento' || tipoDoc==='SIC' || tipoDoc==='sinistro'">
-        <label for="sottotipodoc">{{(tipoDoc==='polizza' || tipoDoc==='SIC') ? 'Compagnia':'Tipo'}} : </label><br>
-        <select class="custom-select small" [(ngModel)]="sottotipoDoc">
-          <option *ngFor="let sottotipo of sottotipoDocs" [ngValue]="sottotipo">{{sottotipo}}</option>
-        </select>
-      </div>
-      <span *ngIf="tipoDoc==='sinistro'">
-        <div class="form-group col-md-12">
-          <label for="dataLiquidazione">Data liquidazione: </label>
-          <div class="form-group">
-            <input class="form-control w-75 small" id="dataLiquidazione" placeholder="Scegli Data" [ngxDatePicker]="dateInstanceLiquidazioneSingle"
-              [value]="singleDateLiquidazione" (focusout)="onFocusOutEventLiquidazione($event)" (valueChange)="onChangeSingleLiquidazione($event)">
-            <ngx-date-picker #dateInstanceLiquidazioneSingle [options]="singleDatePickerOptions"></ngx-date-picker>
-          </div>
-        </div>
-      </span>   
-      <span *ngIf="tipoDoc!=='sinistro'">
-        <div class="form-group col-md-12">
-          <label>Frazionamento:</label><br>
-          <select class="custom-select small" [(ngModel)]="frazionamentoDoc">
-            <option *ngFor="let frazionamento of frazionamenti" [ngValue]="frazionamento">{{frazionamento}}</option>
-          </select>
-        </div>
-      </span>
-    </div>
-    <span>
-      <div class="form-group col-md-12">
-        <label for="note-doc">Note:</label>
-        <textarea rows="6" placeholder="testo" name="noteDoc" id="noteDoc" [(ngModel)]="noteDoc"
-          class="form-control ng-untouched ng-pristine ng-valid"></textarea>
-      </div>
-    </span>
-      <span>
-        <div class="form-group col-md-12">
-          <label for="note-doc">File:</label>
-          <span class="item-file" (click)="getFile(fileName)">{{fileName}}</span>
-        </div>
-      </span>
-      <div class="btn-doc-container">
-        <input [formControl]="file" (change)="fileChange(index,$event)" type="file" placeholder="File">
-        <button style="margin-top:20px" (click)="uploadFile(editDoc)" mat-raised-button color="primary">
-          {{editDoc ? 'Sostituisci il file' : 'Carica e Salva'}}
-        </button> (Max 50Mb)
-      </div>
-      <div class="btn-doc-container" *ngIf="editDoc">
-        <button style="margin-top:20px" class="btn btn-warning" (click)="editDocument()" mat-raised-button
-          color="primary">
-          Modifica
-        </button>
-      </div>
-      <div *ngIf="uploading" class="uploading">
-        Caricamento in corso...
-      </div>
 
-    </div>
+  <div class="modal"  *ngIf="docSection">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{tipoDoc}}</h5>
+            <button type="button" class="close" (click)="showHideDoc()" data-dismiss="modal">&times;</button> 
+            </div>
+            <div class="modal-body">
+              <div *ngIf="docSection">
+                <div class="modal-container">
+                  <div class="grid-container">
+                  <span>
+                    <div class="form-group col-md-12">
+                      <label for="numero">Numero:</label>
+                      <input placeholder="numero" name="numero" [(ngModel)]="numero" id="numero"
+                        class="form-control ng-untouched ng-pristine ng-valid">
+                    </div>
+                  </span>
+                  <span>
+                    <div class="form-group col-md-12">
+                      <label for="targa">Targa:</label>
+                      <input placeholder="targa" name="targa" [(ngModel)]="targa" id="targa"
+                        class="form-control ng-untouched ng-pristine ng-valid w-50">
+                    </div>
+                  </span>
+                  <span>
+                    <div class="form-group col-md-12">
+                      <label for="premioRata">{{tipoDoc === 'sinistro' ? 'Importo liquidazione:' : 'Premio Rata:'}}</label>
+                      <input placeholder="premioRata" name="premioRata" [(ngModel)]="premioRata" id="premioRata"
+                        class="form-control ng-untouched ng-pristine ng-valid w-50">
+                    </div>
+                  </span>
+                  <div class="sottotipodoc-section form-group col-md-12">
+                    <span *ngIf="tipoDoc!=='libretto di circolazione'">
+                      <label>{{tipoDoc === 'sinistro' ? 'Data' : 'Data di scadenza'}}:</label>
+                      <div class="form-group">
+                        <input class="form-control w-75 small" id="dataScadenzaDoc" placeholder="Scegli Data" [ngxDatePicker]="dateInstanceSingle"
+                          [value]="singleDate" (focusout)="onFocusOutEvent($event)" (valueChange)="onChangeSingle($event)">
+                        <ngx-date-picker #dateInstanceSingle [options]="singleDatePickerOptions"></ngx-date-picker>
+                      </div>
+                    </span>
+                    </div>
+                  <div class="sottotipodoc-section form-group col-md-12"
+                    *ngIf="tipoDoc==='polizza' || tipoDoc==='preventivo' || tipoDoc==='documento' || tipoDoc==='SIC' || tipoDoc==='sinistro'">
+                    <label for="sottotipodoc">{{(tipoDoc==='polizza' || tipoDoc==='SIC') ? 'Compagnia':'Tipo'}} : </label><br>
+                    <select class="custom-select small" [(ngModel)]="sottotipoDoc">
+                      <option *ngFor="let sottotipo of sottotipoDocs" [ngValue]="sottotipo">{{sottotipo}}</option>
+                    </select>
+                  </div>
+                  <span *ngIf="tipoDoc==='sinistro'">
+                    <div class="form-group col-md-12">
+                      <label for="dataLiquidazione">Data liquidazione: </label>
+                      <div class="form-group">
+                        <input class="form-control w-75 small" id="dataLiquidazione" placeholder="Scegli Data" [ngxDatePicker]="dateInstanceLiquidazioneSingle"
+                          [value]="singleDateLiquidazione" (focusout)="onFocusOutEventLiquidazione($event)" (valueChange)="onChangeSingleLiquidazione($event)">
+                        <ngx-date-picker #dateInstanceLiquidazioneSingle [options]="singleDatePickerOptions"></ngx-date-picker>
+                      </div>
+                    </div>
+                  </span>   
+                  <span *ngIf="tipoDoc!=='sinistro'">
+                    <div class="form-group col-md-12">
+                      <label>Frazionamento:</label><br>
+                      <select class="custom-select small" [(ngModel)]="frazionamentoDoc">
+                        <option *ngFor="let frazionamento of frazionamenti" [ngValue]="frazionamento">{{frazionamento}}</option>
+                      </select>
+                    </div>
+                  </span>
+                </div>
+                <span>
+                  <div class="form-group col-md-12">
+                    <label for="note-doc">Note:</label>
+                    <textarea rows="6" placeholder="testo" name="noteDoc" id="noteDoc" [(ngModel)]="noteDoc"
+                      class="form-control ng-untouched ng-pristine ng-valid"></textarea>
+                  </div>
+                </span>
+                  <span>
+                    <div class="form-group col-md-12">
+                      <label for="note-doc">File:</label>
+                      <span class="item-file" (click)="getFile(fileName)">{{fileName}}</span>
+                    </div>
+                  </span>
+                  <div class="btn-doc-container">
+                    <input [formControl]="file" (change)="fileChange(index,$event)" type="file" placeholder="File">
+                    <button style="margin-top:20px" (click)="uploadFile(editDoc)" mat-raised-button color="primary">
+                      {{editDoc ? 'Sostituisci il file' : 'Carica e Salva'}}
+                    </button> (Max 50Mb)
+                  </div>
 
-  </div>
+                  <div *ngIf="uploading" class="uploading">
+                    Caricamento in corso...
+                  </div>
+            
+                </div>
+            
+              </div>
+            </div>
+            <div class="modal-footer">
+              <div class="btn-doc-container" *ngIf="editDoc">
+                <button style="margin-top:20px" class="btn btn-warning" (click)="editDocument()" mat-raised-button
+                  color="primary">
+                  Modifica
+                </button>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
   <br>
   <span class="note-list">
     <span class="note-list-title" *ngIf="noteList.length">Note:</span>
