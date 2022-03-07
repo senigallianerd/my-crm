@@ -1,6 +1,6 @@
 export class Policy {
 
-    constructor(userId, data, fileName, tipoDoc, sottotipoDoc, frazionamento,targa,note,numero,premioRata,docId,data2) { 
+    constructor(userId, data, fileName, tipoDoc, sottotipoDoc, frazionamento,targa,note,numero,premioRata,docId,data2,data3) { 
         this.data = data,
         this.userId = userId,
         this.fileName = fileName;
@@ -11,11 +11,13 @@ export class Policy {
         this.note = note;
         this.numero = numero;
         this.premioRata = premioRata;
-        this.docId = docId
-        this.data2 = data2
+        this.docId = docId;
+        this.data2 = data2;
+        this.data3 = data3;
     }   
     data: Date | string;
     data2: Date | string;
+    data3: Date | string;
     userId: string;
     fileName: string;
     sottotipoDoc: string;

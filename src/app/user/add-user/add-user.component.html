@@ -176,6 +176,13 @@
           <option *ngFor="let tipoContatto of tipoContatti" [ngValue]="tipoContatto">{{tipoContatto}}</option>
         </select>
       </div>
+      <div class="form-group col-md-6">
+        <label for="tipoContatto2">Tipo Contatto 2:</label>
+        <select class="custom-select" (change)="selectTipoContatto2()" formControlName="tipoContatto2"
+          [(ngModel)]="selectedTipoContatto2">
+          <option *ngFor="let tipoContatto of tipoContatti" [ngValue]="tipoContatto">{{tipoContatto}}</option>
+        </select>
+      </div>
     </div>
 
     <label class="block-title">Dati Aggiuntivi: <fa-icon (click)="toggleBlock('data')" class="toggle-block"

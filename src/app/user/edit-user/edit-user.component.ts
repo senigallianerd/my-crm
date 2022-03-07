@@ -28,6 +28,7 @@ export class EditUserComponent implements OnInit {
   selectedTag;
   selectedTag1;
   selectedTipoContatto;
+  selectedTipoContatto2;
   tags:any = [];
   tipoContatti:any = [];
   blockName;
@@ -50,8 +51,8 @@ export class EditUserComponent implements OnInit {
     private toaster: Toaster) { }
 
   ngOnInit() {
-    this.initValues();
     this.user = this.route.snapshot.data['user'];
+    this.initValues();
     this.dataNascita = this.user && this.user.dataNascita ? new Date(this.user.dataNascita) : '';
     this.dataScadenzaCartaIdentita = this.user && this.user.dataScadenzaCartaIdentita ? new Date(this.user.dataScadenzaCartaIdentita) : '';
     this.editForm = this.formBuilder.group({
@@ -63,6 +64,7 @@ export class EditUserComponent implements OnInit {
       collaboratore1: [''],
       cellulare: [''],
       tipoContatto: [''],
+      tipoContatto2: [''],
       telCasa: [''],
       telUfficio: [''],
       fax: [''],
@@ -138,10 +140,18 @@ export class EditUserComponent implements OnInit {
     this.userService.initProvince().subscribe(values => {
       this.province = values;
     });   
+    this.selectedTag = this.user.collaboratore;
+    this.selectedTag1 = this.user.collaboratore1;
+    this.selectedTipoContatto = this.user.tipoContatto;
+    this.selectedTipoContatto2 = this.user.tipoContatto2;
   }
 
   selectTipoContatto(){
     this.editForm.value.tipoContatto =  this.selectedTipoContatto;
+  }
+
+  selectTipoContatto2(){
+    this.editForm.value.tipoContatto2 =  this.selectedTipoContatto2;
   }
 
   selectTag(){

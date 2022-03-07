@@ -34,6 +34,7 @@ export class UserComponent implements OnInit {
   singleDatePickerOptions = { displayFormat:'dd/MM/yyyy' };
   singleDate;
   singleDateLiquidazione;
+  singleDateApertura;
   insurances;
   selectedInsurance;
   fileList: any = [];
@@ -98,7 +99,7 @@ export class UserComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.uploadData = new Policy(this.user.id, '', '', '', '',false,'','','','','','');
+    this.uploadData = new Policy(this.user.id, '', '', '', '',false,'','','','','','','');
     this.getInsurances(this.user.id);
     this.getNotes(this.user.id);
     this.getCompagnie();
@@ -271,6 +272,7 @@ export class UserComponent implements OnInit {
         this.uploadData.docId = this.docId;
         this.uploadData.data = document.getElementById('dataScadenzaDoc') && document.getElementById('dataScadenzaDoc')['value'] ? moment(document.getElementById('dataScadenzaDoc')['value'],'DD/MM/YYYY').toString() : '';
         this.uploadData.data2 = document.getElementById('dataLiquidazione') && document.getElementById('dataLiquidazione')['value'] ? moment(document.getElementById('dataLiquidazione')['value'],'DD/MM/YYYY').toString() : '';
+        this.uploadData.data3 = document.getElementById('dataApertura') && document.getElementById('dataApertura')['value'] ? moment(document.getElementById('dataApertura')['value'],'DD/MM/YYYY').toString() : '';
         if(editDoc){
           this.apiService.editUploadInfo(this.uploadData).subscribe(data => {
             if (data) {
@@ -422,10 +424,22 @@ export class UserComponent implements OnInit {
     this.singleDateLiquidazione = new Date(event);
   }
 
+  onChangeSingleApertura(event) {
+    this.uploadData.data3 = new Date(event);
+    this.singleDateApertura = new Date(event);
+  }
+
   onFocusOutEventLiquidazione(event) {
     if(event.target?.value === ''){
       this.uploadData.data2 = null;
       this.singleDateLiquidazione = null;
+    }
+  }
+
+  onFocusOutEventApertura(event) {
+    if(event.target?.value === ''){
+      this.uploadData.data3 = null;
+      this.singleDateApertura = null;
     }
   }
 
@@ -489,6 +503,7 @@ export class UserComponent implements OnInit {
       this.noteDoc = file['note'];
       this.singleDate = file['data'] ? new Date(file['data']) : null;
       this.singleDateLiquidazione = file['data2'] ? new Date(file['data2']) : null;
+      this.singleDateApertura = file['data3'] ? new Date(file['data3']) : null;
       this.fileName = file['fileName'];
       this.docId = file['id'];
     }
@@ -508,6 +523,9 @@ export class UserComponent implements OnInit {
     this.singleDate = '';
     this.fileName = '';
     this.sottotipoDoc = '';
+    this.singleDate = '';
+    this.singleDateLiquidazione = '';
+    this.singleDateApertura = '';
     this.onSelectChange(this.tipoDoc);
   }
 
@@ -556,6 +574,7 @@ export class UserComponent implements OnInit {
     editDoc['noteDoc'] = this.noteDoc;
     editDoc['singleDate'] = moment(document.getElementById('dataScadenzaDoc') && document.getElementById('dataScadenzaDoc')['value'],'DD/MM/YYYY');
     editDoc['data2'] = moment(document.getElementById('dataLiquidazione') && document.getElementById('dataLiquidazione')['value'],'DD/MM/YYYY');
+    editDoc['data3'] = moment(document.getElementById('dataApertura') && document.getElementById('dataApertura')['value'],'DD/MM/YYYY');
     editDoc['fileName'] = this.fileName;
     editDoc['sottotipoDoc'] = this.sottotipoDoc;
     this.apiService.updateUploadInfo(editDoc).subscribe(data => {

@@ -4,7 +4,9 @@ export class User {
   cognome: string;
   azienda: string;
   collaboratore: string;
+  collaboratore1: string;
   tipoContatto: string;
+  tipoContatto2: string;
   telCasa: string;
   telUfficio: string;
   email: string;

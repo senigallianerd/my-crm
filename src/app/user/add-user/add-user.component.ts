@@ -36,6 +36,7 @@ export class AddUserComponent implements OnInit {
   selectedTag;
   selectedTag1;
   selectedTipoContatto;
+  selectedTipoContatto2;
   province;
   selectedProvincia;
   comuni;
@@ -60,6 +61,7 @@ export class AddUserComponent implements OnInit {
       collaboratore: [''],
       collaboratore1: [''],
       tipoContatto: [''],
+      tipoContatto2: [''],
       cellulare: [''],
       telCasa: [''],
       telUfficio: [''],
@@ -121,7 +123,13 @@ export class AddUserComponent implements OnInit {
       this.blockInternal = !this.blockInternal;
   }
 
-  selectTipoContatto() { }
+  selectTipoContatto() {
+    this.addForm.value.tipoContatto = this.selectedTipoContatto;
+   }
+
+  selectTipoContatto2() {
+    this.addForm.value.tipoContatto2 = this.selectedTipoContatto2;
+   }
 
   selectTag() { }
 

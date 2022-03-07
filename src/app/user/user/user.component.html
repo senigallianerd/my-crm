@@ -148,7 +148,7 @@
       </div>
       <div class="form-group col-md-12">
         <label for="note">Collegamenti:</label>
-        <div style="height:auto" id="note" class="form-control" [tagDirective]="user.note"></div>
+        <div style="height:auto;min-height: 38px;" id="note" class="form-control" [tagDirective]="user.note"></div>
       </div>
     </div>
 
@@ -167,8 +167,13 @@
       </div>      
       <div class="form-group col-md-6">
         <label for="tipoContatto">Tipo Contatto:</label>
-        <input formcontrolname="collaboratore" value="{{user.tipoContatto}}" readonly name="tipoContatto"
+        <input formcontrolname="tipoContatto" value="{{user.tipoContatto}}" readonly name="tipoContatto"
           id="tipoContatto" class="form-control ng-untouched ng-pristine ng-valid">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="tipoContatto2">Tipo Contatto 2:</label>
+        <input formcontrolname="tipoContatto2" value="{{user.tipoContatto2}}" readonly name="tipoContatto2"
+          id="tipoContatto2" class="form-control ng-untouched ng-pristine ng-valid">
       </div>
     </div>
 
@@ -321,16 +326,22 @@
             class="form-control ng-untouched ng-pristine ng-valid w-50">
         </div>
       </span>
-      <span>
+      <span *ngIf="tipoDoc!=='sinistro'">
         <div class="form-group col-md-12">
-          <label for="premioRata">{{tipoDoc === 'sinistro' ? 'Importo liquidazione:' : 'Premio Rata:'}}</label>
+          <label for="premioRata">Premio Rata:</label>
           <input placeholder="premioRata" name="premioRata" [(ngModel)]="premioRata" id="premioRata"
             class="form-control ng-untouched ng-pristine ng-valid w-50">
         </div>
       </span>
+      <div class="sottotipodoc-section form-group col-md-12" *ngIf="tipoDoc==='sinistro'">
+        <label for="sottotipodoc">Tipo: </label><br>
+        <select class="custom-select small" [(ngModel)]="sottotipoDoc">
+          <option *ngFor="let sottotipo of sottotipoDocs" [ngValue]="sottotipo">{{sottotipo}}</option>
+        </select>
+      </div>
       <div class="sottotipodoc-section form-group col-md-12">
         <span *ngIf="tipoDoc!=='libretto di circolazione'">
-          <label>{{tipoDoc === 'sinistro' ? 'Data' : 'Data di scadenza'}}:</label>
+          <label>{{tipoDoc === 'sinistro' ? 'Data avvenimento' : 'Data di scadenza'}}:</label>
           <div class="form-group">
             <input class="form-control w-75 small" id="dataScadenzaDoc" placeholder="Scegli Data" [ngxDatePicker]="dateInstanceSingle"
               [value]="singleDate" (focusout)="onFocusOutEvent($event)" (valueChange)="onChangeSingle($event)">
@@ -339,12 +350,22 @@
         </span>
         </div>
       <div class="sottotipodoc-section form-group col-md-12"
-        *ngIf="tipoDoc==='polizza' || tipoDoc==='preventivo' || tipoDoc==='documento' || tipoDoc==='SIC' || tipoDoc==='sinistro'">
+        *ngIf="tipoDoc==='polizza' || tipoDoc==='preventivo' || tipoDoc==='documento' || tipoDoc==='SIC'">
         <label for="sottotipodoc">{{(tipoDoc==='polizza' || tipoDoc==='SIC') ? 'Compagnia':'Tipo'}} : </label><br>
         <select class="custom-select small" [(ngModel)]="sottotipoDoc">
           <option *ngFor="let sottotipo of sottotipoDocs" [ngValue]="sottotipo">{{sottotipo}}</option>
         </select>
       </div>
+      <span *ngIf="tipoDoc==='sinistro'">
+        <div class="form-group col-md-12">
+          <label for="dataApertura">Data apertura: </label>
+          <div class="form-group">
+            <input class="form-control w-75 small" id="dataApertura" placeholder="Scegli Data" [ngxDatePicker]="dateInstanceAperturaSingle"
+              [value]="singleDateApertura" (focusout)="onFocusOutEventApertura($event)" (valueChange)="onChangeSingleApertura($event)">
+            <ngx-date-picker #dateInstanceAperturaSingle [options]="singleDatePickerOptions"></ngx-date-picker>
+          </div>
+        </div>
+      </span> 
       <span *ngIf="tipoDoc==='sinistro'">
         <div class="form-group col-md-12">
           <label for="dataLiquidazione">Data liquidazione: </label>
@@ -354,7 +375,14 @@
             <ngx-date-picker #dateInstanceLiquidazioneSingle [options]="singleDatePickerOptions"></ngx-date-picker>
           </div>
         </div>
-      </span>   
+      </span> 
+      <span *ngIf="tipoDoc==='sinistro'">
+        <div class="form-group col-md-12">
+          <label for="premioRata">Importo liquidazione:</label>
+          <input placeholder="premioRata" name="premioRata" [(ngModel)]="premioRata" id="premioRata"
+            class="form-control ng-untouched ng-pristine ng-valid w-50">
+        </div>
+      </span>  
       <span *ngIf="tipoDoc!=='sinistro'">
         <div class="form-group col-md-12">
           <label>Frazionamento:</label><br>
