@@ -63,19 +63,6 @@
         <input type="text" formControlName="codiceFiscale" placeholder="codiceFiscale" name="codiceFiscale" class="form-control" id="codiceFiscale">
       </div>
       <div class="form-group col-md-6">
-        <label for="cartaIdentita">Carta di Identità:</label>
-        <input type="text" formControlName="cartaIdentita" placeholder="cartaIdentita" name="cartaIdentita" class="form-control" id="cartaIdentita">
-      </div>
-      <div class="form-group col-md-6">
-        <label for="dataScadenzaCartaIdentita">Data Scadenza Carta D'Itentità:</label>
-        <input type="text"  placeholder="dataScadenzaCartaIdentita" name="dataScadenzaCartaIdentita" class="form-control" id="dataScadenzaCartaIdentita"  
-            (focusout)="onFocusOutEventScadenza($event)"
-            [ngxDatePicker]="dataScadenzaCartaIstance" 
-            [value]="dataScadenzaCartaIdentita"
-            (valueChange)="onChangeDataScadenzaIdentita($event)">
-        <ngx-date-picker #dataScadenzaCartaIstance [options]="singleDatePickerOptions"></ngx-date-picker>
-      </div>
-      <div class="form-group col-md-6">
         <label for="partitaIva">Partita Iva:</label>
         <input type="text" formControlName="partitaIva" placeholder="partitaIva" name="partitaIva" class="form-control" id="partitaIva">
       </div>

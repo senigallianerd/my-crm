@@ -54,7 +54,7 @@ export class EditUserComponent implements OnInit {
     this.user = this.route.snapshot.data['user'];
     this.initValues();
     this.dataNascita = this.user && this.user.dataNascita ? new Date(this.user.dataNascita) : '';
-    this.dataScadenzaCartaIdentita = this.user && this.user.dataScadenzaCartaIdentita ? new Date(this.user.dataScadenzaCartaIdentita) : '';
+    this.dataScadenzaCartaIdentita = ''; 
     this.editForm = this.formBuilder.group({
       id: [''],
       nome: ['', Validators.required],
@@ -191,7 +191,7 @@ export class EditUserComponent implements OnInit {
 
   insertDate(){
     this.editForm.value.dataNascita = moment(document.getElementById('dataNascita')['value'],'DD/MM/YYYY');
-    this.editForm.value.dataScadenzaCartaIdentita = moment(document.getElementById('dataScadenzaCartaIdentita')['value'],'DD/MM/YYYY');
+    this.editForm.value.dataScadenzaCartaIdentita = ''; 
   }
 
   onSubmit() {

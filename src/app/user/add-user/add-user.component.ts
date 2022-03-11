@@ -239,7 +239,7 @@ export class AddUserComponent implements OnInit {
 
   insertDate(){
     this.addForm.value.dataNascita = moment(document.getElementById('dataNascita')['value'],'DD/MM/YYYY');
-    this.addForm.value.dataScadenzaCartaIdentita = moment(document.getElementById('dataScadenzaCartaIdentita')['value'],'DD/MM/YYYY');
+    this.addForm.value.dataScadenzaCartaIdentita = ''; 
   }
 
   onSubmit() {
