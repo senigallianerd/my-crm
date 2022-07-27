@@ -258,21 +258,23 @@ export class UserComponent implements OnInit {
 
   uploadFile(editDoc?) {
     this.uploading = true;
-    this.http.post(environment.apiURL + 'upload.php', this.file_data)
+    this.uploadData.tipoDoc = this.tipoDoc;
+    this.uploadData.sottotipoDoc = this.sottotipoDoc;
+    this.uploadData.targa = this.targa;
+    this.uploadData.frazionamento = this.frazionamentoDoc;
+    this.uploadData.note = this.noteDoc;
+    this.uploadData.numero = this.numero;
+    this.uploadData.premioRata = this.premioRata;
+    this.uploadData.docId = this.docId;
+    this.uploadData.fileName = '';
+    this.uploadData.data = document.getElementById('dataScadenzaDoc') && document.getElementById('dataScadenzaDoc')['value'] ? moment(document.getElementById('dataScadenzaDoc')['value'],'DD/MM/YYYY').toString() : '';
+    this.uploadData.data2 = document.getElementById('dataLiquidazione') && document.getElementById('dataLiquidazione')['value'] ? moment(document.getElementById('dataLiquidazione')['value'],'DD/MM/YYYY').toString() : '';
+    this.uploadData.data3 = document.getElementById('dataApertura') && document.getElementById('dataApertura')['value'] ? moment(document.getElementById('dataApertura')['value'],'DD/MM/YYYY').toString() : '';
+    if(this.file_data){
+      this.http.post(environment.apiURL + 'upload.php', this.file_data)
       .subscribe(res => {
         console.log('UPLOAD su cartella effettuato correttamente',res)
         this.uploadData.fileName = res['fileName'];
-        this.uploadData.tipoDoc = this.tipoDoc;
-        this.uploadData.sottotipoDoc = this.sottotipoDoc;
-        this.uploadData.targa = this.targa;
-        this.uploadData.frazionamento = this.frazionamentoDoc;
-        this.uploadData.note = this.noteDoc;
-        this.uploadData.numero = this.numero;
-        this.uploadData.premioRata = this.premioRata;
-        this.uploadData.docId = this.docId;
-        this.uploadData.data = document.getElementById('dataScadenzaDoc') && document.getElementById('dataScadenzaDoc')['value'] ? moment(document.getElementById('dataScadenzaDoc')['value'],'DD/MM/YYYY').toString() : '';
-        this.uploadData.data2 = document.getElementById('dataLiquidazione') && document.getElementById('dataLiquidazione')['value'] ? moment(document.getElementById('dataLiquidazione')['value'],'DD/MM/YYYY').toString() : '';
-        this.uploadData.data3 = document.getElementById('dataApertura') && document.getElementById('dataApertura')['value'] ? moment(document.getElementById('dataApertura')['value'],'DD/MM/YYYY').toString() : '';
         if(editDoc){
           this.apiService.editUploadInfo(this.uploadData).subscribe(data => {
             if (data) {
@@ -330,6 +332,30 @@ export class UserComponent implements OnInit {
           type: 'warning'
         });
       });
+    }
+    else{
+      this.apiService.setUploadInfo(this.uploadData).subscribe(data => {
+        if (data) {
+          console.log('SET UPLOAD INFO completato')
+          this.uploading = false;
+          setTimeout(() => this.getInsurances(this.user.id), 5);
+          this.toaster.open({
+            text: 'Caricamento completato',
+            position: 'top-right',
+            duration: 3000,
+            type: 'success'
+          });
+        }
+      },(err) => {
+        console.log('UPLOAD Error',err)
+        this.toaster.open({
+          text: 'Errore Caricamento',
+          position: 'top-right',
+          duration: 3000,
+          type: 'warning'
+        });
+      })
+    }
   }
 
   getFile(fileName) {
