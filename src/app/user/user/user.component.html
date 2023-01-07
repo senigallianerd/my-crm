@@ -178,106 +178,116 @@
 
   </form>
 
-  <span class="file-list">
-    <span class="file-list-title" *ngIf="fileList.length">Polizze:</span>
+  <div class="tab-container border-table">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link item" [ngClass]="{'active' : tabs.polizze}" (click)="setActiveTab('polizze')">Polizze</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link item" [ngClass]="{'active' : tabs.sinistri}" (click)="setActiveTab('sinistri')">Sinistri</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link item" [ngClass]="{'active' : tabs.documenti}" (click)="setActiveTab('documenti')">Documenti</a>
+      </li>
+    </ul>
 
-    <table *ngIf="fileList.length" class="row-border hover table">
-      <thead class="border-table">
-        <tr>
-          <th (click)="orderBy('numero','file')">Numero</th>
-          <th (click)="orderBy('data','file')">Scadenza</th>
-          <th (click)="orderBy('note','file')">Note</th>
-          <th (click)="orderBy('sottotipoDoc','file')">Compagnia</th>
-          <th (click)="orderBy('targa','file')">Targa</th>
-          <th>File</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody class="border-table">
-        <tr class="item" *ngFor="let file of fileList">
-          <td (click)="showHideDoc(file,true)">{{file.numero}}</td>
-          <td (click)="showHideDoc(file,true)">{{file.data | date:'dd/MM/yyyy'}}</td>
-          <td (click)="showHideDoc(file,true)">{{limitString(file.note)}}</td>
-          <td (click)="showHideDoc(file,true)">{{file.sottotipoDoc}}</td>
-          <td (click)="showHideDoc(file,true)">{{file.targa}}</td>
-          <td class="item-file" (click)="getFile(file.fileName)">{{file.fileName}}</td>
-          <td class="buttons">
-            <button class="btn btn-danger" (click)="deleteFile(file)">Cancella</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div *ngIf="!fileList.length" class="row-border hover table">
-      Non ci sono polizze
-    </div>
-  </span>
+    <span class="file-list" *ngIf="tabs.polizze">  
+      <table *ngIf="fileList.length" class="row-border hover table">
+        <thead class="border-table">
+          <tr>
+            <th (click)="orderBy('numero','file')">Numero</th>
+            <th (click)="orderBy('data','file')">Scadenza</th>
+            <th (click)="orderBy('note','file')">Note</th>
+            <th (click)="orderBy('sottotipoDoc','file')">Compagnia</th>
+            <th (click)="orderBy('targa','file')">Targa</th>
+            <th>File</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody class="border-table">
+          <tr class="item" *ngFor="let file of fileList">
+            <td (click)="showHideDoc(file,true)">{{file.numero}}</td>
+            <td (click)="showHideDoc(file,true)">{{file.data | date:'dd/MM/yyyy'}}</td>
+            <td (click)="showHideDoc(file,true)">{{limitString(file.note)}}</td>
+            <td (click)="showHideDoc(file,true)">{{file.sottotipoDoc}}</td>
+            <td (click)="showHideDoc(file,true)">{{file.targa}}</td>
+            <td class="item-file" (click)="getFile(file.fileName)">{{file.fileName}}</td>
+            <td class="buttons">
+              <button class="btn btn-danger" (click)="deleteFile(file)">Cancella</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="!fileList.length" class="row-border hover table">
+        Non ci sono polizze
+      </div>
+    </span>
+  
+    <span class="file-list" *ngIf="tabs.sinistri"> 
+      <table *ngIf="sinistroList.length" class="row-border hover table">
+        <thead class="border-table">
+          <tr>
+            <th (click)="orderBy('numero','file')">Numero</th>
+            <th (click)="orderBy('data','file')">Data</th>
+            <th (click)="orderBy('tipo','file')">Tipo</th>
+            <th (click)="orderBy('targa','file')">Targa</th>
+            <th (click)="orderBy('file','file')">File</th>
+            <th>File</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody class="border-table">
+          <tr class="item" *ngFor="let sinistro of sinistroList">
+            <td (click)="showHideDoc(sinistro,true)">{{sinistro.numero}}</td>
+            <td (click)="showHideDoc(sinistro,true)">{{sinistro.data | date:'dd/MM/yyyy'}}</td>
+            <td (click)="showHideDoc(sinistro,true)">{{sinistro.sottotipoDoc}}</td>
+            <td (click)="showHideDoc(sinistro,true)">{{sinistro.targa}}</td>
+            <td class="item-file" (click)="getFile(sinistro.fileName)">{{sinistro.fileName}}</td>
+            <td class="buttons">
+              <button class="btn btn-danger" (click)="deleteFile(sinistro)">Cancella</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="!sinistroList.length" class="row-border hover table">
+        Non ci sono sinistri
+      </div>
+    </span>
+  
+    <span class="doc-list" *ngIf="tabs.documenti">
+      <table *ngIf="docList.length" class="row-border hover table">
+        <thead class="border-table">
+          <tr>
+            <th (click)="orderBy('tipoDoc','docs')">Tipo</th>
+            <th (click)="orderBy('data','docs')">Scadenza</th>
+            <th (click)="orderBy('note','docs')">Note</th>
+            <th (click)="orderBy('sottotipoDoc','docs')">Tipologia</th>
+            <th (click)="orderBy('sottotipoDoc','targa')">Targa</th>
+            <th>File</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody class="border-table">
+          <tr class="item" *ngFor="let doc of docList">
+            <td (click)="showHideDoc(doc,true)">{{doc.tipoDoc}}</td>
+            <td (click)="showHideDoc(doc,true)">{{doc.data | date:'dd/MM/yyyy'}}</td>
+            <td (click)="showHideDoc(doc,true)">{{limitString(doc.note)}}</td>
+            <td (click)="showHideDoc(doc,true)">{{doc.sottotipoDoc}}</td>
+            <td (click)="showHideDoc(doc,true)">{{doc.targa}}</td>
+            <td class="item-file" (click)="getFile(doc.fileName)">{{doc.fileName}}</td>
+            <td class="buttons">
+              <button class="btn btn-danger" (click)="deleteFile(doc)">Cancella</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="!docList.length" class="row-border hover table">
+        Non ci sono documenti
+      </div>
+    </span>
+  </div>
 
-  <span class="file-list">
-    <span class="file-list-title" *ngIf="sinistroList.length">Sinistri:</span>
-
-    <table *ngIf="sinistroList.length" class="row-border hover table">
-      <thead class="border-table">
-        <tr>
-          <th (click)="orderBy('numero','file')">Numero</th>
-          <th (click)="orderBy('data','file')">Data</th>
-          <th (click)="orderBy('tipo','file')">Tipo</th>
-          <th (click)="orderBy('targa','file')">Targa</th>
-          <th (click)="orderBy('file','file')">File</th>
-          <th>File</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody class="border-table">
-        <tr class="item" *ngFor="let sinistro of sinistroList">
-          <td (click)="showHideDoc(sinistro,true)">{{sinistro.numero}}</td>
-          <td (click)="showHideDoc(sinistro,true)">{{sinistro.data | date:'dd/MM/yyyy'}}</td>
-          <td (click)="showHideDoc(sinistro,true)">{{sinistro.sottotipoDoc}}</td>
-          <td (click)="showHideDoc(sinistro,true)">{{sinistro.targa}}</td>
-          <td class="item-file" (click)="getFile(sinistro.fileName)">{{sinistro.fileName}}</td>
-          <td class="buttons">
-            <button class="btn btn-danger" (click)="deleteFile(sinistro)">Cancella</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div *ngIf="!sinistroList.length" class="row-border hover table">
-      Non ci sono sinistri
-    </div>
-  </span>
-
-  <span class="doc-list">
-    <span class="doc-list-title" *ngIf="docList.length">Documenti:</span>
-
-    <table *ngIf="docList.length" class="row-border hover table">
-      <thead class="border-table">
-        <tr>
-          <th (click)="orderBy('tipoDoc','docs')">Tipo</th>
-          <th (click)="orderBy('data','docs')">Scadenza</th>
-          <th (click)="orderBy('note','docs')">Note</th>
-          <th (click)="orderBy('sottotipoDoc','docs')">Tipologia</th>
-          <th (click)="orderBy('sottotipoDoc','targa')">Targa</th>
-          <th>File</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody class="border-table">
-        <tr class="item" *ngFor="let doc of docList">
-          <td (click)="showHideDoc(doc,true)">{{doc.tipoDoc}}</td>
-          <td (click)="showHideDoc(doc,true)">{{doc.data | date:'dd/MM/yyyy'}}</td>
-          <td (click)="showHideDoc(doc,true)">{{limitString(doc.note)}}</td>
-          <td (click)="showHideDoc(doc,true)">{{doc.sottotipoDoc}}</td>
-          <td (click)="showHideDoc(doc,true)">{{doc.targa}}</td>
-          <td class="item-file" (click)="getFile(doc.fileName)">{{doc.fileName}}</td>
-          <td class="buttons">
-            <button class="btn btn-danger" (click)="deleteFile(doc)">Cancella</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div *ngIf="!docList.length" class="row-border hover table">
-      Non ci sono documenti
-    </div>
-  </span>
+ 
 
   <div class="choose-doc">
     Scegli tipo documento da caricare:
@@ -380,6 +390,13 @@
           </select>
         </div>
       </span>
+      <span *ngIf="isPromemoria(tipoDoc)">
+        <div class="form-group col-md-12">
+          <label for="inviaAvvisoA">Invia avviso a:</label>
+          <input placeholder="inviaAvvisoA" name="inviaAvvisoA" [(ngModel)]="inviaAvvisoA" id="inviaAvvisoA"
+            class="form-control ng-untouched ng-pristine ng-valid w-100">
+        </div>
+      </span>  
     </div>
     <span>
       <div class="form-group col-md-12">

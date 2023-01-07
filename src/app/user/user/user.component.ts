@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { InsuranceService } from '../../insurance/insurance.service';
 import { map } from 'rxjs/operators';
-import { faChevronDown, faChevronUp, faWindowClose } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown, faChevronUp, faLessThan, faWindowClose } from '@fortawesome/free-solid-svg-icons'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import Swal from 'sweetalert2';
 import * as moment from 'moment';
@@ -31,7 +31,7 @@ export class UserComponent implements OnInit {
   user: User = this.route.snapshot.data['user'];
   index;
   model;
-  singleDatePickerOptions = { displayFormat:'dd/MM/yyyy' };
+  singleDatePickerOptions = { displayFormat: 'dd/MM/yyyy' };
   singleDate;
   singleDateLiquidazione;
   singleDateApertura;
@@ -60,7 +60,7 @@ export class UserComponent implements OnInit {
   blockInternal;
   blockData = true;
   frazionamentoDoc;
-  frazionamenti = ['Annuale','Semestrale','Trimestrale','Quadrimestrale','Mensile'];
+  frazionamenti = ['Annuale', 'Semestrale', 'Trimestrale', 'Quadrimestrale', 'Mensile'];
   targa;
   noteId;
   noteText;
@@ -72,13 +72,15 @@ export class UserComponent implements OnInit {
   noteDoc;
   numero;
   premioRata;
+  inviaAvvisoA;
   currentDoc;
   docReadOnly = true;
   editDoc = false;
   docId;
-  searchDocSelect = [{id:'targa',label:'Targa'},{id:'numero',label:'Numero Polizza'}];
+  searchDocSelect = [{ id: 'targa', label: 'Targa' }, { id: 'numero', label: 'Numero Polizza' }];
   docFieldSelected;
   docFieldInput;
+  tabs = { polizze: true, sinistri: false, documenti: false };
 
   constructor(private router: Router,
     private http: HttpClient,
@@ -89,17 +91,17 @@ export class UserComponent implements OnInit {
     private toaster: Toaster) {
   }
 
-  @HostListener('click', ['$event']) 
+  @HostListener('click', ['$event'])
   onClick(e) {
-      if(e.target.tagName==='A' && e.target.className === 'link'){
-        this.findUser(e.target.text)
-        e.preventDefault();
-        e.stopPropagation();
-      }
+    if (e.target.tagName === 'A' && e.target.className === 'link') {
+      this.findUser(e.target.text)
+      e.preventDefault();
+      e.stopPropagation();
     }
+  }
 
   ngOnInit() {
-    this.uploadData = new Policy(this.user.id, '', '', '', '',false,'','','','','','','');
+    this.uploadData = new Policy(this.user.id, '', '', '', '', false, '', '', '', '', '', '', '', '');
     this.getInsurances(this.user.id);
     this.getNotes(this.user.id);
     this.getCompagnie();
@@ -109,47 +111,53 @@ export class UserComponent implements OnInit {
   }
 
   findUser(user) {
-      const inputValue = user.replace('@','').replace(/_/g,' ');
-      this.apiService.getUserByName(inputValue)
+    const inputValue = user.replace('@', '').replace(/_/g, ' ');
+    this.apiService.getUserByName(inputValue)
       .subscribe(data => {
-        console.log('find USER', data[0]['id']);        
-        setTimeout(()=>{
-         const urlArray = location.href.split('user/');
-         try{
-          const userID = data[0]['id'];
-          location.href = urlArray[0]+'user/'+userID;
-          location.reload();
-         }
-         catch(e){
-           console.log('Errore nel reperire ID utente');
-         }
-      });
-    })
+        console.log('find USER', data[0]['id']);
+        setTimeout(() => {
+          const urlArray = location.href.split('user/');
+          try {
+            const userID = data[0]['id'];
+            location.href = urlArray[0] + 'user/' + userID;
+            location.reload();
+          }
+          catch (e) {
+            console.log('Errore nel reperire ID utente');
+          }
+        });
+      })
   }
 
-  searchDoc(){
+  setActiveTab(section) {
+    Object.keys(this.tabs).forEach((key) => {
+      this.tabs[key] = key === section ? true : false;
+    });
+  }
+
+  searchDoc() {
     this.fileList = this.fileList.filter(f => f[this.docFieldSelected] === this.docFieldInput);
   }
 
-  resetDoc(){
+  resetDoc() {
     this.getInsurances(this.user.id);
   }
 
 
-  toggleBlock(block){
-    if(block==='name')
+  toggleBlock(block) {
+    if (block === 'name')
       this.blockName = !this.blockName
-    else if(block==='city')
+    else if (block === 'city')
       this.blockCity = !this.blockCity;
-    else if(block==='anagrafica')
+    else if (block === 'anagrafica')
       this.blockAnagrafica = !this.blockAnagrafica;
-    else if(block==='company')
+    else if (block === 'company')
       this.blockCompany = !this.blockCompany;
-    else if(block==='contact')
+    else if (block === 'contact')
       this.blockContact = !this.blockContact;
-    else if(block==='other')
+    else if (block === 'other')
       this.blockOther = !this.blockOther;
-    else if(block==='data')
+    else if (block === 'data')
       this.blockData = !this.blockData;
     else
       this.blockInternal = !this.blockInternal;
@@ -174,38 +182,42 @@ export class UserComponent implements OnInit {
     };
   }
 
+  isPromemoria(tipoDoc) {
+    return tipoDoc.indexOf('promemoria') > -1;
+  }
+
   getInsurances(userId) {
     this.apiService.getInsuranceByUserId(userId).subscribe(data => {
-      if(data){
-        this.fileList = data.filter(f => f.tipoDoc==='polizza');
-        this.docList = data.filter(f => f.tipoDoc!=='polizza' && f.tipoDoc!=='sinistro');
-        this.sinistroList = data.filter(f => f.tipoDoc=='sinistro');
+      if (data) {
+        this.fileList = data.filter(f => f.tipoDoc === 'polizza');
+        this.docList = data.filter(f => f.tipoDoc !== 'polizza' && f.tipoDoc !== 'sinistro');
+        this.sinistroList = data.filter(f => f.tipoDoc == 'sinistro');
       }
     })
   }
 
-  getNotes(userId){
+  getNotes(userId) {
     this.apiService.getNotesByUserId(userId).subscribe(data => {
       this.noteList = data;
     })
   }
 
-  orderBy(value,type) {
+  orderBy(value, type) {
     this.descOrder = this.previousSearch === value ? !this.descOrder : this.descOrder;
-    if(type==='file'){
+    if (type === 'file') {
       this.fileList = this.fileList.sort((a, b) => {
-        if(this.descOrder)
+        if (this.descOrder)
           return b[value].localeCompare(a[value])
         else
-         return a[value].localeCompare(b[value])
+          return a[value].localeCompare(b[value])
       });
     }
-    else{
+    else {
       this.docList = this.docList.sort((a, b) => {
-        if(this.descOrder)
+        if (this.descOrder)
           return b[value].localeCompare(a[value])
         else
-         return a[value].localeCompare(b[value])
+          return a[value].localeCompare(b[value])
       });
     }
     this.previousSearch = value;
@@ -267,73 +279,74 @@ export class UserComponent implements OnInit {
     this.uploadData.premioRata = this.premioRata;
     this.uploadData.docId = this.docId;
     this.uploadData.fileName = '';
-    this.uploadData.data = document.getElementById('dataScadenzaDoc') && document.getElementById('dataScadenzaDoc')['value'] ? moment(document.getElementById('dataScadenzaDoc')['value'],'DD/MM/YYYY').toString() : '';
-    this.uploadData.data2 = document.getElementById('dataLiquidazione') && document.getElementById('dataLiquidazione')['value'] ? moment(document.getElementById('dataLiquidazione')['value'],'DD/MM/YYYY').toString() : '';
-    this.uploadData.data3 = document.getElementById('dataApertura') && document.getElementById('dataApertura')['value'] ? moment(document.getElementById('dataApertura')['value'],'DD/MM/YYYY').toString() : '';
-    if(this.file_data){
+    this.uploadData.inviaAvvisoA = this.inviaAvvisoA;
+    this.uploadData.data = document.getElementById('dataScadenzaDoc') && document.getElementById('dataScadenzaDoc')['value'] ? moment(document.getElementById('dataScadenzaDoc')['value'], 'DD/MM/YYYY').toString() : '';
+    this.uploadData.data2 = document.getElementById('dataLiquidazione') && document.getElementById('dataLiquidazione')['value'] ? moment(document.getElementById('dataLiquidazione')['value'], 'DD/MM/YYYY').toString() : '';
+    this.uploadData.data3 = document.getElementById('dataApertura') && document.getElementById('dataApertura')['value'] ? moment(document.getElementById('dataApertura')['value'], 'DD/MM/YYYY').toString() : '';
+    if (this.file_data) {
       this.http.post(environment.apiURL + 'upload.php', this.file_data)
-      .subscribe(res => {
-        console.log('UPLOAD su cartella effettuato correttamente',res)
-        this.uploadData.fileName = res['fileName'];
-        if(editDoc){
-          this.apiService.editUploadInfo(this.uploadData).subscribe(data => {
-            if (data) {
-              console.log('File sostituito')
-              this.uploading = false;
-              this.fileName = this.uploadData.fileName;
+        .subscribe(res => {
+          console.log('UPLOAD su cartella effettuato correttamente', res)
+          this.uploadData.fileName = res['fileName'];
+          if (editDoc) {
+            this.apiService.editUploadInfo(this.uploadData).subscribe(data => {
+              if (data) {
+                console.log('File sostituito')
+                this.uploading = false;
+                this.fileName = this.uploadData.fileName;
+                this.toaster.open({
+                  text: 'File sostituito',
+                  position: 'top-right',
+                  duration: 3000,
+                  type: 'success'
+                });
+                this.getInsurances(this.user.id);
+              }
+            }, (err) => {
+              console.log('UPLOAD Error', err)
               this.toaster.open({
-                text: 'File sostituito',
+                text: 'Errore Caricamento',
                 position: 'top-right',
                 duration: 3000,
-                type: 'success'
+                type: 'warning'
               });
-              this.getInsurances(this.user.id);
-            }
-          },(err) => {
-            console.log('UPLOAD Error',err)
-            this.toaster.open({
-              text: 'Errore Caricamento',
-              position: 'top-right',
-              duration: 3000,
-              type: 'warning'
-            });
-          })
-        }
-        else{
-          this.apiService.setUploadInfo(this.uploadData).subscribe(data => {
-            if (data) {
-              console.log('SET UPLOAD INFO completato')
-              this.uploading = false;
-              setTimeout(() => this.getInsurances(this.user.id), 5);
+            })
+          }
+          else {
+            this.apiService.setUploadInfo(this.uploadData).subscribe(data => {
+              if (data) {
+                console.log('SET UPLOAD INFO completato')
+                this.uploading = false;
+                setTimeout(() => this.getInsurances(this.user.id), 5);
+                this.toaster.open({
+                  text: 'Caricamento completato',
+                  position: 'top-right',
+                  duration: 3000,
+                  type: 'success'
+                });
+              }
+            }, (err) => {
+              console.log('UPLOAD Error', err)
               this.toaster.open({
-                text: 'Caricamento completato',
+                text: 'Errore Caricamento',
                 position: 'top-right',
                 duration: 3000,
-                type: 'success'
+                type: 'warning'
               });
-            }
-          },(err) => {
-            console.log('UPLOAD Error',err)
-            this.toaster.open({
-              text: 'Errore Caricamento',
-              position: 'top-right',
-              duration: 3000,
-              type: 'warning'
-            });
-          })
-        }
-        this.showHideDoc();
-      }, (err) => {
-        console.log('UPLOAD Error',err)
-        this.toaster.open({
-          text: 'Errore Caricamento',
-          position: 'top-right',
-          duration: 3000,
-          type: 'warning'
+            })
+          }
+          this.showHideDoc();
+        }, (err) => {
+          console.log('UPLOAD Error', err)
+          this.toaster.open({
+            text: 'Errore Caricamento',
+            position: 'top-right',
+            duration: 3000,
+            type: 'warning'
+          });
         });
-      });
     }
-    else{
+    else {
       this.apiService.setUploadInfo(this.uploadData).subscribe(data => {
         if (data) {
           console.log('SET UPLOAD INFO completato')
@@ -346,8 +359,8 @@ export class UserComponent implements OnInit {
             type: 'success'
           });
         }
-      },(err) => {
-        console.log('UPLOAD Error',err)
+      }, (err) => {
+        console.log('UPLOAD Error', err)
         this.toaster.open({
           text: 'Errore Caricamento',
           position: 'top-right',
@@ -378,7 +391,7 @@ export class UserComponent implements OnInit {
               duration: 3000,
               type: 'success'
             });
-            setTimeout(()=> this.getInsurances(this.user.id),200)
+            setTimeout(() => this.getInsurances(this.user.id), 200)
           }
           else
             this.toaster.open({
@@ -409,7 +422,7 @@ export class UserComponent implements OnInit {
               duration: 3000,
               type: 'success'
             });
-    
+
           }
           else
             this.toaster.open({
@@ -456,21 +469,21 @@ export class UserComponent implements OnInit {
   }
 
   onFocusOutEventLiquidazione(event) {
-    if(event.target?.value === ''){
+    if (event.target?.value === '') {
       this.uploadData.data2 = null;
       this.singleDateLiquidazione = null;
     }
   }
 
   onFocusOutEventApertura(event) {
-    if(event.target?.value === ''){
+    if (event.target?.value === '') {
       this.uploadData.data3 = null;
       this.singleDateApertura = null;
     }
   }
 
   onFocusOutEvent(event) {
-    if(event.target?.value === ''){
+    if (event.target?.value === '') {
       this.uploadData.data = null;
       this.singleDate = null;
     }
@@ -484,48 +497,49 @@ export class UserComponent implements OnInit {
     this.router.navigate(['edit-user/' + this.user.id]);
   };
 
-  disableScroll(){
-    $('body').css('overflow-y','hidden')
+  disableScroll() {
+    $('body').css('overflow-y', 'hidden')
   }
 
-  enableScroll(){
-    $('body').css('overflow-y','auto')
+  enableScroll() {
+    $('body').css('overflow-y', 'auto')
   }
 
-  showHideNote(){
+  showHideNote() {
     this.noteEdit = false;
     this.noteSection = !this.noteSection;
     this.noteText = '';
     this.noteTitle = '';
-    if(this.noteSection)
+    if (this.noteSection)
       this.disableScroll();
     else
       this.enableScroll();
   }
 
 
-  toBoolean(v){ 
-    return v==="false" || v==="null" || v==="NaN" || v==="undefined" || v==="0" ? false : !!v; 
+  toBoolean(v) {
+    return v === "false" || v === "null" || v === "NaN" || v === "undefined" || v === "0" ? false : !!v;
   }
 
-  showHideDoc(file?,showEdit?){
+  showHideDoc(file?, showEdit?) {
     this.editDoc = showEdit;
     this.docSection = !this.docSection;
-    if(this.docSection)
+    if (this.docSection)
       this.disableScroll();
     else
       this.enableScroll();
-    if(file){
+    if (file) {
       this.tipoDoc = file['tipoDoc'];
       this.onSelectChange(this.tipoDoc);
-      setTimeout(()=>{
+      setTimeout(() => {
         this.sottotipoDoc = file['sottotipoDoc'];
-      },200)
+      }, 200)
       this.docReadOnly = true;
       this.numero = file['numero'];
       this.targa = file['targa'];
       this.premioRata = file['premioRata'];
       this.frazionamentoDoc = file.frazionamento;
+      this.inviaAvvisoA = file.inviaAvvisoA;
       this.noteDoc = file['note'];
       this.singleDate = file['data'] ? new Date(file['data']) : null;
       this.singleDateLiquidazione = file['data2'] ? new Date(file['data2']) : null;
@@ -533,17 +547,18 @@ export class UserComponent implements OnInit {
       this.fileName = file['fileName'];
       this.docId = file['id'];
     }
-    else{
+    else {
       this.docReadOnly = false;
       this.resetDocField();
     }
   }
 
-  resetDocField(){
+  resetDocField() {
     this.docId = '';
     this.numero = '';
     this.targa = '';
     this.premioRata = '';
+    this.inviaAvvisoA = '';
     this.frazionamentoDoc = false;
     this.noteDoc = '';
     this.singleDate = '';
@@ -556,7 +571,7 @@ export class UserComponent implements OnInit {
   }
 
 
-  showNote(note){
+  showNote(note) {
     this.noteSection = true;
     this.noteEdit = true;
     this.noteText = note.testo;
@@ -564,9 +579,9 @@ export class UserComponent implements OnInit {
     this.noteId = note.id
   }
 
-  editNote(){
-    this.apiService.editNote({noteId:this.noteId,noteText:this.noteText,noteTitle:this.noteTitle}).subscribe(data => {
-      if(data){
+  editNote() {
+    this.apiService.editNote({ noteId: this.noteId, noteText: this.noteText, noteTitle: this.noteTitle }).subscribe(data => {
+      if (data) {
         this.toaster.open({
           text: 'Nota aggiornato',
           position: 'top-right',
@@ -586,25 +601,26 @@ export class UserComponent implements OnInit {
     })
   }
 
-  limitString(value){
-    return value.length > 100 ? value.substring(0,100) + '...' : value;
+  limitString(value) {
+    return value.length > 100 ? value.substring(0, 100) + '...' : value;
   }
 
-  editDocument(){
+  editDocument() {
     const editDoc = {};
     editDoc['id'] = this.docId;
     editDoc['numero'] = this.numero;
     editDoc['targa'] = this.targa;
     editDoc['premioRata'] = this.premioRata;
+    editDoc['inviaAvvisoA'] = this.inviaAvvisoA;
     editDoc['frazionamento'] = this.frazionamentoDoc;
     editDoc['noteDoc'] = this.noteDoc;
-    editDoc['singleDate'] = moment(document.getElementById('dataScadenzaDoc') && document.getElementById('dataScadenzaDoc')['value'],'DD/MM/YYYY');
-    editDoc['data2'] = moment(document.getElementById('dataLiquidazione') && document.getElementById('dataLiquidazione')['value'],'DD/MM/YYYY');
-    editDoc['data3'] = moment(document.getElementById('dataApertura') && document.getElementById('dataApertura')['value'],'DD/MM/YYYY');
+    editDoc['singleDate'] = moment(document.getElementById('dataScadenzaDoc') && document.getElementById('dataScadenzaDoc')['value'], 'DD/MM/YYYY');
+    editDoc['data2'] = moment(document.getElementById('dataLiquidazione') && document.getElementById('dataLiquidazione')['value'], 'DD/MM/YYYY');
+    editDoc['data3'] = moment(document.getElementById('dataApertura') && document.getElementById('dataApertura')['value'], 'DD/MM/YYYY');
     editDoc['fileName'] = this.fileName;
     editDoc['sottotipoDoc'] = this.sottotipoDoc;
     this.apiService.updateUploadInfo(editDoc).subscribe(data => {
-      if(data){
+      if (data) {
         this.toaster.open({
           text: 'Documento aggiornato',
           position: 'top-right',
@@ -623,10 +639,10 @@ export class UserComponent implements OnInit {
         });
     })
   }
-  
+
 
   addNote() {
-    if(!this.noteText && !this.noteTitle){
+    if (!this.noteText && !this.noteTitle) {
       this.toaster.open({
         text: 'Errore su inserimento nota',
         position: 'top-right',
@@ -635,9 +651,9 @@ export class UserComponent implements OnInit {
       });
       return;
     }
-    const noteObj = {'title':this.noteTitle, 'text':this.noteText,'date':new Date(),'userId':this.user.id}
+    const noteObj = { 'title': this.noteTitle, 'text': this.noteText, 'date': new Date(), 'userId': this.user.id }
     this.apiService.addNote(noteObj).subscribe(data => {
-      if(data){
+      if (data) {
         this.getNotes(this.user.id);
         this.toaster.open({
           text: 'Nota inserita',
