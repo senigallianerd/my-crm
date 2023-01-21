@@ -184,10 +184,16 @@
         <a class="nav-link item" [ngClass]="{'active' : tabs.polizze}" (click)="setActiveTab('polizze')">Polizze</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link item" [ngClass]="{'active' : tabs.EC}" (click)="setActiveTab('EC')">EC</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link item" [ngClass]="{'active' : tabs.documenti}" (click)="setActiveTab('documenti')">Documenti</a>
       </li>
       <li class="nav-item">
         <a class="nav-link item" [ngClass]="{'active' : tabs.sinistri}" (click)="setActiveTab('sinistri')">Sinistri</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link item" [ngClass]="{'active' : tabs.promemoria}" (click)="setActiveTab('promemoria')">Promemoria</a>
       </li>
     </ul>
 
@@ -220,6 +226,38 @@
       </table>
       <div *ngIf="!fileList.length" class="row-border hover table no-result">
         Non ci sono polizze
+      </div>
+    </span>
+
+    <span class="doc-list" *ngIf="tabs.EC">
+      <table *ngIf="ecList.length" class="row-border hover table">
+        <thead class="border-table">
+          <tr>
+            <th (click)="orderBy('tipoDoc','ec')">Tipo</th>
+            <th (click)="orderBy('data','ec')">Scadenza</th>
+            <th (click)="orderBy('note','ec')">Note</th>
+            <th (click)="orderBy('sottotipoDoc','ec')">Tipologia</th>
+            <th (click)="orderBy('sottotipoDoc','targa')">Targa</th>
+            <th>File</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody class="border-table">
+          <tr class="item" *ngFor="let ec of ecList">
+            <td (click)="showHideDoc(ec,true)">{{ec.tipoDoc}}</td>
+            <td (click)="showHideDoc(ec,true)">{{ec.data | date:'dd/MM/yyyy'}}</td>
+            <td (click)="showHideDoc(ec,true)">{{limitString(ec.note)}}</td>
+            <td (click)="showHideDoc(ec,true)">{{ec.sottotipoDoc}}</td>
+            <td (click)="showHideDoc(ec,true)">{{ec.targa}}</td>
+            <td class="item-file" (click)="getFile(ec.fileName)">{{ec.fileName}}</td>
+            <td class="buttons">
+              <button class="btn btn-danger" (click)="deleteFile(ec)">Cancella</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="!ecList.length" class="row-border hover table no-result">
+        Non ci sono documenti EC
       </div>
     </span>
   
@@ -283,6 +321,38 @@
       </table>
       <div *ngIf="!sinistroList.length" class="row-border hover table no-result">
         Non ci sono sinistri
+      </div>
+    </span>
+
+    <span class="doc-list" *ngIf="tabs.promemoria">
+      <table *ngIf="docList.length" class="row-border hover table">
+        <thead class="border-table">
+          <tr>
+            <th (click)="orderBy('tipoDoc','docs')">Tipo</th>
+            <th (click)="orderBy('data','docs')">Scadenza</th>
+            <th (click)="orderBy('note','docs')">Note</th>
+            <th (click)="orderBy('sottotipoDoc','docs')">Tipologia</th>
+            <th (click)="orderBy('sottotipoDoc','targa')">Targa</th>
+            <th>File</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody class="border-table">
+          <tr class="item" *ngFor="let promemoria of promemoriaList">
+            <td (click)="showHideDoc(promemoria,true)">{{promemoria.tipoDoc}}</td>
+            <td (click)="showHideDoc(promemoria,true)">{{promemoria.data | date:'dd/MM/yyyy'}}</td>
+            <td (click)="showHideDoc(promemoria,true)">{{limitString(promemoria.note)}}</td>
+            <td (click)="showHideDoc(promemoria,true)">{{promemoria.sottotipoDoc}}</td>
+            <td (click)="showHideDoc(promemoria,true)">{{promemoria.targa}}</td>
+            <td class="item-file" (click)="getFile(promemoria.fileName)">{{promemoria.fileName}}</td>
+            <td class="buttons">
+              <button class="btn btn-danger" (click)="deleteFile(promemoria)">Cancella</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="!promemoriaList.length" class="row-border hover table no-result">
+        Non ci sono promemoria.
       </div>
     </span>
   

@@ -41,6 +41,8 @@ export class UserComponent implements OnInit {
   noteList: any = [];
   docList: any = [];
   sinistroList: any = [];
+  promemoriaList: any = [];
+  ecList: any = [];
   uploadData: Policy;
   uploading: boolean = false;
   sottotipoDoc;
@@ -80,7 +82,7 @@ export class UserComponent implements OnInit {
   searchDocSelect = [{ id: 'targa', label: 'Targa' }, { id: 'numero', label: 'Numero Polizza' }];
   docFieldSelected;
   docFieldInput;
-  tabs = { polizze: true, sinistri: false, documenti: false };
+  tabs = { polizze: true, sinistri: false, EC: false, documenti: false, promemoria: false };
 
   constructor(private router: Router,
     private http: HttpClient,
@@ -190,8 +192,10 @@ export class UserComponent implements OnInit {
     this.apiService.getInsuranceByUserId(userId).subscribe(data => {
       if (data) {
         this.fileList = data.filter(f => f.tipoDoc === 'polizza');
-        this.docList = data.filter(f => f.tipoDoc !== 'polizza' && f.tipoDoc !== 'sinistro');
+        this.docList = data.filter(f => f.tipoDoc !== 'polizza' && f.tipoDoc !== 'sinistro' && f.sottotipoDoc !== 'EC' && f.tipoDoc !== 'promemoria');
         this.sinistroList = data.filter(f => f.tipoDoc == 'sinistro');
+        this.promemoriaList = data.filter(f => f.tipoDoc == 'promemoria');
+        this.ecList = data.filter(f => f.sottotipoDoc == 'EC');
       }
     })
   }
