@@ -75,6 +75,7 @@ export class UserComponent implements OnInit {
   numero;
   premioRata;
   inviaAvvisoA;
+  competenze;
   currentDoc;
   docReadOnly = true;
   editDoc = false;
@@ -103,7 +104,7 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.uploadData = new Policy(this.user.id, '', '', '', '', false, '', '', '', '', '', '', '', '');
+    this.uploadData = new Policy(this.user.id, '', '', '', '', false, '', '', '', '', '', '', '', '','');
     this.getInsurances(this.user.id);
     this.getNotes(this.user.id);
     this.getCompagnie();
@@ -284,6 +285,7 @@ export class UserComponent implements OnInit {
     this.uploadData.docId = this.docId;
     this.uploadData.fileName = '';
     this.uploadData.inviaAvvisoA = this.inviaAvvisoA;
+    this.uploadData.competenze = this.competenze;
     this.uploadData.data = document.getElementById('dataScadenzaDoc') && document.getElementById('dataScadenzaDoc')['value'] ? moment(document.getElementById('dataScadenzaDoc')['value'], 'DD/MM/YYYY').toString() : '';
     this.uploadData.data2 = document.getElementById('dataLiquidazione') && document.getElementById('dataLiquidazione')['value'] ? moment(document.getElementById('dataLiquidazione')['value'], 'DD/MM/YYYY').toString() : '';
     this.uploadData.data3 = document.getElementById('dataApertura') && document.getElementById('dataApertura')['value'] ? moment(document.getElementById('dataApertura')['value'], 'DD/MM/YYYY').toString() : '';
@@ -544,6 +546,7 @@ export class UserComponent implements OnInit {
       this.premioRata = file['premioRata'];
       this.frazionamentoDoc = file.frazionamento;
       this.inviaAvvisoA = file.inviaAvvisoA;
+      this.competenze = file.competenze;
       this.noteDoc = file['note'];
       this.singleDate = file['data'] ? new Date(file['data']) : null;
       this.singleDateLiquidazione = file['data2'] ? new Date(file['data2']) : null;
@@ -563,6 +566,7 @@ export class UserComponent implements OnInit {
     this.targa = '';
     this.premioRata = '';
     this.inviaAvvisoA = '';
+    this.competenze = '';
     this.frazionamentoDoc = false;
     this.noteDoc = '';
     this.singleDate = '';
@@ -616,6 +620,7 @@ export class UserComponent implements OnInit {
     editDoc['targa'] = this.targa;
     editDoc['premioRata'] = this.premioRata;
     editDoc['inviaAvvisoA'] = this.inviaAvvisoA;
+    editDoc['competenze'] = this.competenze;
     editDoc['frazionamento'] = this.frazionamentoDoc;
     editDoc['noteDoc'] = this.noteDoc;
     editDoc['singleDate'] = moment(document.getElementById('dataScadenzaDoc') && document.getElementById('dataScadenzaDoc')['value'], 'DD/MM/YYYY');

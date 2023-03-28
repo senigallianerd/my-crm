@@ -467,7 +467,14 @@
           <input placeholder="inviaAvvisoA" name="inviaAvvisoA" [(ngModel)]="inviaAvvisoA" id="inviaAvvisoA"
             class="form-control ng-untouched ng-pristine ng-valid w-100">
         </div>
-      </span>  
+      </span>
+      <span *ngIf="tipoDoc==='polizza'">
+        <div class="form-group col-md-12">
+          <label for="competenze">Competenze</label>
+          <input placeholder="competenze" name="competenze" [(ngModel)]="competenze" id="competenze"
+            class="form-control ng-untouched ng-pristine ng-valid w-100">
+        </div>
+      </span>    
     </div>
     <span>
       <div class="form-group col-md-12">
