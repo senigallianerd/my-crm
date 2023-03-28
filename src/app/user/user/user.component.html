@@ -396,19 +396,6 @@
             class="form-control ng-untouched ng-pristine ng-valid w-50">
         </div>
       </span>
-      <span *ngIf="tipoDoc!=='sinistro'">
-        <div class="form-group col-md-12">
-          <label for="premioRata">Premio Rata:</label>
-          <input placeholder="premioRata" name="premioRata" [(ngModel)]="premioRata" id="premioRata"
-            class="form-control ng-untouched ng-pristine ng-valid w-50">
-        </div>
-      </span>
-      <div class="sottotipodoc-section form-group col-md-12" *ngIf="tipoDoc==='sinistro'">
-        <label for="sottotipodoc">Tipo: </label><br>
-        <select class="custom-select small" [(ngModel)]="sottotipoDoc">
-          <option *ngFor="let sottotipo of sottotipoDocs" [ngValue]="sottotipo">{{sottotipo}}</option>
-        </select>
-      </div>
       <div class="sottotipodoc-section form-group col-md-12">
         <span *ngIf="tipoDoc!=='libretto di circolazione'">
           <label>{{tipoDoc === 'sinistro' ? 'Data avvenimento' : 'Data di scadenza'}}:</label>
@@ -418,14 +405,28 @@
             <ngx-date-picker #dateInstanceSingle [options]="singleDatePickerOptions"></ngx-date-picker>
           </div>
         </span>
-        </div>
-      <div class="sottotipodoc-section form-group col-md-12"
-        *ngIf="tipoDoc==='polizza' || tipoDoc==='preventivo' || tipoDoc==='documento' || tipoDoc==='SIC'">
-        <label for="sottotipodoc">{{(tipoDoc==='polizza' || tipoDoc==='SIC') ? 'Compagnia':'Tipo'}} : </label><br>
+      </div>
+      <div class="sottotipodoc-section form-group col-md-12" *ngIf="tipoDoc==='sinistro'">
+        <label for="sottotipodoc">Tipo: </label><br>
         <select class="custom-select small" [(ngModel)]="sottotipoDoc">
           <option *ngFor="let sottotipo of sottotipoDocs" [ngValue]="sottotipo">{{sottotipo}}</option>
         </select>
       </div>
+      <span *ngIf="tipoDoc!=='sinistro'">
+        <div class="form-group col-md-12">
+          <label for="premioRata">Premio Rata:</label>
+          <input placeholder="premioRata" name="premioRata" [(ngModel)]="premioRata" id="premioRata"
+            class="form-control ng-untouched ng-pristine ng-valid w-50">
+        </div>
+      </span>
+      <span *ngIf="tipoDoc==='polizza'">
+        <div class="form-group col-md-12">
+          <label for="competenze">Competenze</label>
+          <input placeholder="competenze" name="competenze" [(ngModel)]="competenze" id="competenze"
+            class="form-control ng-untouched ng-pristine ng-valid w-100">
+        </div>
+      </span> 
+
       <span *ngIf="tipoDoc==='sinistro'">
         <div class="form-group col-md-12">
           <label for="dataApertura">Data apertura: </label>
@@ -468,13 +469,13 @@
             class="form-control ng-untouched ng-pristine ng-valid w-100">
         </div>
       </span>
-      <span *ngIf="tipoDoc==='polizza'">
-        <div class="form-group col-md-12">
-          <label for="competenze">Competenze</label>
-          <input placeholder="competenze" name="competenze" [(ngModel)]="competenze" id="competenze"
-            class="form-control ng-untouched ng-pristine ng-valid w-100">
-        </div>
-      </span>    
+      <div class="sottotipodoc-section form-group col-md-12"
+        *ngIf="tipoDoc==='polizza' || tipoDoc==='preventivo' || tipoDoc==='documento' || tipoDoc==='SIC'">
+        <label for="sottotipodoc">{{(tipoDoc==='polizza' || tipoDoc==='SIC') ? 'Compagnia':'Tipo'}} : </label><br>
+        <select class="custom-select small" [(ngModel)]="sottotipoDoc">
+          <option *ngFor="let sottotipo of sottotipoDocs" [ngValue]="sottotipo">{{sottotipo}}</option>
+        </select>
+      </div>
     </div>
     <span>
       <div class="form-group col-md-12">
