@@ -192,9 +192,9 @@ export class UserComponent implements OnInit {
     this.apiService.getInsuranceByUserId(userId).subscribe(data => {
       if (data) {
         this.fileList = data.filter(f => f.tipoDoc === 'polizza');
-        this.docList = data.filter(f => f.tipoDoc !== 'polizza' && f.tipoDoc !== 'sinistro' && f.sottotipoDoc !== 'EC' && f.tipoDoc !== 'promemoria');
+        this.docList = data.filter(f => f.tipoDoc !== 'polizza' && f.tipoDoc !== 'sinistro' && f.sottotipoDoc !== 'EC' && f.tipoDoc.indexOf('promemoria')==-1);
         this.sinistroList = data.filter(f => f.tipoDoc == 'sinistro');
-        this.promemoriaList = data.filter(f => f.tipoDoc == 'promemoria');
+        this.promemoriaList = data.filter(f => f.tipoDoc.indexOf('promemoria')!=-1);
         this.ecList = data.filter(f => f.sottotipoDoc == 'EC');
       }
     })
